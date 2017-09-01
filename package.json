@@ -1,20 +1,21 @@
 {
-    "name": "vicconapi",
-    "version": "0.0.1",
-    "description": "viccon app con Nodejs y Express.",
-    "main": "apiconfig.js",
-    "scripts": {
-      "start": "apiconfig.js",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "MiguelGonzalez, Johanna Marrugo, Emilio Alvarado - UniAndes ",
-    "license": "MIT",
-    "dependencies": {
-      "body-parser": "^1.17.2",
-      "express": "^4.15.4",
-      "mongoose": "^4.11.8"
-    },
-    "devDependencies": {
-      "hotnode": "^0.0.8"
-    }
+  "name": "vicconapi",
+  "version": "0.0.1",
+  "description": "viccon app con Nodejs y Express.",
+  "main": "main.js",
+  "scripts": {
+    "start": "main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MiguelGonzalez, Johanna Marrugo, Emilio Alvarado - UniAndes ",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.8"
+  },
+  "devDependencies": {
+    "hotnode": "^0.0.8"
   }
+}

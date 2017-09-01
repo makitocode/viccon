@@ -9,11 +9,11 @@ $ npm install
 
 ## Run app
 ```
-$ hotnode apiconfig
+$ hotnode main
 ```
 or 
 ```
-$ node apiconfig
+$ node main
 ```
 ## Go to
 http:localhost:2017 voalá :+1:
