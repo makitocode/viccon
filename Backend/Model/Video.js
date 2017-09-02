@@ -5,11 +5,13 @@ const Schema = mongoose.Schema
 
 //Modelo 
 const VideoSchema = Schema({
-    nombres: String,
-    apellidos: String,
+    nombreAutor: String,
+    apellidosAutor: String,
     email: {type: String, lowercase: true},
     fechaCarga: {type: Date, default: Date.now()},
     estado: {type: String, enum: ['Procesado', 'En espera'], default: 'En espera'},
+    nombreVideo: String,
+    rutaImagenVideo: String,
     rutaVideoOriginal: String,
     rutaVideoConvertido: String,
     mensaje: String
