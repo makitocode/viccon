@@ -12,15 +12,8 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
-    "cron": "^1.2.1",
     "express": "^4.15.4",
-    "ffmpeg": "0.0.4",
-    "fluent-ffmpeg": "^2.1.2",
-    "mongoose": "^4.11.8",
-    "node-cron": "^1.2.1",
-    "nodemailer": "^4.1.0",
-    "path": "^0.12.7",
-    "request": "^2.81.0"
+    "mongoose": "^4.11.8"
   },
   "devDependencies": {
     "hotnode": "^0.0.8"
