@@ -5,15 +5,16 @@ const Schema = mongoose.Schema
 
 //Modelo 
 const VideoSchema = Schema({
+    // rutaConcurso: String,
     nombreAutor: String,
     apellidosAutor: String,
     email: {type: String, lowercase: true},
     fechaCarga: {type: Date, default: Date.now()},
-    estado: {type: String, enum: ['Procesado', 'En espera'], default: 'En espera'},
+    estado: {type: String, enum: ['Procesado', 'SinProcesar'], default: 'SinProcesar'},
     nombreVideo: String,
-    rutaImagenVideo: String,
-    rutaVideoOriginal: String,
-    rutaVideoConvertido: String,
+    rutaImagenVideo: {type:String, default: ''},
+    nombreExtensionVideoOriginal: String,
+    nombreVideoConvertido: String, //solo nombre sin extensión
     mensaje: String
 })
 

@@ -8,7 +8,7 @@ const Video = require('../Model/Video')
 
 /*************************************** GET ******************************/
 //Obtener Videos
-function ObtenerVideos(objrequest, objresponse){
+function ConsultarVideos(objrequest, objresponse){
     Video.find({}, (err, _video) => {
         if(err){
             return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
@@ -20,7 +20,7 @@ function ObtenerVideos(objrequest, objresponse){
     })
 }
 //Obtener video por Id
-function ObtenerVideoPorId(objrequest, objresponse){
+function ConsultarVideoPorId(objrequest, objresponse){
     var _idVideo = objrequest.params.id
     Video.findById(_idVideo, (err, _video) => {
         if(err){
@@ -32,17 +32,27 @@ function ObtenerVideoPorId(objrequest, objresponse){
         objresponse.status(200).send({video: _video})
     })
 }
+//Obtener video por estado
+function ConsultarVideoPorEstado(objrequest, objresponse){
+    var _estado = objrequest.params.estado
+    Video.find({estado: _estado}, (err, _videos) => {
+        if(err){
+            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+        }
+        objresponse.status(200).send({video: _videos})
+    })
+}
+
 /*************************************** POST ******************************/
 //Crear video
 function CrearVideo(objrequest, objresponse){
-    var _video = new Video()
-    _video.nombres = objrequest.body.nombres
-    _video.apellidos = objrequest.body.apellidos
+    var _video = new Video()    
+    _video.nombreAutor = objrequest.body.nombreAutor
+    _video.apellidosAutor = objrequest.body.apellidosAutor
     _video.email = objrequest.body.email,
-    // _video.fechaCarga = objrequest.body.fechaCarga
-    // _video.estado = ''
-    _video.rutaVideoOriginal = objrequest.body.rutaVideoOriginal
-    _video.rutaVideoConvertido = objrequest.body.rutaVideoConvertido
+    _video.nombreVideo = objrequest.body.nombreVideo
+    _video.nombreExtensionVideoOriginal = objrequest.body.nombreExtensionVideoOriginal
+    _video.nombreVideoConvertido = objrequest.body.nombreVideoConvertido
     _video.mensaje = objrequest.body.mensaje
 
     //Se almacena el video
@@ -87,8 +97,9 @@ function EliminarVideo(objrequest, objresponse){
 
 //Se exporta el controlador
 module.exports ={
-    ObtenerVideos,
-    ObtenerVideoPorId,
+    ConsultarVideos,
+    ConsultarVideoPorEstado,
+    ConsultarVideoPorId,
     CrearVideo,
     ActualizarVideo,
     EliminarVideo

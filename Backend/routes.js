@@ -35,9 +35,11 @@ api.delete('/concurso/:id', ConcursoController.EliminarConcurso)
 
 /*************************************** VIDEO ******************************/
 //Obtener videos
-api.get('/video', VideoController.ObtenerVideos)
+api.get('/video', VideoController.ConsultarVideos)
 //Obtener video por id
-api.get('/video/:id', VideoController.ObtenerVideoPorId)
+api.get('/video/:id', VideoController.ConsultarVideoPorId)
+//Obtener video por estado
+api.get('/video/estado/:estado', VideoController.ConsultarVideoPorEstado)
 //Crear video
 api.post('/video', VideoController.CrearVideo)
 //Actualizar video

@@ -12,7 +12,7 @@ var app = require('./app')
 //Habilita el escucha por el puerto seleccionado
 mongoose.connect(config.db, (err, res)=>{
     if(err) {
-        console.log(`Error al conextar a la base de datos: ${err}`)
+        console.log(`Error al conectar a la base de datos: ${err}`)
     }
     else
         console.log('Conexión a Mongodb establecida...')
