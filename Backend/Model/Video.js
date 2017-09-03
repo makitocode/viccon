@@ -15,7 +15,7 @@ const VideoSchema = Schema({
     nombreVideo: String,
     rutaImagenVideo: {type:String, default: ''},
     nombreExtensionVideoOriginal: String,
-    nombreVideoConvertido: String, //solo nombre sin extensión
+    nombreVideoConvertido: {type:String, default: ''}, //solo nombre sin extensión
     mensaje: String
 })
 
