@@ -5,5 +5,6 @@ module.exports = {
     nombreCarpetaOriginal: 'original/',
     nombreCarpetaConvertida: 'conversion/',
     nombreCarpetaThumb: 'thumb/',
-    extension:'.mp4'
+    extension:'.mp4',
+    pathREST:'http://localhost:2017/api/'
 }

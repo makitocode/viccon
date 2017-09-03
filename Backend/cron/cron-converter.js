@@ -7,7 +7,7 @@ var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
 //var task =cron.schedule('0 0 */1 * * *', function(){//se ejecuta cada 2  horas	
 console.log("inicia llamado cron");
 //var url = "https://demo0876513.mockable.io/getVideosSinProcesar";
-var url="http://localhost:2017/api/video/estado/SinProcesar";
+var url=constants.pathREST+"video/estado/SinProcesar";
 request.get({
     url: url,
     json: true,
