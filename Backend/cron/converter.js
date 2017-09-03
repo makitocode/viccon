@@ -4,7 +4,7 @@ var mailerS =require('./sender_email.js');//enviar correo
 var request = require("request");//peticion
 var querystring = require('querystring');
 var constants = require("../config.js");
-//console.log(constants.MY_CONSTANT); // 'some value'
+
 
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
 var respuesta="_";
@@ -18,11 +18,13 @@ if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+out
 		.setVideoFormat('mp4')
 		.save(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension, function (error, file) {
 			if (!error){
-				//imagenThumblr(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
-				//constants.rutaMultimedia+constants.nombreCarpetaConvertida);
+				imagenThumblr(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
+				constants.rutaMultimedia+constants.nombreCarpetaThumb,outputVideo,function (respuestaThumbs) {
+				});
+				
 				var form = {
 				    estado: 'Procesado',
-				    rutaImagenVideo:outputVideo+".jpg"
+				    rutaImagenVideo:outputVideo+"_1.jpg"
     			};
 
 				var formData = querystring.stringify(form);
@@ -74,29 +76,31 @@ if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+out
 	
 }
 }
-/*
-function imagenThumblr(videoSalida, rutaThumbls){
+
+function imagenThumblr(videoSalida, rutaThumbls, nombreArchivo,callback){
 try {
 	var process = new ffmpeg(videoSalida);
 	process.then(function (video) {
 		// Callback mode
 		video.fnExtractFrameToJPG(rutaThumbls, {
 			frame_rate : 1,
-			number : 5,
-			file_name : 'my_frame_%t_%s'
+			number : 1,
+			file_name : nombreArchivo
 		}, function (error, files) {
-			if (!error)
-				console.log('Frames: ' + files);
+			if (!error){
+				return callback(files[1]);
+			}
+				
 		});
 	}, function (err) {
+		return callback('');
 		console.log('Error: ' + err);
 	});
 } catch (e) {
-	console.log(e.code);
-	console.log(e.msg);
+	
 }
 
-}*/
+}
 module.exports.name="Group4Converter";
 module.exports.converter=converter;
 
