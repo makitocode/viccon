@@ -17,11 +17,15 @@ if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+out
 		.setVideoFormat('mp4')
 		.save(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension, function (error, file) {
 			if (!error){
+				var jsonDataObj = {'estado': 'hey dude'};
 			//llamo el post de actualizacion de video
 				require('request').post({
-					uri:"http://demo0876513.mockable.io/actualizarVideoProcesado",
-					headers:{'Content-Type': 'application/json','_id':idVideo,'estado':'Procesado'}
-	
+					uri:"http://localhost:2017/api/video/"+idVideo,
+					headers: {'content-type' : 'application/x-www-form-urlencoded'},
+  					   body: jsonDataObj
+    					
+        
+						
 				},function(err,res,body){
 					
 					if (err) {
