@@ -36,6 +36,7 @@ function ObtenerConcursoPorId(objrequest, objresponse){
 //Crear concurso
 function CrearConcurso(objrequest, objresponse){
     var _concurso = new Concurso()
+    _concurso.userId = objrequest.body.userId
     _concurso.nombre = objrequest.body.nombre
     _concurso.imagen = objrequest.body.imagen
     _concurso.url = objrequest.body.url,

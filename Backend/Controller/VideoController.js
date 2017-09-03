@@ -32,10 +32,11 @@ function ConsultarVideoPorId(objrequest, objresponse){
         objresponse.status(200).send({video: _video})
     })
 }
-//Obtener video por estado
-function ConsultarVideoPorEstado(objrequest, objresponse){
+//Obtener video por concurso y estado
+function ConsultarVideoPorConcursoyEstado(objrequest, objresponse){
+    var _idconcurso = objrequest.params.idconcurso
     var _estado = objrequest.params.estado
-    Video.find({estado: _estado}, (err, _videos) => {
+    Video.find({idConcurso:_idconcurso, estado: _estado}, (err, _videos) => {
         if(err){
             return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
         }
@@ -47,6 +48,7 @@ function ConsultarVideoPorEstado(objrequest, objresponse){
 //Crear video
 function CrearVideo(objrequest, objresponse){
     var _video = new Video()    
+    _video.idConcurso = objrequest.body.idConcurso
     _video.nombreAutor = objrequest.body.nombreAutor
     _video.apellidosAutor = objrequest.body.apellidosAutor
     _video.email = objrequest.body.email,
@@ -98,7 +100,7 @@ function EliminarVideo(objrequest, objresponse){
 //Se exporta el controlador
 module.exports ={
     ConsultarVideos,
-    ConsultarVideoPorEstado,
+    ConsultarVideoPorConcursoyEstado,
     ConsultarVideoPorId,
     CrearVideo,
     ActualizarVideo,

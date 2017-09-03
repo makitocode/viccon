@@ -48,7 +48,13 @@ function CrearUsuario(objrequest, objresponse){
             objresponse.status(400).send(`Error al guardar en la base de datos: ${err}`)
         }
         else{
-            objresponse.status(200).send({usuario: _UsuarioGuardado})
+            var usuarioGuardado = new Usuario()
+            usuarioGuardado.nombres = _UsuarioGuardado.nombres
+            usuarioGuardado.apellidos = _UsuarioGuardado.apellidos
+            usuarioGuardado.email = _UsuarioGuardado.email,
+            usuarioGuardado._id = _UsuarioGuardado._id,
+            usuarioGuardado.perfil = _UsuarioGuardado.perfil
+            objresponse.status(200).send({usuario: usuarioGuardado})
         }
     })
 }

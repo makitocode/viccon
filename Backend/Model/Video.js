@@ -7,6 +7,7 @@ const Schema = mongoose.Schema
 const VideoSchema = Schema({
     // rutaConcurso: String,
     nombreAutor: String,
+    idConcurso: {type:String, required:true},
     apellidosAutor: String,
     email: {type: String, lowercase: true},
     fechaCarga: {type: Date, default: Date.now()},

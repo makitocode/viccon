@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 
 //Modelo 
 const ConcursoSchema = Schema({
+    userId: {type: String, required:true},
     nombre: String,
     imagen: String,
     url: String,
