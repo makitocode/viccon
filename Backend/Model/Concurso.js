@@ -8,7 +8,7 @@ const ConcursoSchema = Schema({
     nombre: String,
     imagen: String,
     url: String,
-    fechaInicio: Date,
+    fechaInicio: {type: Date, default: Date.now()},
     fechaFin: Date, 
     premio: String
 })

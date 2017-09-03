@@ -44,7 +44,7 @@ function CrearConcurso(objrequest, objresponse){
     _concurso.premio = objrequest.body.premio
 
     //Se almacena el concurso
-    _usuario.save((err, _ConcursoGuardado) => {
+    _concurso.save((err, _ConcursoGuardado) => {
         if(err){
             objresponse.status(400).send(`Error al guardar en la base de datos: ${err}`)
         }
