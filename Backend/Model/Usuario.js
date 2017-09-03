@@ -15,7 +15,7 @@ const UsuarioSchema = Schema({
     clave: {type: String, select:false}, //para que los get no retornen el password
     fechaRegistro: {type: Date, default: Date.now()},
     fechaUltimoIngreso: Date,
-    perfil: String
+    perfil: {type: String, enum: ['Admin', 'Concursante'], default: 'Admin'}
 })
 
 //Funciòn que se ejecuta antes de que el 
