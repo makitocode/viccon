@@ -2,11 +2,11 @@ var cron = require('node-cron');//cron
 var request = require("request");//peticion
 var fs = require('fs');//serializacion del json
 var converterVideo =require('./converter.js');// module del grupo 4 para el converter
+var constants = require("../config.js");
 
 var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
 //var task =cron.schedule('0 0 */1 * * *', function(){//se ejecuta cada 2  horas	
 console.log("inicia llamado cron");
-//var url = "https://demo0876513.mockable.io/getVideosSinProcesar";
 var url=constants.pathREST+"video/estado/SinProcesar";
 request.get({
     url: url,
