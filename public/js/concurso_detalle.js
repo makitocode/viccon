@@ -5,7 +5,7 @@ app.controller("ConcursoPorIdParaPublico", function($scope, $http) {
 	    $http.get(URI)
             .then(function(result) {
                 $scope.mydata = result.data;
-                console.log("resuld");
+               
              });
     });
 
@@ -19,7 +19,6 @@ app.controller("2ConcursoPorIdParaPublico", function($scope, $http) {
 	    $http.get(URI2)
             .then(function(result) {
                 $scope.mydata2 = result.data;
-                console.log("resulc");
-                console.log(result);
+               
              });
     });

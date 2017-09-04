@@ -15,22 +15,19 @@ Licence URI: http://www.os-templates.com/template-terms
 <!--<script src="../bower_components/angular/angular.js"></script>-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script src="../js/concurso_detalle.js"></script>
-<<<<<<< HEAD
 
 
 </head>
 <body id="top" ng-app="myapp"   ng-controller="ConcursoPorIdParaPublico" >
 
-<!--<div class="bgded overlay" style="background-image:url('C:/Users/Taidy/Videos/multimediaViccon/thumb/escuela.jpg');"> -->
-=======
-<script src="../js/ruta.js"></script>
-
+<div class="bgded overlay" >
 </head>
 <body id="top" ng-app="myapp" ng-controller="ConcursoPorIdParaPublico" >
 
-<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
->>>>>>> origin/master
-  
+<div class="bgded overlay" style="background-image:url('./{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaThumb+mydata.concurso.imagen}}');"> 
+
+  <!--<img ng-src="..{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaThumb+mydata.concurso.imagen}}" />-->
+  <img ng-src=".\multimediaViccon\thumb\escuela.jpg" />
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 
       <div id="logo" class="fl_left">
@@ -51,57 +48,51 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="content"> 
       <h1>{{ mydata.concurso.nombre }} </h1>
      
-<<<<<<< HEAD
+
       <p> Estas concursando por <b>{{ mydata.concurso.premio }}</b> </p>
-=======
+
       <p> {{mydata2}} Estas concursando por <b>{{ mydata.concurso.premio }}</b> </p>
->>>>>>> origin/master
+
       <p><b>Fecha de inicio del concurso: </b><b>{{ mydata.concurso.fechaInicio|  date:'MM/dd/yyyy' }}</b> </p>
      <p><b>Fecha de finalización del concurso: </b><b>{{ mydata.concurso.fechaFin |  date:'MM/dd/yyyy'}}</b> </p>
         
        
-<<<<<<< HEAD
+
 
 
       <div class="scrollable" id="videos"  ng-app="myapp"    ng-controller="2ConcursoPorIdParaPublico"  >
-=======
+
       <h1>Videos</h1>
       <div class="scrollable">
->>>>>>> origin/master
+
         <table>
           <thead>
             <tr>
-              <th>Header 1</th>
-              <th>Header 2</th>
-              <th>Header 3</th>
-              <th>Header 4</th>
+              <th>Video</th>
+              <th>Fecha</th>
+              <th>Descripción</th>
+              
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><a href="#">Value 1</a></td>
-              <td>Value 2</td>
-              <td>Value 3</td>
-              <td>Value 4</td>
-            </tr>
-            <tr>
-              <td>Value 5</td>
-              <td>Value 6</td>
-              <td>Value 7</td>
-              <td><a href="#">Value 8</a></td>
-            </tr>
-            <tr>
-              <td>Value 9</td>
-              <td>Value 10</td>
-              <td>Value 11</td>
-              <td>Value 12</td>
-            </tr>
-            <tr>
-              <td>Value 13</td>
-              <td><a href="#">Value 14</a></td>
-              <td>Value 15</td>
-              <td>Value 16</td>
-            </tr>
+           <tr ng-repeat="p in mydata2.video  | orderBy:'date'">
+            <!--td data-title="'No.'">{{ p._id }}</td-->
+            <td  >{{ p.fechaCarga |  date:'MM/dd/yyyy'}} </td>
+            <td  >{{ p.mensaje }} </td>
+           <!--<td data-title="'Imagen'" >
+              <a target="_blank" href="{{p.url}}">
+                <img src="{{p.imagen}}" style="width:200px">
+              </a>
+            </td>
+            <td data-title="'Inicio'">{{ p.fechaInicio }}</td>
+            <td data-title="'Fin'">{{ p.fechaFin }}</td>
+            <td data-title="'Premio'">{{ p.premio }}</td>
+            <td data-title="'Enlace'">
+              <li ><a href="{{ p.url }}">Ver</a></li>
+            </td>
+          -->
+          </tr>
+            
           </tbody>
         </table>
       </div>
