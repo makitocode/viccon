@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<!--
-Template Name: Nonuxor
-Author: <a href="http://www.os-templates.com/">OS Templates</a>
-Author URI: http://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: http://www.os-templates.com/template-terms
--->
-<html lang="en" ng-app="demo">
+<html lang="en" ng-app="concursomod">
 <head>
 <title>VICCON - Detalle de Concurso</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<script src="../bower_components/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
 <script src="../js/concurso.js"></script>
+
 
 <style>
 img {
@@ -26,6 +21,28 @@ img {
 img:hover {
     box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+</style>
 </style>
 
 </head>
@@ -77,14 +94,14 @@ img:hover {
     <!-- ################################################################################################ -->
    
       <!-- ################################################################################################ -->
-      <div id="gallery">
+      <div class="panel panel-default">
         <figure>
           <header class="heading">Listado de Concursos</header>
 		  <table class="pure-table pure-table-horizontal">
 				<caption>Concursos X</caption>
 				<thead>
 					<tr>
-						<td>ID</td>
+						<!--td>ID</td-->
 						<td>Nombre</td>
 						<td>Imagen</td>
 						<td>Fecha de Inicio</td>
@@ -95,20 +112,19 @@ img:hover {
 				</thead>
 				<tbody>
 					<tr ng-repeat="p in concursos.concurso">
-					{{p}}
 						<!--td data-title="'No.'">{{ p._id }}</td-->
 						<td data-title="'Nombre'" >{{ p.nombre }} </td>
 						<td data-title="'Imagen'" >
-						<a target="_blank" href="{{p.url}}">
-						  <img src="{{p.imagen}}" alt="{{p.nombre}}" style="width:200px">
-						</a>
-						
+							<a target="_blank" href="{{p.url}}">
+							  <img src="{{p.imagen}}" style="width:200px">
+							</a>
 						</td>
 						<td data-title="'Inicio'">{{ p.fechaInicio }}</td>
 						<td data-title="'Fin'">{{ p.fechaFin }}</td>
 						<td data-title="'Premio'">{{ p.premio }}</td>
-						<td data-title="'Premio'">{{ p.url }}</td>
-						<td><li><a href="detalleconcurso.html">Ver</a></li></td>
+						<td data-title="'Enlace'">
+							<li ><a href="{{ p.url }}">Ver</a></li>
+						</td>
 					</tr>
 				</tbody>
 			</table>
