@@ -12,8 +12,7 @@ $scope.submit= function(){
     			 location.href = '../pages/iniciar_sesion.html'; 
     		}else{
                     //pendiente mostrar alert de que cambie correo para crear cuenta
-    		}
-        
+    		} 
     })
    }
  });
