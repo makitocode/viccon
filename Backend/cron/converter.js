@@ -9,17 +9,20 @@ var constants = require("../config.js");
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
 var respuesta="_";
 try {
-if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension)) {//elimina video igual existente
-    fs.unlinkSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
+
+if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension)) {//elimina video igual existente
+    fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
 }
-	var process = new ffmpeg(constants.rutaMultimedia+constants.nombreCarpetaOriginal+inputVideo);
+
+
+	var process = new ffmpeg(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
 	process.then(function (video) {
 		video
 		.setVideoFormat('mp4')
-		.save(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension, function (error, file) {
+			.save(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension, function (error, file) {
 			if (!error){
-				imagenThumblr(constants.rutaMultimedia+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
-				constants.rutaMultimedia+constants.nombreCarpetaThumb,outputVideo,function (respuestaThumbs) {
+				imagenThumblr(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
+				constants.rutaMultimediaCron+constants.nombreCarpetaThumb,outputVideo,function (respuestaThumbs) {
 				});
 				
 				var form = {
@@ -61,6 +64,7 @@ if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+out
 			});
 								
 			}else{
+
 				respuesta="400";
 				return  callback(respuesta);
 				
@@ -72,6 +76,7 @@ if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+out
 	
 	});
 } catch (e) {
+	console.log(e);
 	respuesta="404";
 	return  callback(respuesta);
 	

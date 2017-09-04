@@ -47,7 +47,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 <div class="wrapper row3">
   <main class="hoc container clear"> 
- <a href="subir_video.html">Subir video</a>
+ 
     <div class="content"> 
       <h1>{{ mydata.concurso.nombre }} </h1>
      
@@ -61,7 +61,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
 
-      <div class="scrollable" id="videos"  ng-app="plunker"    ng-controller="2ConcursoPorIdParaPublico"  >
+      <div class="scrollable" id="videos"  ng-app="plunker"    ng-controller="3ConcursoPorIdParaPublico"  >
 
       <h1>Videos</h1>
       <div class="scrollable">
@@ -69,25 +69,38 @@ Licence URI: http://www.os-templates.com/template-terms
         <table>
           <thead>
             <tr>
-              <th>Video</th>
+              <th>Video Original</th>
+              <th>Estado del video</th>
+              <th>Video Convertido</th>
               <th>Fecha</th>
-              <th>Descripción</th>
+              <th>Correo</th>
+              <th>Nombre y Apellido</th>
+              
               
             </tr>
           </thead>
           <tbody>
-              <!--id de concurso quemado debe paarametrizarse-->
-           <tr ng-repeat="p in mydata2.video  | orderBy:'date' filter:{idConcurso:'59ad050daf317f13883fb046'}">
-      
-    
+            <!--id de concurso quemado debe paarametrizarse-->
+           <tr ng-repeat="p in mydata3.video  | orderBy:'date' | filter:{idConcurso:'59ad050daf317f13883fb046'} ">
            <td>
-            <video width="200" height="240" controls>
+
+<video width="200" height="240" controls>
+     <source src="" dynamic-url dynamic-url-src=".{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaOriginal+p.nombreVideo+p.nombreExtensionVideoOriginal}}">
+  
+ </video>
+Video de extensión {{p.nombreExtensionVideoOriginal}}
+
+            </td>
+          <td  >{{ p.estado }} </td>
+          <td>
+      <video width="200" height="240" controls>
      <source src="" dynamic-url dynamic-url-src=".{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+p.nombreVideoConvertido}}" type="video/mp4">
  </video>
             </td>
-          
             <td  >{{ p.fechaCarga |  date:'MM/dd/yyyy'}} </td>
-            <td  >{{ p.mensaje }} </td>
+            <td  >{{ p.email }} </td>
+            <td  >{{ p.nombreAutor +" "+p.apellidosAutor}} </td>
+            
            
           </tr>
             

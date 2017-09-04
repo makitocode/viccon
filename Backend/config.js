@@ -6,5 +6,6 @@ module.exports = {
     nombreCarpetaConvertida: 'conversion/',
     nombreCarpetaThumb: 'thumb/',
     extension:'.mp4',
-    pathREST:'http://localhost:2017/api/'
+    pathREST:'http://localhost:2017/api/',
+    rutaMultimediaCron: 'C:/Users/Taidy/Documents/nodeJSWorkspace/viccon/public/images/multimediaViccon/',
 }
