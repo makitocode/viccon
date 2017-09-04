@@ -7,7 +7,7 @@ var constants = require("../config.js");
 var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
 //var task =cron.schedule('0 0 */1 * * *', function(){//se ejecuta cada 2  horas	
 console.log("inicia llamado cron");
-var url=constants.pathREST+"video/estado/SinProcesar";
+var url=constants.pathREST+"video/Estado/SinProcesar";
 request.get({
     url: url,
     json: true,

@@ -24,7 +24,8 @@ if (fs.existsSync(constants.rutaMultimedia+constants.nombreCarpetaConvertida+out
 				
 				var form = {
 				    estado: 'Procesado',
-				    rutaImagenVideo:outputVideo+"_1.jpg"
+				    rutaImagenVideo:outputVideo+"_1.jpg",
+				    nombreVideoConvertido:outputVideo+".mp4"
     			};
 
 				var formData = querystring.stringify(form);
