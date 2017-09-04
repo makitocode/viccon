@@ -1,5 +1,5 @@
 var URI = 'http://localhost:2017/api/concurso/59ac8c0a305c221cc4926b73';
-var app = angular.module("myapp", []);
+var app = angular.module("plunker", ['ngRoute']);
 app.controller("ConcursoPorIdParaPublico", function($scope, $http) {
         $scope.mydata = [];
 	    $http.get(URI)

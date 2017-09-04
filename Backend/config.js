@@ -1,7 +1,7 @@
 module.exports = {
     port: process.env.PORT || 2017,
     db: process.env.MONGODB || 'mongodb://localhost:27017/viccon',
- 	rutaMultimedia: './multimediaViccon/',
+ 	rutaMultimedia: './images/multimediaViccon/',
     nombreCarpetaOriginal: 'original/',
     nombreCarpetaConvertida: 'conversion/',
     nombreCarpetaThumb: 'thumb/',
