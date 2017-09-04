@@ -32,6 +32,17 @@ function ObtenerUsuarioPorId(objrequest, objresponse){
         objresponse.status(200).send({usuario: _usuario})
     })
 }
+//Obtener Usuario por correo
+//pendiente enviar clave encriptada para validar
+function ObtenerUsuarioPorCorreo(objrequest, objresponse){
+     var _email = objrequest.params.email
+    Usuario.find({email: _email}, (err, _email) => {
+        if(err){
+            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+        }
+        objresponse.status(200).send({email: _email})
+    })
+}
 /*************************************** POST ******************************/
 //Crear usuario
 function CrearUsuario(objrequest, objresponse){
@@ -94,7 +105,8 @@ module.exports ={
     ObtenerUsuarioPorId,
     CrearUsuario,
     ActualizarUsuario,
-    EliminarUsuario
+    EliminarUsuario,
+    ObtenerUsuarioPorCorreo
 }
 
 

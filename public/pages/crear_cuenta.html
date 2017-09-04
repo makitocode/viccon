@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en" >
+<head>
+<title>Crear cuenta</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+
+<script type="text/javascript"><!--
+function checkPasswordMatch() {
+    var password = $("#txtNewPassword").val();
+    var confirmPassword = $("#txtConfirmPassword").val();
+
+    if (password != confirmPassword){
+      $("#divCheckPasswordMatch").html("Contraseñas no coinciden");
+      
+          }
+        
+    else{
+      
+    $("#divCheckPasswordMatch").html("Contraseñas coinciden.");
+    }
+        
+}
+//--></script>  
+
+<script src="../js/crear_cuenta.js"></script>
+
+
+</head>
+<body id="top" ng-app="myApp" ng-controller="myCtrl">
+
+<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+  
+      <div id="logo" class="fl_left">
+        <h1><a href="../index.html">VICCON</a></h1>
+      </div>
+  
+    </header>
+  </div>
+  <div class="wrapper row2">
+    <div id="breadcrumb" class="hoc clear"> 
+  
+      <ul>
+        <li>Home</li>
+        <li><a href="#">Crear cuenta</a></li>
+      </ul>
+  
+    </div>
+  </div>
+  
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+
+    <div class="content"> 
+
+
+      <div id="comments" >
+    <h2>Crea una cuenta</h2>
+        <form >
+          <div class="one_third first">
+            <label for="name">Nombre <span>*</span></label>
+            <input type="text" name="nombre" id="nombre" value="" size="22" required ng-model="data.nombres">
+          </div>
+          <div class="one_third">
+            <label for="apellido">Apellido <span>*</span></label>
+            <input type="text" name="apellido" id="apellido" value="" size="22" required  ng-model="data.apellidos">
+          </div>
+          <div class="one_third">
+            <label for="email">Mail <span>*</span></label>
+            <input type="email" name="email" id="email" value="" size="22" required  ng-model="data.email">
+          </div>
+            <div class="one_third">
+            <label for="clave">Clave <span>*</span></label>
+            <input type="password" name="txtNewPassword" id="txtNewPassword" value="" size="22" required>
+          </div>
+            <div class="one_third">
+            <label for="clave">Confirmación de clave <span>*</span></label>
+            <input type="password" name="txtConfirmPassword" id="txtConfirmPassword" onkeyup="checkPasswordMatch();"value="" size="22" required  ng-model="data.clave">
+          </div>
+           
+          <div class="block clear">
+           <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+          </div>
+          <div>
+             <input type="submit" value="Submit" ng-click="submit()">
+            &nbsp;
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="clear"></div>
+  </main>
+</div>
+<div class="wrapper row4">
+  
+</div>
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+  
+    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
+    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    
+  </div>
+</div>
+
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>

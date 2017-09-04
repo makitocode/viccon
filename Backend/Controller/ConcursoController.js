@@ -7,6 +7,8 @@ const Concurso = require('../Model/Concurso')
 
 
 /*************************************** GET ******************************/
+
+
 //Obtener concursos
 function ObtenerConcursos(objrequest, objresponse){
     Concurso.find({}, (err, _concurso) => {
@@ -91,6 +93,7 @@ module.exports ={
     CrearConcurso,
     ActualizarConcurso,
     EliminarConcurso
+    
 }
 
 

@@ -10,6 +10,9 @@ const api = express.Router()
 
 
 /*************************************** USUARIO ******************************/
+api.get('/usuario/:email', UsuarioController.ObtenerUsuarioPorCorreo)
+//Obtener usuario por correo para hacer login
+
 //Obtener Usuarios
 api.get('/usuario', UsuarioController.ObtenerUsuarios)
 //Obtener usuario por id
@@ -22,6 +25,7 @@ api.put('/usuario/:id', UsuarioController.ActualizarUsuario)
 api.delete('/usuario/:id', UsuarioController.EliminarUsuario)
 
 /*************************************** CONCURSO ******************************/
+
 //Obtener concursos
 api.get('/concurso', ConcursoController.ObtenerConcursos)
 //Obtener concurso por id
