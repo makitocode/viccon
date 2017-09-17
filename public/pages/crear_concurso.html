@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en" >
+<head>
+<title>Crear concurso</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<script src="../js/crear_concurso.js"></script>
+</head>
+<body id="top" ng-app="myApp" ng-controller="myCtrl">
+
+<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+  
+      <div id="logo" class="fl_left">
+        <h1><a href="concurso_admin.html">VICCON</a></h1>
+      </div>
+  
+    </header>
+  </div>
+  <div class="wrapper row2">
+    <div id="breadcrumb" class="hoc clear"> 
+  
+      <ul>
+        
+         <li><a href="concurso_admin.html">HOME</a></li>
+        <li><a href="#">Crear concurso</a></li>
+      </ul>
+  
+    </div>
+  </div>
+  
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+
+    <div class="content"> 
+
+
+      <div id="comments" >
+    <h2>Datos del concurso</h2>
+         <form >
+          <div class="one_third first">
+            <label for="name">Nombre <span>*</span></label>
+            <input type="text" name="nombre" id="nombre" value="" size="22"  ng-model="data.nombre" required>
+          </div>
+          <div class="one_third">
+            <label for="fechaInicio">Fecha de inicio del concurso <span>*</span></label>
+            <input type="date" name="fechaInicio" id="fechaInicio" value="" size="22"   ng-model="data.fechaInicio" required>
+          </div>
+           <div class="one_third">
+            <label for="fechaFin">Fecha de finalización del concurso <span>*</span></label>
+            <input type="date" name="fechaFin" id="fechaFin" value="" size="22"   ng-model="data.fechaFin" required>
+          </div>
+          <div class="one_third">
+            <label for="descripcion">Descripción del premio<span>*</span></label>
+            <textarea name="premio" id="premio" rows="3" cols="50"   ng-model="data.premio" required>
+            </textarea>
+          </div>
+          <div class="one_third">
+            <label for="banner">Seleccione la imagen de banner para el concurso<span>*</span></label>
+
+            <input id="imagen"  type="file" name="uploads[]" multiple="multiple" required ></br>
+          </div>
+          <div class="block clear"></div>
+          
+          <div>
+
+            <input class="btn btn-lg upload-btn" type="submit" value="Enviar"  ng-click="submit()">
+            
+            &nbsp;
+          </div>
+       </form>
+      </div>
+    </div>
+    
+    <div class="clear"></div>
+  </main>
+</div>
+<div class="wrapper row4">
+  
+</div>
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+  
+    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
+    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    
+  </div>
+</div>
+
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../js/enviar_imagen_concurso.js"></script>
+
+</body>
+</html>

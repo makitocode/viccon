@@ -68,6 +68,7 @@ function CrearVideo(objrequest, objresponse){
     _video.nombreExtensionVideoOriginal = objrequest.body.nombreExtensionVideoOriginal
     _video.nombreVideoConvertido = objrequest.body.nombreVideoConvertido
     _video.mensaje = objrequest.body.mensaje
+    _video.fechaCarga = objrequest.body.fechaCarga
 
     //Se almacena el video
     _video.save((err, _VideoGuardado) => {

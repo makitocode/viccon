@@ -23,7 +23,7 @@ request.get({
       for (var i = 0 ; i <data.video.length; i++) {
       	//llamo el converter.js y le envio los parametros de video original, video convertido, correo y _id
       	var p=converterVideo.converter;
-        var videoInput=data.video[i].nombreVideo+data.video[i].nombreExtensionVideoOriginal;
+        var videoInput=data.video[i].nombreVideo+'.'+data.video[i].nombreExtensionVideoOriginal;
         var videoOutput=data.video[i].nombreVideo;
 
 		p(videoInput,videoOutput,data.video[i].email,data.video[i]._id,function (respuestaConversion) {

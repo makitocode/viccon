@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="concursomod">
 <head>
-<title>VICCON - Detalle de Concurso</title>
+<title>VICCON - Lista de concursos</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.js"></script>
-<script src="../js/concurso.js"></script>
+<script src="../js/concurso_admin.js"></script>
 
 
 <style>
@@ -58,7 +58,7 @@ div.desc {
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
-          <!--<li>Aqui va el nombre del usuario admin que viene en el objeto desde iniciar_sesion.js</li>-->
+          
         </ul>
       </nav>
  
@@ -69,7 +69,7 @@ div.desc {
     <div id="breadcrumb" class="hoc clear"> 
  
       <ul>
-        <li><a href="../../index.html">Home</a></li>
+        <li><a href="#">Home</a></li>
         <li><a href="#">Concursos</a></li>
       </ul>
  
@@ -86,7 +86,7 @@ div.desc {
         <figure>
           <header class="heading">Listado de Concursos</header>
       <table class="pure-table pure-table-horizontal">
-        <caption>Concursos X</caption>
+        
         <thead>
           <tr>
             <!--td>ID</td-->
@@ -102,19 +102,19 @@ div.desc {
         </thead>
         <tbody>
           <!--este valor de userId ESTA QUEDMADO-->
-          <tr ng-repeat=" p in concursos.concurso   | filter:{userId:'59aceef105ea821a90fde462'}">
+          <tr ng-repeat="p in concursos.concurso   | filter:{userId:'59bb51a9080d9718086a47b4'}">
             <!--td data-title="'No.'">{{ p._id }}</td-->
             <td data-title="'Nombre'" >{{ p.nombre }} </td>
             <td data-title="'Imagen'" >
               <img src=".{{p.rutaMultimedia+p.nombreCarpetaThumb+p.imagen}}" style="width:200px"  ng-click="open()">
             </td>
-            <td data-title="'Inicio'">{{ p.fechaInicio |  date:'MM/dd/yyyy' }}</td>
-            <td data-title="'Fin'">{{ p.fechaFin |  date:'MM/dd/yyyy' }}</td>
+            <td data-title="'Inicio'">{{ p.fechaInicio |  date:'dd/MM/yyyy' }}</td>
+            <td data-title="'Fin'">{{ p.fechaFin |  date:'dd/MM/yyyy' }}</td>
             <td data-title="'Premio'">{{ p.premio }}</td>
             <td data-title="'Enlace'">
-              <li ><a href="detalle_concurso_admin.html">Ver</a></li>
+              <li ><a href="detalle_concurso_admin.html">Ver</a> aqui se llama el campo url del objeto</li>
             </td>
-            <td>  <li ><a href="modificar_concurso_admin.html">Modificar</a></li></td>
+            <td>  <li ><a href="modificar_concurso.html">Modificar</a></li></td>
             
           </tr>
         </tbody>

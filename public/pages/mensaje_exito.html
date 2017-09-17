@@ -2,32 +2,26 @@
 
 <html lang="en" >
 <head>
-<title>Iniciar sesion</title>
+<title>Video enviado</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<script src="../js/iniciar_sesion.js"></script>
 </head>
-<body id="top" ng-app="myApp" ng-controller="myCtrl">
-<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
+<body id="top" >
+
+<div class="bgded overlay" > 
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 
+  
       <div id="logo" class="fl_left">
-        <h1><a href="../index.html">VICCON</a></h1>
+        <h1>VICCON</h1>
       </div>
   
     </header>
   </div>
   <div class="wrapper row2">
     <div id="breadcrumb" class="hoc clear"> 
-  
-      <ul>
-        <li>Home</li>
-        <li><a href="#">Iniciar sesión</a></li>
-      </ul>
-  
-    </div>
+  </div>
   </div>
   
 </div>
@@ -39,18 +33,10 @@
 
 
       <div id="comments" >
-    <h2>Inicia sesión con tu correo</h2>
-        <form >
-          <div class="one_third">
-            <label for="email">Mail <span>*</span></label>
-            <input type="email" name="email" id="email" value="" size="22" required  ng-model="data.email">
-          </div>
-           <div class="block clear">
-            &nbsp;
-             <input type="submit" value="Submit" ng-click="submit()">
-            &nbsp;
-          </div>
-        </form>
+    <h2>Hemos recibido tu video y los
+estamos procesado para que sea publicado. Tan pronto el video quede publicado en la
+página del concurso te notificaremos por email.</h2>
+<p><a href="detalle_concurso_publico.html">Ir al sitio del concurso</a></p>
       </div>
     </div>
     
@@ -71,9 +57,7 @@
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
-
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
 </body>

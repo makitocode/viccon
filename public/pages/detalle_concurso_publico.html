@@ -19,10 +19,7 @@ Licence URI: http://www.os-templates.com/template-terms
     <link href="style.css" rel="stylesheet" />
     <script data-semver="1.2.28" src="https://code.angularjs.org/1.2.28/angular.js" data-require="angular.js@1.2.x"></script>
 <script src="https://code.angularjs.org/1.2.28/angular-route.js"></script>
-<script src="../js/detalle_concurso_admin.js"></script>
-
-
-
+<script src="../js/detalle_concurso_publico.js"></script>
 </head>
 <body id="top" ng-app="plunker" ng-controller="ConcursoPorIdParaPublico" >
 
@@ -45,16 +42,17 @@ Licence URI: http://www.os-templates.com/template-terms
 
 <div class="wrapper row3">
   <main class="hoc container clear"> 
+ <a href="subir_video.html">Subir video </a>
     <div class="content"> 
       <h1>{{ mydata.concurso.nombre }} </h1>
      
 
       <p> Estas concursando por <b>{{ mydata.concurso.premio }}</b> </p>
 
-      <p><b>Fecha de inicio del concurso: </b><b>{{ mydata.concurso.fechaInicio|  date:'dd/MM/yyyy' }}</b> </p>
+      <p><b>Fecha de inicio del concurso: </b><b>{{ mydata.concurso.fechaInicio|  date:'dd/MM/yyyy' }}</b> 
      <p><b>Fecha de finalización del concurso: </b><b>{{ mydata.concurso.fechaFin |  date:'dd/MM/yyyy'}}</b> </p>
         </p>
-     <p><b>URL pública del concurso: </b><b>{{ mydata.concurso.url}}</b> </p>
+     
 
  <div ng-controller="ctrlRead">
            
@@ -63,12 +61,10 @@ Licence URI: http://www.os-templates.com/template-terms
                 <thead>
 
                     <tr>
-                       <th>Video Original</th>
-                      <th>Estado del video</th>
-                      <th>Video Convertido</th>
+                       
+                      <th>Video Concursante</th>
                       <th>Fecha de creación</th>
-                      <th>Correo</th>
-                      <th>Nombre y Apellido</th>
+                      <th>Descripcion</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -93,31 +89,15 @@ Licence URI: http://www.os-templates.com/template-terms
                     </td>
                 </tfoot>
                 <tbody>
-                  
- <!--id de concurso quemado debe paarametrizarse-->
-           
-
-                    <tr ng-repeat="item in pagedItems[currentPage] | orderBy:'-fechaCarga' | filter:{idConcurso:'59bb8669d5aabc296c5c05c2'}">
-   
-
-                        <td >
-                          <video id="example_video_1" class="video-js vjs-default-skin"
-  controls preload="auto" width="200" height="240">
- <source src="" dynamic-url dynamic-url-src=".{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaOriginal+item.nombreVideo+'.'+item.nombreExtensionVideoOriginal}}" type="video/{{item.nombreExtensionVideoOriginal}}">
-</video>
-Video de extensión {{item.nombreExtensionVideoOriginal}}
-
-            </td>
-                         <td  >{{ item.estado }}  </td>
-
+                     <tr ng-repeat="item in pagedItems[currentPage] | orderBy:'-fechaCarga' ">
+                 
                          <td>
       <video width="200" height="240" controls>
      <source src="" dynamic-url dynamic-url-src=".{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+item.nombreVideoConvertido}}" type="video/mp4">
  </video>
             </td>
             <td  >{{ item.fechaCarga |  date:'dd/MM/yyyy'}} </td>
-            <td  >{{ item.email }} </td>
-            <td  >{{ item.nombreAutor +" "+item.apellidosAutor}} </td>
+            <td  >{{ item.mensaje }} </td>
                     </tr>
                 </tbody>
             </table>
