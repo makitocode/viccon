@@ -12,7 +12,7 @@ const UsuarioSchema = Schema({
     nombres: String,
     apellidos: String,
     email: {type: String, unique: true, lowercase: true},
-    clave: {type: String, select:false}, //para que los get no retornen el password
+    clave: {type: String, /*select:false*/}, //para que los get no retornen el password
     fechaRegistro: {type: Date, default: Date.now()},
     fechaUltimoIngreso: Date,
     perfil: {type: String, enum: ['Admin', 'Concursante'], default: 'Admin'}

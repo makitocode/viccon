@@ -3,6 +3,10 @@
 
 //Para usar el modelo hay q importarlo
 const Usuario = require('../Model/Usuario')
+//modulo de nodejs para enccriptar el password
+const bcrypt = require('bcrypt-nodejs')
+//modulo de node con funciones de criptografia
+const crypto = require('crypto')
 
 
 
@@ -16,6 +20,12 @@ function ObtenerUsuarios(objrequest, objresponse){
         if(!_usuario){
             objresponse.status(404).send({mensaje: 'El usuario no existe'})
         }
+        for (let value of _usuario) {
+            value.clave = '';
+        }
+        // for (let i in iterable) {
+        //     console.log(i); // logs 0, 1, 2, "foo", "arrCustom", "objCustom"
+        // }
         objresponse.status(200).send({usuario: _usuario})
     })
 }
@@ -29,18 +39,45 @@ function ObtenerUsuarioPorId(objrequest, objresponse){
         if(!_usuario){
             objresponse.status(404).send({mensaje: 'El usuario no existe'})
         }
+        _usuario.clave = ''
         objresponse.status(200).send({usuario: _usuario})
     })
 }
+
+/*************************************** POST ******************************/
 //Obtener Usuario por correo
 //pendiente enviar clave encriptada para validar
-function ObtenerUsuarioPorCorreo(objrequest, objresponse){
-     var _email = objrequest.params.email
-    Usuario.find({email: _email}, (err, _email) => {
+function IniciarSesion(objrequest, objresponse){
+    var _email = objrequest.params.email
+    var _pass = objrequest.body.clave
+    //Busca usuario por mail
+    Usuario.find({email: _email}, (err, _usuario) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+            console.log(`Error consultando usuario por mail: ${err}`)
+            objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
         }
-        objresponse.status(200).send({email: _email})
+        console.log(_usuario.length)
+        if(_usuario.length > 0){
+            var claveObtenida = _usuario[0].clave
+            console.log(`clave: ${claveObtenida}`)
+            bcrypt.compare(_pass, claveObtenida, function(err, res) {
+                if(err){
+                    console.log(`Error consultando usuario por mail: ${err}`)
+                    objresponse.status(500).send({mensaje: `Error iniciando sesion`})
+                }
+                if(res == true){
+                    _usuario[0].clave = ''
+                    objresponse.status(200).send({usuario: _usuario})
+                }
+                else
+                    objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
+            })
+        }
+        else
+        {
+            objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
+        }
+        
     })
 }
 /*************************************** POST ******************************/
@@ -106,7 +143,7 @@ module.exports ={
     CrearUsuario,
     ActualizarUsuario,
     EliminarUsuario,
-    ObtenerUsuarioPorCorreo
+    IniciarSesion
 }
 
 

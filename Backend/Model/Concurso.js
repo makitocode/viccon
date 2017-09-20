@@ -16,7 +16,8 @@ const ConcursoSchema = Schema({
     url: String,
     fechaInicio: {type: Date, default: Date.now()},
     fechaFin: Date, 
-    premio: String
+    premio: String,
+    activo: {type: Boolean, default:true}
 })
 
 //Para exportar el modelo a mongo, se le da un nombre y el esquema asociado

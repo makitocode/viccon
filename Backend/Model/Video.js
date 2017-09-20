@@ -16,7 +16,8 @@ const VideoSchema = Schema({
     rutaImagenVideo: {type:String, default: ''},
     nombreExtensionVideoOriginal: String,
     nombreVideoConvertido: {type:String, default: ''}, //solo nombre sin extensión
-    mensaje: String
+    mensaje: String,
+    porqueLeGusta: String
 })
 
 //Para exportar el modelo a mongo, se le da un nombre y el esquema asociado

@@ -10,9 +10,9 @@ const api = express.Router()
 
 
 /*************************************** USUARIO ******************************/
-api.get('/usuario/:email', UsuarioController.ObtenerUsuarioPorCorreo)
-//Obtener usuario por correo para hacer login
 
+//Obtener usuario por correo para hacer login
+api.post('/usuario/:email', UsuarioController.IniciarSesion)
 //Obtener Usuarios
 api.get('/usuario', UsuarioController.ObtenerUsuarios)
 //Obtener usuario por id
@@ -30,6 +30,8 @@ api.delete('/usuario/:id', UsuarioController.EliminarUsuario)
 api.get('/concurso', ConcursoController.ObtenerConcursos)
 //Obtener concurso por id
 api.get('/concurso/:id', ConcursoController.ObtenerConcursoPorId)
+//Obyener concursos por idUsuario
+api.get('/concurso/usuario/:id', ConcursoController.ObtenerConcursosPorIdUsuario)
 //Crear concurso
 api.post('/concurso', ConcursoController.CrearConcurso)
 //Actualizar concurso
@@ -43,13 +45,10 @@ api.get('/video', VideoController.ConsultarVideos)
 //Obtener video por id
 api.get('/video/:id', VideoController.ConsultarVideoPorId)
 //Obtener video por estado
-
 api.get('/video/estado/:estado', VideoController.ConsultarVideoPorEstado)
+//Consultar videos por id de concurso
+api.get('/video/concurso/:idconcurso', VideoController.ConsultarVideoPorConcurso)
 //Obtener video por estado por id concurso
-
-api.get('/video/estado/:estado', VideoController.ConsultarVideoPorEstado)
-//Obtener video por estado
-
 api.get('/video/:idconcurso/:estado', VideoController.ConsultarVideoPorConcursoyEstado)
 //Crear video
 api.post('/video', VideoController.CrearVideo)
