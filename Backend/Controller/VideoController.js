@@ -11,7 +11,7 @@ const Video = require('../Model/Video')
 function ConsultarVideos(objrequest, objresponse){
     Video.find({}, (err, _video) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
         if(!_video){
             objresponse.status(404).send({mensaje: 'El video no existe'})
@@ -24,7 +24,7 @@ function ConsultarVideoPorId(objrequest, objresponse){
     var _idVideo = objrequest.params.id
     Video.findById(_idVideo, (err, _video) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
         if(!_video){
             objresponse.status(404).send({mensaje: 'El video no existe'})
@@ -38,7 +38,7 @@ function ConsultarVideoPorEstado(objrequest, objresponse){
     var _estado = objrequest.params.estado
     Video.find({estado: _estado}, (err, _videos) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
         objresponse.status(200).send({video: _videos})
     })
@@ -50,7 +50,7 @@ function ConsultarVideoPorConcursoyEstado(objrequest, objresponse){
     var _estado = objrequest.params.estado
     Video.find({idConcurso:_idconcurso, estado: _estado}, (err, _videos) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
         objresponse.status(200).send({video: _videos})
     })
@@ -61,12 +61,12 @@ function ConsultarVideoPorConcurso(objrequest, objresponse){
     var _idconcurso = objrequest.params.idconcurso
     Video.find({idConcurso:_idconcurso}, (err, _videos) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la consulta: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
         if(_videos.length > 0){
             objresponse.status(200).send({video: _videos})
         }
-        objresponse.status(404).send({mensaje: `El concurso no tiene videos asociados.`})
+        objresponse.status(404).send({mensaje: 'El concurso no tiene videos asociados.'})
     })
 }
 /*************************************** POST ******************************/
@@ -87,7 +87,7 @@ function CrearVideo(objrequest, objresponse){
     //Se almacena el video
     _video.save((err, _VideoGuardado) => {
         if(err){
-            objresponse.status(400).send(`Error al guardar en la base de datos: ${err}`)
+            objresponse.status(400).send({mensaje: "Error al guardar en la base de datos"})
         }
         else{
             objresponse.status(200).send({video: _VideoGuardado})
@@ -102,7 +102,7 @@ function ActualizarVideo(objrequest, objresponse){
     var videoFromBody = objrequest.body
     Video.findByIdAndUpdate(idVideo, videoFromBody, (err, videoActualizado) => {
         if(err){
-            objresponse.status(400).send(`Error al actualizar el video : ${err}`)
+            objresponse.status(400).send({mensaje: "Error al actualizar el video"})
         }
         objresponse.status(200).send({mensaje: "Video actualizado correctamente"})
     })
@@ -113,11 +113,11 @@ function EliminarVideo(objrequest, objresponse){
     var idVideo = objrequest.params.id
     Video.findById(idVideo, (err, video) => {
         if(err){
-            objresponse.status(400).send(`Error al eliminar el video : ${err}`)
+            objresponse.status(400).send({mensaje: "Error al eliminar el video"})
         }
         video.remove(err => {
             if(err){
-                objresponse.status(500).send(`Error al eliminar el video : ${err}`)
+                objresponse.status(500).send({mensaje: "Error al eliminar el video"})
             }   
             objresponse.status(200).send({mensaje: "Video eliminado correctamente"})
         })

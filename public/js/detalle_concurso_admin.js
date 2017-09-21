@@ -1,7 +1,4 @@
-//en ambas uri esta quemado el id del concurso el cual debe ser recibido por parametro
-//esta URI lista el detalle del concurso tanto para la pagina (detalle_concurso_admin-html, que es la que 
-//    el adminsitrador ve internamente con todo el detalle como para la pagina detalleconcursopublico.html que es el 
-  //  html que el publico ve)
+
 var URI = 'http://localhost:2017/api/concurso/59bb8669d5aabc296c5c05c2';
 var app = angular.module("plunker", ['ngRoute']);
 app.controller("ConcursoPorIdParaPublico", function($scope, $http) {
@@ -12,16 +9,7 @@ app.controller("ConcursoPorIdParaPublico", function($scope, $http) {
                
              });
     });
-/*
-app.controller("3ConcursoPorIdParaPublico", function($scope, $http) {
-        $scope.mydata3 = [];
-        $http.get(URI3)
-            .then(function(result) {
-                $scope.mydata3 = result.data;
-              
-             });
-    });
-*/
+
 //para mostrar los videos en el e ng-repeat
 app.directive('dynamicUrl', function () {
     return {
@@ -34,7 +22,7 @@ app.directive('dynamicUrl', function () {
 //paginacion y 
 //esta URI 3 es la lista de todos los videos de esa categoria con o sin proceso pues el adminsitrador
 //del concurso los puede ver
-var URI3 = 'http://localhost:2017/api/video/';
+var URI3 = 'http://localhost:2017/api/video/concurso/59bb8669d5aabc296c5c05c2';
 
 app.controller('ctrlRead', function ($scope, $filter,$http) {
 $scope.items=[];
@@ -47,12 +35,12 @@ $scope.items=[];
      $http.get(URI3)
             .then(function(result) {
                 $scope.items = result.data;
-                console.log("lista 2 "+$scope.items);
-                    $scope.gap = 5;
+                
+                    $scope.gap = 0;
     
     $scope.filteredItems = [];
     $scope.groupedItems = [];
-    $scope.itemsPerPage = 5;
+    $scope.itemsPerPage = 50;
     $scope.pagedItems = [];
     $scope.currentPage = 0;
   var searchMatch = function (haystack, needle) {
@@ -94,7 +82,7 @@ $scope.items=[];
 
      $scope.range = function (size,start, end) {
         var ret = [];        
-        console.log(size,start, end);
+        
                       
         if (size < end) {
             end = size;
@@ -103,7 +91,7 @@ $scope.items=[];
         for (var i = start; i < end; i++) {
             ret.push(i);
         }        
-         console.log(ret);        
+         
         return ret;
     };
     

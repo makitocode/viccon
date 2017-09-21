@@ -65,6 +65,8 @@ Licence URI: http://www.os-templates.com/template-terms
                       <th>Video Concursante</th>
                       <th>Fecha de creación</th>
                       <th>Descripcion</th>
+                      <th>Por que le gusta el producto</th>
+                      
                     </tr>
                 </thead>
                 <tfoot>
@@ -96,8 +98,10 @@ Licence URI: http://www.os-templates.com/template-terms
      <source src="" dynamic-url dynamic-url-src=".{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+item.nombreVideoConvertido}}" type="video/mp4">
  </video>
             </td>
-            <td  >{{ item.fechaCarga |  date:'dd/MM/yyyy'}} </td>
+            <td  >{{ item.fechaCarga }} </td>
             <td  >{{ item.mensaje }} </td>
+<td  >{{ item.porqueLeGusta }} </td>
+            
                     </tr>
                 </tbody>
             </table>

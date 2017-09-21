@@ -10,7 +10,7 @@ app.controller("ConcursoPorIdParaPublico", function($scope, $http) {
              });
 ///boton actualizar
 $scope.submit= function(){
-console.log('clicked submit' +nombre);    
+
     var nombre=$scope.mydata.concurso.imagen;
     if($('#imagen').get(0).files.length>0){
       nombre=$('#imagen').get(0).files[0].name;
@@ -25,35 +25,34 @@ console.log('clicked submit' +nombre);
           'fechaInicio':$('#fechaInicio').val(),'fechaFin':$('#fechaFin').val(),
           'premio':$('#premio').val(),'imagen':nombre
           }
-    }).then(function (httpResponse) {
-        if(httpResponse.status==200){
-           location.href = 'concurso_admin.html'; 
-        }else{
-                    //pendiente mostrar alert 
-        }
-        
-    })
+          }).then(function successCallback(response) {
+       location.href = 'concurso_admin.html'; 
+  }, function errorCallback(response) {
+    
+    document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
+    
+                 $("#myModal").modal();
+    
+  });
   
    }
 //boton eliminar
 
 $scope.submit2= function(){
-console.log('clicked submit2 ');    
+
   
  $http({
-        url: 'http://localhost:2017/api/concurso/59bd418c3d4a0623b48f7b0f',
-        method: 'DELETE',
-  
-              data: {'userId':'59bb51a9080d9718086a47b4'
-          }
-    }).then(function (httpResponse) {
-        if(httpResponse.status==200){
-           location.href = 'concurso_admin.html'; 
-        }else{
-                    //pendiente mostrar alert 
-        }
-      
-    })
+        url: 'http://localhost:2017/api/concurso/59c32742e7409f23fcacb825sd',
+        method: 'DELETE'
+      }).then(function successCallback(response) {
+       location.href = 'concurso_admin.html'; 
+  }, function errorCallback(response) {
+    
+    document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
+    
+                 $("#myModal").modal();
+    
+  });
 
    }
     });

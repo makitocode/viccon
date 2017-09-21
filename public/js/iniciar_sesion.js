@@ -3,20 +3,21 @@ var app = angular.module('myApp', []);
  $scope.data = {};
  
 $scope.submit= function(){
+   
+
     $http({
         url: 'http://localhost:2017/api/usuario/'+$scope.data.email,
-        method: 'GET'
-    }).then(function (httpResponse) {
-    		if(httpResponse.status==200){
-    			
-                console.log(httpResponse.data.email[0]);
-                 location.href = '../pages/concurso_admin.html'; 
-                 
-                    // aqui debe enviar el objeto data que muestro aqui en consola a la pagina de concurso
-    		}else{
-                //pendiente alert cuando usuario no existe
-    		}
-        
-    })
+        method: 'POST',
+        data: {'clave':$scope.data.clave}
+     }).then(function successCallback(response) {
+       location.href = 'concurso_admin.html'; 
+  }, function errorCallback(response) {
+    
+    document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
+    
+                 $("#myModal").modal();
+    
+  });
+    
    }
  });

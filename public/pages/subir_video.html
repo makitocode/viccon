@@ -48,7 +48,7 @@
             <label for="name">Nombre <span>*</span></label>
             <input type="text" name="nombreAutor" id="nombreAutor" value="" size="22"  ng-model="data.nombreAutor" required>
           </div>
-          <div class="one_third first">
+          <div class="one_third ">
             <label for="name">Apellido <span>*</span></label>
             <input type="text" name="apellidosAutor" id="apellidosAutor" value="" size="22"  ng-model="data.apellidosAutor" required>
           </div>
@@ -58,6 +58,18 @@
             <input type="email" name="email" id="email" value="" size="22"   ng-model="data.email" required>
           </div>
           <div class="one_third">
+            <label for="fechaFin">Fecha subida de video<span>*</span></label>
+          <input type="date" name="fechaFin" id="fechaFin" value="" size="22"   ng-model="data.fechaFin" required>
+          </div>
+          
+          <div class="one_third">
+             
+            <label for="descripcion">porqué le gusta el producto relacionado en el video<span>*</span></label>
+            <textarea name="porqueLeGusta" id="porqueLeGusta" rows="3" cols="50"   ng-model="data.porqueLeGusta" required>
+            </textarea>
+          </div>
+           <div class="one_third">
+             
             <label for="descripcion">Mensaje asociado al video<span>*</span></label>
             <textarea name="mensaje" id="mensaje" rows="3" cols="50"   ng-model="data.mensaje" required>
             </textarea>
@@ -93,14 +105,33 @@
     
   </div>
 </div>
-
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Mensaje de Viccon</h4>
+        </div>
+        <div class="modal-body">
+          <p id="mensaje_crear_concurso"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script 
 <script src="../js/enviar_archivo_video.js"></script>
 
 </body>

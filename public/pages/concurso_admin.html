@@ -46,7 +46,7 @@ div.desc {
 </style>
 
 </head>
-<body id="top" ng-controller="ConcursoListController as ctr">
+<body id="top" >
 
 
 <div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
@@ -82,51 +82,70 @@ div.desc {
   <main class="hoc container clear"> 
 
 <a href="crear_concurso.html">Crear concurso </a>
-      <div class="panel panel-default">
-        <figure>
-          <header class="heading">Listado de Concursos</header>
-      <table class="pure-table pure-table-horizontal">
-        
-        <thead>
-          <tr>
-            <!--td>ID</td-->
-            <td>Nombre</td>
+
+ <div >
+           
+             <header class="heading">Listado de Concursos</header>
+          
+           <div ng-controller="ctrlRead">
+           
+            
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+
+                    <tr>
+                       <td>Nombre</td>
             <td>Imagen</td>
             <td>Fecha de Inicio</td>
             <td>Fecha de Fin</td>
             <td>Premio</td>
             <td>Enlace</td>
             <td></td>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <!--este valor de userId ESTA QUEDMADO-->
-          <tr ng-repeat="p in concursos.concurso   | filter:{userId:'59bb51a9080d9718086a47b4'}">
-            <!--td data-title="'No.'">{{ p._id }}</td-->
-            <td data-title="'Nombre'" >{{ p.nombre }} </td>
-            <td data-title="'Imagen'" >
-              <img src=".{{p.rutaMultimedia+p.nombreCarpetaThumb+p.imagen}}" style="width:200px"  ng-click="open()">
+                    </tr>
+                </thead>
+                <tfoot>
+                    <td colspan="7">
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Prev</a>
+                                </li>
+                            
+                                <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                    ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                             
+                                <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Next »</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="item in pagedItems[currentPage] |filter:{'activo':'true'}">
+     
+                      <td>{{item.nombre}}</td>
+                       <td data-title="'Imagen'" >
+              <img src=".{{item.rutaMultimedia+item.nombreCarpetaThumb+item.imagen}}" style="width:200px"  >
             </td>
-            <td data-title="'Inicio'">{{ p.fechaInicio |  date:'dd/MM/yyyy' }}</td>
-            <td data-title="'Fin'">{{ p.fechaFin |  date:'dd/MM/yyyy' }}</td>
-            <td data-title="'Premio'">{{ p.premio }}</td>
+            <td data-title="'Inicio'">{{ item.fechaInicio |  date:'dd/MM/yyyy' }}</td>
+            <td data-title="'Fin'">{{ item.fechaFin |  date:'dd/MM/yyyy' }}</td>
+            <td data-title="'Premio'">{{ item.premio }}</td>
             <td data-title="'Enlace'">
               <li ><a href="detalle_concurso_admin.html">Ver</a> aqui se llama el campo url del objeto</li>
             </td>
             <td>  <li ><a href="modificar_concurso.html">Modificar</a></li></td>
             
-          </tr>
-        </tbody>
-      </table>
-      
-         
-      
-        </figure>
-      </div>
 
-      
-
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+          
+        </div>
     </div>
     <div class="clear"></div>
   </main>

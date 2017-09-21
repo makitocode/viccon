@@ -10,13 +10,16 @@ $scope.submit= function(){
         method: 'POST',
         
         data: $scope.data
-    }).then(function (httpResponse) {
-    		if(httpResponse.status==200){
-    			 location.href = '../pages/iniciar_sesion.html'; 
-    		}else{
-                    //pendiente mostrar alert de que cambie correo para crear cuenta
-    		}
-        
-    })
+         }).then(function successCallback(response) {
+        location.href = '../pages/iniciar_sesion.html'; 
+  }, function errorCallback(response) {
+    
+    document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
+    
+                 $("#myModal").modal();
+    
+  });
+
+   
    }
  });

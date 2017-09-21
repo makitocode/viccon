@@ -15,7 +15,7 @@ const crypto = require('crypto')
 function ObtenerUsuarios(objrequest, objresponse){
     Usuario.find({}, (err, _usuario) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la petición: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
         }
         if(!_usuario){
             objresponse.status(404).send({mensaje: 'El usuario no existe'})
@@ -34,7 +34,7 @@ function ObtenerUsuarioPorId(objrequest, objresponse){
     var _idUsuario = objrequest.params.id
     Usuario.findById(_idUsuario, (err, _usuario) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error al realizar la petición: ${err}`})
+            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
         }
         if(!_usuario){
             objresponse.status(404).send({mensaje: 'El usuario no existe'})
@@ -53,29 +53,29 @@ function IniciarSesion(objrequest, objresponse){
     //Busca usuario por mail
     Usuario.find({email: _email}, (err, _usuario) => {
         if(err){
-            console.log(`Error consultando usuario por mail: ${err}`)
-            objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
+            console.log('Error consultando usuario por mail: ${err}')
+            objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
         }
         console.log(_usuario.length)
         if(_usuario.length > 0){
             var claveObtenida = _usuario[0].clave
-            console.log(`clave: ${claveObtenida}`)
+            console.log('clave: ${claveObtenida}')
             bcrypt.compare(_pass, claveObtenida, function(err, res) {
                 if(err){
-                    console.log(`Error consultando usuario por mail: ${err}`)
-                    objresponse.status(500).send({mensaje: `Error iniciando sesion`})
+                    console.log('Error consultando usuario por mail: ${err}')
+                    objresponse.status(500).send({mensaje: 'Error iniciando sesion'})
                 }
                 if(res == true){
                     _usuario[0].clave = ''
                     objresponse.status(200).send({usuario: _usuario})
                 }
                 else
-                    objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
+                    objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
             })
         }
         else
         {
-            objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
+            objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
         }
         
     })
@@ -93,7 +93,7 @@ function CrearUsuario(objrequest, objresponse){
     //Se almacena el usuario
     _usuario.save((err, _UsuarioGuardado) => {
         if(err){
-            objresponse.status(400).send(`Error al guardar en la base de datos: ${err}`)
+            objresponse.status(400).send({mensaje: "Error al guardar en la base de datos: ${err}"})
         }
         else{
             var usuarioGuardado = new Usuario()
@@ -113,7 +113,7 @@ function ActualizarUsuario(objrequest, objresponse){
     var userFromBody = objrequest.body
     Usuario.findByIdAndUpdate(idUsuario, userFromBody, (err, usuarioActualizado) => {
         if(err){
-            objresponse.status(400).send(`Error al actualizar el usuario : ${err}`)
+            objresponse.status(400).send({mensaje: "Error al actualizar el usuario"})
         }
         objresponse.status(200).send({mensaje: "Usuario actualizado correctamente"})
     })
@@ -124,11 +124,11 @@ function EliminarUsuario(objrequest, objresponse){
     var idUsuario = objrequest.params.id
     Usuario.findById(idUsuario, (err, usuario) => {
         if(err){
-            objresponse.status(400).send(`Error al eliminar el usuario : ${err}`)
+            objresponse.status(400).send({mensaje: "Error al eliminar el usuario"})
         }
         usuario.remove(err => {
             if(err){
-                objresponse.status(500).send(`Error al eliminar el usuario : ${err}`)
+                objresponse.status(500).send({mensaje: "Error al eliminar el usuario "})
             }   
             objresponse.status(200).send({mensaje: "Usuario eliminado correctamente"})
         })

@@ -10,7 +10,7 @@ const VideoSchema = Schema({
     idConcurso: {type:String, required:true},
     apellidosAutor: String,
     email: {type: String, lowercase: true},
-    fechaCarga: {type: Date, default: Date.now()},
+    fechaCarga:  Date, 
     estado: {type: String, enum: ['Procesado', 'SinProcesar'], default: 'SinProcesar'},
     nombreVideo: String,
     rutaImagenVideo: {type:String, default: ''},

@@ -45,9 +45,13 @@
             <label for="email">Mail <span>*</span></label>
             <input type="email" name="email" id="email" value="" size="22" required  ng-model="data.email">
           </div>
+          <div class="one_third">
+            <label for="email">Clave <span>*</span></label>
+            <input type="password" name="clave" id="clave" value="" size="22" required  ng-model="data.clave">
+          </div>
            <div class="block clear">
             &nbsp;
-             <input type="submit" value="Submit" ng-click="submit()">
+             <input type="submit" value="Ingresar" ng-click="submit()">
             &nbsp;
           </div>
         </form>
@@ -69,12 +73,34 @@
   </div>
 </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">Mensaje de Viccon</h4>
+        </div>
+        <div class="modal-body">
+          <p id="mensaje_crear_concurso"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
