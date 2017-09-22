@@ -1,6 +1,11 @@
 module.exports = {
     port: process.env.PORT || 2017,
     db: process.env.MONGODB || 'mongodb://localhost:27017/viccon',
+    MySql_db: 'Viccon',
+    MySql_user: 'user',
+    Mysql_pass: 'pass',
+    MySql_host: 'localhost',
+    MySql_port: '80',
  	rutaMultimedia: './images/multimediaViccon/',
     nombreCarpetaOriginal: 'original/',
     nombreCarpetaConvertida: 'conversion/',
