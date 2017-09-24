@@ -11,6 +11,7 @@ const api = express.Router()
 
 /*************************************** USUARIO ******************************/
 
+//
 //Obtener usuario por correo para hacer login
 api.post('/usuario/:email', UsuarioController.IniciarSesion)
 //Obtener Usuarios

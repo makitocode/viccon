@@ -1,3 +1,4 @@
+function enviarImagen(){
 $('.upload-btn').on('click', function (){
    // $('#upload-input').click();
   var files = $('#imagen').get(0).files;
@@ -34,5 +35,4 @@ $('.upload-btn').on('click', function (){
 
   }  
 });
-
-
+}

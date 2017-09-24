@@ -46,6 +46,8 @@ function ObtenerUsuarioPorId(objrequest, objresponse){
 
 /*************************************** POST ******************************/
 //Obtener Usuario por correo
+
+
 //pendiente enviar clave encriptada para validar
 function IniciarSesion(objrequest, objresponse){
     var _email = objrequest.params.email
@@ -69,8 +71,10 @@ function IniciarSesion(objrequest, objresponse){
                     _usuario[0].clave = ''
                     objresponse.status(200).send({usuario: _usuario})
                 }
-                else
+                else{
                     objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
+                }
+                    
             })
         }
         else
@@ -144,6 +148,7 @@ module.exports ={
     ActualizarUsuario,
     EliminarUsuario,
     IniciarSesion
+
 }
 
 
