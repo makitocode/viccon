@@ -20,9 +20,9 @@ api.get('/usuario/:id', UsuarioController.ObtenerUsuarioPorId)
 //Crear usuario
 api.post('/usuario', UsuarioController.CrearUsuario)
 //Actualizar Usuario
-api.put('/usuario/:id', UsuarioController.ActualizarUsuario)
+//api.put('/usuario/:id', UsuarioController.ActualizarUsuario)
 //Eliminar usuario
-api.delete('/usuario/:id', UsuarioController.EliminarUsuario)
+//api.delete('/usuario/:id', UsuarioController.EliminarUsuario)
 
 /*************************************** CONCURSO ******************************/
 

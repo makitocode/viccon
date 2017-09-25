@@ -9,43 +9,50 @@ const Concurso = require('../Model/Concurso')
 /*************************************** GET ******************************/
 //Obtener concursos
 function ObtenerConcursos(objrequest, objresponse){
-    Concurso.find({}, (err, _concurso) => {
-        if(err){
-            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
+    Concurso.findAll().then((_Concursos) => {
+        if(!_Concursos){
+            objresponse.status(404).send({mensaje: 'No existen concursos'})
         }
-        if(!_concurso){
-            objresponse.status(404).send({mensaje: 'El concurso no existe'})
+        if(_Concursos.length <= 0)
+            objresponse.status(404).send({mensaje: 'No existen concursos registrados.'})
+        else
+        {
+            objresponse.status(200).send({concurso: _Concursos})
         }
-        objresponse.status(200).send({concurso: _concurso})
-    })
+      }).catch((err) => {
+          console.log(`Error generado al crear usuario: ${err}`)
+          objresponse.status(500).send({mensaje: 'Error interno del servicio'})
+      })
 }
 //Obtener concurso por Id
 function ObtenerConcursoPorId(objrequest, objresponse){
     var _idConcurso = objrequest.params.id
-    Concurso.findById(_idConcurso, (err, _concurso) => {
-        if(err){
-            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
-        }
+    Concurso.findOne({ where: {id: _idConcurso} }).then((_concurso)=>{
         if(!_concurso){
             objresponse.status(404).send({mensaje: 'El concurso no existe'})
         }
-        objresponse.status(200).send({concurso: _concurso})
-    })
-}
-//Obtener concursos por id de usuario
-function ObtenerConcursosPorIdUsuario(objrequest, objresponse){
-    var _idUsuario = objrequest.params.id
-    Concurso.find({userId: _idUsuario}, (err, _concurso) =>{
-        if(err){
-            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
+        else{
+            objresponse.status(200).send({concurso: _concurso})
         }
-        if(!_concurso){
-            objresponse.status(404).send({mensaje: 'El usuario no tiene concursos asociados'})
-        }
-        objresponse.status(200).send({concurso: _concurso})
+    }).catch((err) => {
+        return objresponse.status(500).send({mensaje: 'Error interno del servicio'})
     })
 }
 
+//Obtener concursos por id de usuario
+function ObtenerConcursosPorIdUsuario(objrequest, objresponse){
+    var _idUsuario = objrequest.params.id
+    Concurso.findAll({ where: {userId: _idUsuario} }).then((_concurso)=>{
+        if(!_concurso){
+            objresponse.status(404).send({mensaje: 'El usuario no tiene concursos asociados'})
+        }
+        else{
+            objresponse.status(200).send({concurso: _concurso})
+        }
+    }).catch((err) => {
+        return objresponse.status(500).send({mensaje: 'Error interno del servicio'})   
+    })
+}
 /*************************************** POST ******************************/
 //Crear concurso
 function CrearConcurso(objrequest, objresponse){
@@ -59,26 +66,29 @@ function CrearConcurso(objrequest, objresponse){
     _concurso.premio = objrequest.body.premio
     //_concurso.activo = objrequest.body.activo
     //Se almacena el concurso
-    _concurso.save((err, _ConcursoGuardado) => {
-        if(err){
-            objresponse.status(400).send({mensaje: 'Error al crear el concurso'})
+    _concurso.save(_concurso).then((_ConcursoGuardado)=>{
+        if(!_ConcursoGuardado){
+            objresponse.status(400).send({mensaje: "Error al crear el concurso"})
         }
-        else{
-            var nuevaUrl = _ConcursoGuardado.url+'/'+_ConcursoGuardado._id
-            var idConcurso = _ConcursoGuardado._id
-            Concurso.update({_id: idConcurso}, {url: nuevaUrl}, (err, concursoActualizado) =>{
-                if(err){
-                    objresponse.status(400).send({mensaje: 'Error al crear el concurso'})
+        else
+        {
+            console.log(`::::::::::::::::::::::::: usuario guardado ok :::::::::::::::::::::::`)
+            var idConcurso = _ConcursoGuardado.id
+            Concurso.findOne({ where: {id: idConcurso} }).then((_concursoActualizadoOk)=> {
+                if(!_concursoActualizadoOk){
+                    objresponse.status(400).send({mensaje: `Error al consultar el concurso creado`})
                 }
-                Concurso.findById(idConcurso, (err, _concurso) =>{
-                    if(err){
-                        objresponse.status(400).send({mensaje: 'Error consultando el concurso creado'})
-                    }
-                    objresponse.status(200).send({concurso: _concurso})
-                })
+                else
+                {
+                    objresponse.status(200).send({concurso: _concursoActualizadoOk})
+                }
+            }).catch((err)=>{
+                objresponse.status(500).send({mensaje: "Error consultando el concurso creado."})
             })
-            
         }
+    }).catch((err)=>{
+        console.log(`Error creando el concurso: ${err}`)
+        objresponse.status(500).send({mensaje: "Error creando el usuario"})
     })
 }
 /*************************************** UPDATE ******************************/
@@ -86,24 +96,39 @@ function CrearConcurso(objrequest, objresponse){
 function ActualizarConcurso(objrequest, objresponse){
     var idConcurso = objrequest.params.id
     var concursoFromBody = objrequest.body
-    Concurso.findByIdAndUpdate(idConcurso, concursoFromBody, (err, concursoActualizado) => {
-        if(err){
+    Concurso.update(concursoFromBody, {where:{id:idConcurso} }).then((_concursoActualizado)=>{
+        if(!_concursoActualizado){
             objresponse.status(400).send({mensaje: "Error al Actualizar el concurso "})
         }
-        objresponse.status(200).send({mensaje: "Concurso actualizado correctamente"})
+        else{
+            objresponse.status(200).send({mensaje: "Concurso actualizado correctamente"})
+        }
+    }).catch((err)=>{
+        console.log(`Error actualizando el concurso ${err}`)
+        objresponse.status(500).send({mensaje: "Error interno del servicio "})
     })
 }
 /*************************************** DELETE ******************************/
 //Eliminar concurso
 function EliminarConcurso(objrequest, objresponse){
     var idConcurso = objrequest.params.id
-
-    Concurso.update({_id: idConcurso}, {activo: "false"}, (err, concursoActualizado) =>{
-        if(err){
+    Concurso.update({activo: false}, {where:{id:idConcurso} }).then((_concursoActualizado)=>{
+        if(!_concursoActualizado){
             objresponse.status(400).send({mensaje: "Error al eliminar el concurso "})
         }
-        objresponse.status(200).send({mensaje: "Concurso eliminado correctamente"})
+        else{
+            objresponse.status(200).send({mensaje: "Concurso eliminado correctamente"})
+        }
+    }).catch((err)=>{
+        console.log(`Error actualizando el concurso ${err}`)
+        objresponse.status(500).send({mensaje: "Error interno del servicio "})
     })
+    // Concurso.update({_id: idConcurso}, {activo: "false"}, (err, concursoActualizado) =>{
+    //     if(err){
+    //         objresponse.status(400).send({mensaje: "Error al eliminar el concurso "})
+    //     }
+    //     objresponse.status(200).send({mensaje: "Concurso eliminado correctamente"})
+    // })
 }
 
 

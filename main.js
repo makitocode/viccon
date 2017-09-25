@@ -7,17 +7,15 @@ var config = require('./Backend/config')
 //Referencia al app
 var app = require('./app')
 //db
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('LocalTest', 'root', 'root', 
+const Sequelize = require('sequelize')
+const sequelize = new Sequelize(config.MySql_db, config.MySql_user, config.Mysql_pass, 
                   {
-                    host: 'localhost',
+                    host: config.MySql_host,
                     dialect: 'mysql',
-                    port: '8889'
+                    port: config.MySql_port
                   });
 
-
 //Habilita el escucha por el puerto seleccionado
-
 //****Mysql****
 sequelize.authenticate().then(() => {
         console.log('Connection with mysql has been established successfully...   :) ');
