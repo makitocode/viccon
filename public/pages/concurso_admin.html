@@ -4,10 +4,13 @@
 <title>VICCON - Lista de concursos</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
 <script src="../bower_components/angular-route/angular-route.js"></script>
-<script src="../js/concurso_admin.js"></script>
+<script type="text/javascript" src="https://content.jwplatform.com/libraries/FuHWnxXT.js" ></script>
+
 
 
 <style>
@@ -43,132 +46,60 @@ div.desc {
     text-align: center;
 }
 </style>
+<style >
+.loader {
+visibility: hidden;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../images/Gear.gif') 50% 50% no-repeat rgba(249, 249, 249, 0.5); 
+}
+
+.contenedor_original1,contenedor_original2 {
+visibility: hidden;
+  
+}
 </style>
 
 </head>
-<body id="top" >
+<body id="top" ng-view>
 
-
-<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear"> 
- 
-      <div id="logo" class="fl_left">
-        <h1><a href="../../index.html">VICCON</a></h1>
-      </div>
-      <nav id="mainav" class="fl_right">
-        <ul class="clear">
-          
-        </ul>
-      </nav>
- 
-    </header>
-  </div>
- 
-  <div class="wrapper row2">
-    <div id="breadcrumb" class="hoc clear"> 
- 
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Concursos</a></li>
-      </ul>
- 
-    </div>
-  </div>
- 
-</div>
-
-<div class="wrapper row3">
-  <main class="hoc container clear"> 
-
-<a href="crear_concurso.html">Crear concurso </a>
-
- <div >
-           
-             <header class="heading">Listado de Concursos</header>
-          
-           <div ng-controller="ctrlRead">
-           
-            
-            <table class="table table-striped table-condensed table-hover">
-                <thead>
-
-                    <tr>
-                       <td>Nombre</td>
-            <td>Imagen</td>
-            <td>Fecha de Inicio</td>
-            <td>Fecha de Fin</td>
-            <td>Premio</td>
-            <td>Enlace</td>
-            <td></td>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <td colspan="7">
-                        <div class="pagination pull-right">
-                            <ul>
-                                <li ng-class="{disabled: currentPage == 0}">
-                                    <a href ng-click="prevPage()">« Prev</a>
-                                </li>
-                            
-                                <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
-                                    ng-class="{active: n == currentPage}"
-                                ng-click="setPage()">
-                                    <a href ng-bind="n + 1">1</a>
-                                </li>
-                             
-                                <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
-                                    <a href ng-click="nextPage()">Next »</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tfoot>
-                <tbody>
-                    <tr ng-repeat="item in pagedItems[currentPage] |filter:{'activo':'true'}">
-     
-                      <td>{{item.nombre}}</td>
-                       <td data-title="'Imagen'" >
-              <img src=".{{item.rutaMultimedia+item.nombreCarpetaThumb+item.imagen}}" style="width:200px"  >
-            </td>
-            <td data-title="'Inicio'">{{ item.fechaInicio |  date:'dd/MM/yyyy' }}</td>
-            <td data-title="'Fin'">{{ item.fechaFin |  date:'dd/MM/yyyy' }}</td>
-            <td data-title="'Premio'">{{ item.premio }}</td>
-            <td data-title="'Enlace'">
-              <li ><a href="detalle_concurso_admin.html">Ver</a> aqui se llama el campo url del objeto</li>
-            </td>
-            <td>  <li ><a href="modificar_concurso.html">Modificar</a></li></td>
-            
-
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-          
-        </div>
-    </div>
-    <div class="clear"></div>
-  </main>
-</div>
-
-<div class="wrapper row4">
-  <footer id="footer" class="hoc clear"> 
-
-  </footer>
-</div>
-
-<div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
+    <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
     
-    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-    s
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Mensaje de Viccon</h4>
+        </div>
+        <div class="modal-body">
+          <p id="mensaje_crear_concurso"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
   </div>
-</div>
+  <!--mdal-->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+<script src="../js/enviar_imagen_concurso.js"></script>
+<script src="../js/concurso_admin.js"></script>
 </body>
 </html>

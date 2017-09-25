@@ -7,6 +7,7 @@ var constants = require("../config.js");
 
 
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
+	console.log("id video"+idVideo);
 var respuesta="_";
 try {
 
@@ -14,7 +15,7 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida
     fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
 }
 
-
+	console.log(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
 	var process = new ffmpeg(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
 	process.then(function (video) {
 		video

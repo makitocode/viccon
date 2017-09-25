@@ -26,7 +26,7 @@ request.get({
         var videoInput=data.video[i].nombreVideo+'.'+data.video[i].nombreExtensionVideoOriginal;
         var videoOutput=data.video[i].nombreVideo;
 
-		p(videoInput,videoOutput,data.video[i].email,data.video[i]._id,function (respuestaConversion) {
+		p(videoInput,videoOutput,data.video[i].email,data.video[i].id,function (respuestaConversion) {
 		if(respuestaConversion=='200'){//convierte ok todo y envia notificacion
 				console.log("resp video: "+respuestaConversion);
 		}else{

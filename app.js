@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')
 const app = express()
 //Instancia el archivo de rutas
 const api = require('./Backend/routes')
+var constants = require("./Backend/config.js");
 
 //Configuraciones del bodyparser - Parsear objetos del body
 app.use(bodyParser.urlencoded({extended: false}))
@@ -20,8 +21,62 @@ app.use(bodyParser.json()) //Para adminitr peticiones con json (body)
 //Para usar el modulo api
 app.use('/api', api)
 
-//para files de concurso y video de aqui
+
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+//nuevo de aqui
+api.get('pages/concurso_admin.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/concurso_admin.html'));
+})
+
+api.get('pages/list_concursos_admin.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/list_concursos_admin.html'));
+})
+
+api.get('pages/not_found.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/not_found.html'));
+})
+
+api.get('pages/detalle_concurso_admin.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/detalle_concurso_admin.html'));
+})
+
+api.get('pages/modificar_concurso.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/modificar_concurso.html'));
+})
+
+api.get('pages/detalle_concurso_publico.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/detalle_concurso_publico.html'));
+})
+
+api.get('pages/mensaje_exito.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/mensaje_exito.html'));
+})
+
+api.get('pages/video_detalle.html',function (req, res){
+
+
+res.sendFile(path.join(__dirname, 'pages/video_detalle.html'));
+})
+
+//nuevo hasta aqui
+/////esto es lo viejo
 app.get('pages/crear_concurso.html', function(req, res){
   res.sendFile(path.join(__dirname, 'pages/crear_concurso.html'));
 });
@@ -38,7 +93,8 @@ app.post('/crear_concurso', function(req, res){
   form.multiples = true;
 
   // store all uploads in the /uploads directory
-  form.uploadDir = path.join(__dirname, '/public/images/multimediaViccon/thumb');
+  //form.uploadDir = path.join(__dirname, 'C:/Users/Taidy/videosViccon/multimediaViccon/thumb');
+  form.uploadDir = "./public"+constants.rutaMultimedia+constants.nombreCarpetaThumb;
 
   // every time a file has been uploaded successfully,
   // rename it to it's orignal name
@@ -70,7 +126,8 @@ app.post('/subir_video', function(req, res){
   form.multiples = true;
 
   // store all uploads in the /uploads directory
-  form.uploadDir = path.join(__dirname, '/public/images/multimediaViccon/original');
+  //form.uploadDir = path.join(__dirname, '/public/images/multimediaViccon/original');
+  form.uploadDir="./public"+constants.rutaMultimedia+constants.nombreCarpetaOriginal;
 
   // every time a file has been uploaded successfully,
   // rename it to it's orignal name

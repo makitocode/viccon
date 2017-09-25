@@ -5,11 +5,24 @@
 <title>Iniciar sesion</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style >
+.loader {
+  visibility:hidden;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../images/Gear.gif') 50% 50% no-repeat rgba(249, 249, 249, 0.5); 
+}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script src="../js/iniciar_sesion.js"></script>
 </head>
 <body id="top" ng-app="myApp" ng-controller="myCtrl">
+<div class="loader" id="loader"></div>
 <div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 

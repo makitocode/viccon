@@ -1,35 +1,11 @@
-<!DOCTYPE html>
-<!--
-Template Name: Nonuxor
-Author: <a href="http://www.os-templates.com/">OS Templates</a>
-Author URI: http://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: http://www.os-templates.com/template-terms
--->
-<html lang="en">
-<head>
-<title>Detalle concurso</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<!--<script src="../bower_components/angular/angular.js"></script>-->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
- <script>document.write('<base href="' + document.location + '" />');</script>
-    <link href="style.css" rel="stylesheet" />
-    <script data-semver="1.2.28" src="https://code.angularjs.org/1.2.28/angular.js" data-require="angular.js@1.2.x"></script>
-<script src="https://code.angularjs.org/1.2.28/angular-route.js"></script>
-<script src="../js/detalle_concurso_publico.js"></script>
-</head>
-<body id="top" ng-app="plunker" ng-controller="ConcursoPorIdParaPublico" >
 
-<div class="bgded overlay" style="background-image:url('.{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaThumb+mydata.concurso.imagen}}');"> 
+<div class="bgded overlay" style="background-image:url('{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaThumb+mydata.concurso.imagen}}');"> 
 
 
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 
       <div id="logo" class="fl_left">
-        <h1><a href="../index.html">VICCON</a></h1>
+<h1>VICCON</h1>
       </div>
     </header>
   </div>
@@ -42,7 +18,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 <div class="wrapper row3">
   <main class="hoc container clear"> 
- <a href="subir_video.html">Subir video </a>
+     <a href="#/video/subir/{{mydata.concurso.id}}">Subir video</a>
     <div class="content"> 
       <h1>{{ mydata.concurso.nombre }} </h1>
      
@@ -54,7 +30,7 @@ Licence URI: http://www.os-templates.com/template-terms
         </p>
      
 
- <div ng-controller="ctrlRead">
+ <div >
            
             
             <table class="table table-striped table-condensed table-hover">
@@ -95,7 +71,7 @@ Licence URI: http://www.os-templates.com/template-terms
                  
                          <td>
       <video width="200" height="240" controls>
-     <source src="" dynamic-url dynamic-url-src=".{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+item.nombreVideoConvertido}}" type="video/mp4">
+     <source src="" dynamic-url dynamic-url-src="{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+item.nombreVideoConvertido}}" type="video/mp4">
  </video>
             </td>
             <td  >{{ item.fechaCarga }} </td>
@@ -109,21 +85,3 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="clear"></div>
   </main>
 </div>
-
-<div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
-
-    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-
-  </div>
-</div>
-
-<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-<!-- JAVASCRIPTS -->
-<script src="../layout/scripts/jquery.min.js"></script>
-<script src="../layout/scripts/jquery.backtotop.js"></script>
-<script src="../layout/scripts/jquery.mobilemenu.js"></script>
-
-</body>
-</html>
