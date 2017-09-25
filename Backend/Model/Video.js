@@ -1,24 +1,40 @@
 'user strict'
 
-const mongoose  = require('mongoose')
-const Schema = mongoose.Schema
+var config = require('../config')
+//db
+const mysql = require('mysql2')
+const Sequelize = require('sequelize')
+const connection = new Sequelize(config.MySql_db, config.MySql_user, config.Mysql_pass, 
+                  {
+                    host: config.MySql_host,
+                    dialect: 'mysql',
+                    port: config.MySql_port
+                  });
 
 //Modelo 
-const VideoSchema = Schema({
-    // rutaConcurso: String,
-    nombreAutor: String,
-    idConcurso: {type:String, required:true},
-    apellidosAutor: String,
-    email: {type: String, lowercase: true},
-    fechaCarga:  Date, 
-    estado: {type: String, enum: ['Procesado', 'SinProcesar'], default: 'SinProcesar'},
-    nombreVideo: String,
-    rutaImagenVideo: {type:String, default: ''},
-    nombreExtensionVideoOriginal: String,
-    nombreVideoConvertido: {type:String, default: ''}, //solo nombre sin extensión
-    mensaje: String,
-    porqueLeGusta: String
-})
+const VideoSchema = connection.define('Video', {
+    nombreAutor: {type: Sequelize.STRING},
+    idConcurso: {type: Sequelize.INTEGER, allowNull: false, required:true},
+    apellidosAutor: {type: Sequelize.STRING},
+    email: {type: Sequelize.STRING, lowercase: true},
+    fechaCarga: {type: Sequelize.DATE}, 
+    estado: {type: Sequelize.STRING, enum: ['Procesado', 'SinProcesar'], defaultValue: 'SinProcesar'},
+    nombreVideo: {type: Sequelize.STRING},
+    rutaImagenVideo: {type: Sequelize.STRING, defaultValue: ''},
+    nombreExtensionVideoOriginal: {type: Sequelize.STRING},
+    nombreVideoConvertido: {type: Sequelize.STRING, defaultValue: ''}, //solo nombre sin extensión
+    mensaje: {type: Sequelize.STRING},
+    porqueLeGusta: {type: Sequelize.STRING}
+  }, {
+      timestamps: false,
+      freezeTableName: true, //Evita que mysql pluralice el nombre de la BD
+  });
 
-//Para exportar el modelo a mongo, se le da un nombre y el esquema asociado
-module.exports = mongoose.model('Video', VideoSchema)
+VideoSchema.sync({logging: console.log}).then(function(){
+
+}).catch((err)=>{
+    console.log(`Error sincronizando el modelo Video ${err}`)
+})
+    
+//Para exportar el modelo
+module.exports = VideoSchema

@@ -55,7 +55,7 @@ api.post('/video', VideoController.CrearVideo)
 //Actualizar video
 api.put('/video/:id', VideoController.ActualizarVideo)
 //Eliminar video
-api.delete('/video/:id', VideoController.EliminarVideo)
+//api.delete('/video/:id', VideoController.EliminarVideo)
 
 
 

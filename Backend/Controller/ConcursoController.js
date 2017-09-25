@@ -20,7 +20,7 @@ function ObtenerConcursos(objrequest, objresponse){
             objresponse.status(200).send({concurso: _Concursos})
         }
       }).catch((err) => {
-          console.log(`Error generado al crear usuario: ${err}`)
+          console.log(`Error generado al consultar todos los concursos: ${err}`)
           objresponse.status(500).send({mensaje: 'Error interno del servicio'})
       })
 }
@@ -35,6 +35,7 @@ function ObtenerConcursoPorId(objrequest, objresponse){
             objresponse.status(200).send({concurso: _concurso})
         }
     }).catch((err) => {
+        console.log(`Error generado el consultar el concurso por id: ${err}`)
         return objresponse.status(500).send({mensaje: 'Error interno del servicio'})
     })
 }
@@ -88,7 +89,7 @@ function CrearConcurso(objrequest, objresponse){
         }
     }).catch((err)=>{
         console.log(`Error creando el concurso: ${err}`)
-        objresponse.status(500).send({mensaje: "Error creando el usuario"})
+        objresponse.status(500).send({mensaje: "Error creando el concurso"})
     })
 }
 /*************************************** UPDATE ******************************/
