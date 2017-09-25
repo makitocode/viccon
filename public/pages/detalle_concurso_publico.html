@@ -1,0 +1,87 @@
+
+<div class="bgded overlay" style="background-image:url('{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaThumb+mydata.concurso.imagen}}');"> 
+
+
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+      <div id="logo" class="fl_left">
+<h1>VICCON</h1>
+      </div>
+    </header>
+  </div>
+
+  <div class="wrapper row2">
+   
+  </div>
+  
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+     <a href="#/video/subir/{{mydata.concurso.id}}">Subir video</a>
+    <div class="content"> 
+      <h1>{{ mydata.concurso.nombre }} </h1>
+     
+
+      <p> Estas concursando por <b>{{ mydata.concurso.premio }}</b> </p>
+
+      <p><b>Fecha de inicio del concurso: </b><b>{{ mydata.concurso.fechaInicio|  date:'dd/MM/yyyy' }}</b> 
+     <p><b>Fecha de finalización del concurso: </b><b>{{ mydata.concurso.fechaFin |  date:'dd/MM/yyyy'}}</b> </p>
+        </p>
+     
+
+ <div >
+           
+            
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+
+                    <tr>
+                       
+                      <th>Video Concursante</th>
+                      <th>Fecha de creación</th>
+                      <th>Descripcion</th>
+                      <th>Por que le gusta el producto</th>
+                      
+                    </tr>
+                </thead>
+                <tfoot>
+                    <td colspan="6">
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Prev</a>
+                                </li>
+                            
+                                <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                    ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                             
+                                <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Next »</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+                <tbody>
+                     <tr ng-repeat="item in pagedItems[currentPage] | orderBy:'-fechaCarga' ">
+                 
+                         <td>
+      <video width="200" height="240" controls>
+     <source src="" dynamic-url dynamic-url-src="{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+item.nombreVideoConvertido}}" type="video/mp4">
+ </video>
+            </td>
+            <td  >{{ item.fechaCarga }} </td>
+            <td  >{{ item.mensaje }} </td>
+<td  >{{ item.porqueLeGusta }} </td>
+            
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <div class="clear"></div>
+  </main>
+</div>

@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "angular-local-storage": "^0.7.1",
+    "aws-sdk": "^2.122.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "cron": "^1.2.1",
@@ -20,12 +21,13 @@
     "formidable": "^1.1.1",
     "jwplayer": "^1.0.3",
     "mongoose": "^4.11.8",
+    "mysql2": "^1.4.2",
     "node-cron": "^1.2.1",
     "nodemailer": "^4.1.0",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
     "request": "^2.81.0",
-    "aws-sdk":"latest"
+    "sequelize": "^4.10.0"
   },
   "devDependencies": {
     "hotnode": "^0.0.8"

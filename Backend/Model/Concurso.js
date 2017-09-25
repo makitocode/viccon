@@ -1,24 +1,40 @@
 'user strict'
 
 var config = require('../config')
-const mongoose  = require('mongoose')
-const Schema = mongoose.Schema
-
+//db
+const mysql = require('mysql2')
+const Sequelize = require('sequelize')
+const connection = new Sequelize(config.MySql_db, config.MySql_user, config.Mysql_pass, 
+                  {
+                    host: config.MySql_host,
+                    dialect: 'mysql',
+                    port: config.MySql_port
+                  });
+       
 //Modelo 
-const ConcursoSchema = Schema({
-    userId: {type: String, required:true},
-    rutaMultimedia: {type:String, default: config.rutaMultimedia},
-    nombreCarpetaOriginal: {type:String, default: config.nombreCarpetaOriginal},
-    nombreCarpetaConvertida: {type:String, default: config.nombreCarpetaConvertida},
-    nombreCarpetaThumb: {type:String, default: config.nombreCarpetaThumb},
-    nombre: String,
-    imagen: String,
-    url: String,
-    fechaInicio: {type: Date, default: Date.now()},
-    fechaFin: Date, 
-    premio: String,
-    activo: {type: Boolean, default:true}
+const ConcursoSchema = connection.define('Concurso', {
+    userId: {type: Sequelize.INTEGER, allowNull: false, required:true},
+    rutaMultimedia: {type: Sequelize.STRING, defaultValue: config.rutaMultimedia},
+    nombreCarpetaOriginal: {type: Sequelize.STRING, defaultValue: config.nombreCarpetaOriginal},
+    nombreCarpetaConvertida: {type: Sequelize.STRING, defaultValue: config.nombreCarpetaConvertida},
+    nombreCarpetaThumb: {type: Sequelize.STRING, defaultValue: config.nombreCarpetaThumb},
+    nombre: {type: Sequelize.STRING, allowNull: false},
+    imagen: {type: Sequelize.STRING},
+    url: {type: Sequelize.STRING},
+    fechaInicio: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
+    fechaFin: {type: Sequelize.DATE},
+    premio: {type: Sequelize.STRING},
+    activo: {type: Sequelize.BOOLEAN, defaultValue:true}
+  }, {
+      timestamps: false,
+      freezeTableName: true, //Evita que mysql pluralice el nombre de la BD
+  });
+
+ConcursoSchema.sync({logging: console.log}).then(function(){
+
+}).catch((err)=>{
+    console.log(`Error sincronizando el modelo Concurso ${err}`)
 })
 
-//Para exportar el modelo a mongo, se le da un nombre y el esquema asociado
-module.exports = mongoose.model('Concurso', ConcursoSchema)
+//Para exportar el modelo
+module.exports = ConcursoSchema

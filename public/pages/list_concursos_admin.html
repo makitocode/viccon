@@ -1,0 +1,116 @@
+<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+ 
+      <div id="logo" class="fl_left">
+        <h1>VICCON</h1>
+ <li><a href="../index.html">Cerrar sesión</a></li>
+      </div>
+      <nav id="mainav" class="fl_right">
+        <ul class="clear">
+          
+        </ul>
+      </nav>
+ 
+    </header>
+  </div>
+ 
+  <div class="wrapper row2">
+  
+
+  </div>
+ 
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+
+<a href="#/crear/concurso/{{idUsuario}}">Crear concurso </a>
+
+
+ <div >
+           
+             <header class="heading">Listado de Concursos</header>
+          
+           <div ng-controller="ctrlRead">
+           
+            
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+
+                    <tr>
+                       <td>Nombre</td>
+            <td>Imagen</td>
+            <td>Fecha de Inicio</td>
+            <td>Fecha de Fin</td>
+            <td>Premio</td>
+            <td>URL detalle del concurso</td>
+            <td></td>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <td colspan="7">
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Prev</a>
+                                </li>
+                            
+                                <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                    ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                             
+                                <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Next »</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="item in pagedItems[currentPage] |filter:{'activo':'true'}">
+     
+                      <td>{{item.nombre}}</td>
+                       <td data-title="'Imagen'" >
+                        
+              <img src="{{item.rutaMultimedia+item.nombreCarpetaThumb+item.imagen}}" style="width:200px"  >
+            </td>
+            <td data-title="'Inicio'">{{ item.fechaInicio |  date:'dd/MM/yyyy' }}</td>
+            <td data-title="'Fin'">{{ item.fechaFin |  date:'dd/MM/yyyy' }}</td>
+            <td data-title="'Premio'">{{ item.premio }}</td>
+            <td data-title="'Enlace'">
+
+            <a href="#/ver/concurso/{{item.id}}"> Ver</a>
+            </td>
+            <td> <a href="#/modificar/concurso/{{item.id}}/{{idUsuario}}">Modificar</a></td>
+            
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+          
+        </div>
+ 
+    <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </main>
+</div>
+
+<div class="wrapper row4">
+  <footer id="footer" class="hoc clear"> 
+
+  </footer>
+</div>
+
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    
+    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
+    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    s
+  </div>
+</div>
