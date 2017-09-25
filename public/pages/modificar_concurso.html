@@ -1,0 +1,65 @@
+<div class="loader" id="loader"></div>
+<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+  
+      <div id="logo" class="fl_left">
+       <h1>VICCON</h1>
+    <li><a href="../index.html">Cerrar sesión</a></li>
+      </div>
+  
+    </header>
+  </div>
+</div>
+
+<div class="wrapper row3"  >
+  <main class="hoc container clear"> 
+
+    <div class="content"> 
+
+
+      <div id="comments" >
+    <h2>Datos del concurso</h2>
+         <form >
+          <div class="one_third first">
+            <label for="name">Nombre <span>*</span></label>
+            <input type="text" name="nombre" id="nombre" value="{{ mydata.concurso.nombre }}" size="22" required>
+          </div>
+          <div class="one_third">
+            <label for="fechaInicio">Fecha de inicio del concurso <span>*</span></label>
+            <input type="date" name="fechaInicio" id="fechaInicio" value="{{ mydata.concurso.fechaInicio|  date:'yyyy-MM-dd' }}" size="22"  required>
+          </div>
+           <div class="one_third">
+            <label for="fechaFin">Fecha de finalización del concurso <span>*</span></label>
+            <input type="date" name="fechaFin" id="fechaFin" value="{{ mydata.concurso.fechaFin|  date:'yyyy-MM-dd' }}" size="22"    required>
+          </div>
+          <div class="one_third">
+            <label for="descripcion">Descripción del premio<span>*</span></label>
+            <textarea name="premio" id="premio" rows="3" cols="50" required>{{ mydata.concurso.premio }}
+            </textarea>
+          </div>
+          <div class="one_third">
+            <label for="banner">Seleccione la imagen de banner para el concurso<span>*</span></label>
+
+            <input id="imagen"  type="file" name="uploads[]" multiple="multiple"></br>
+          </div>
+          <div class="block clear"></div>
+          
+          <div>
+            <input class="btn btn-lg upload-btn" type="submit" value="Actualizar"  ng-click="submit()">
+            &nbsp;
+
+       </form>
+       </div>
+                    <div class="block clear"></div>
+          
+          <div>
+            <input class="btn btn-lg upload-btn" type="submit" value="Eliminar"  ng-click="submit2()">
+            &nbsp;
+          </div>
+      </div>
+    </div>
+    
+    <div class="clear"></div>
+  </main>
+</div>
