@@ -44,8 +44,10 @@ app.config(function($routeProvider){
 });
 //renderizar concurswo por id de persona logueada
 app.controller('ctrlRead', function ($scope, $filter,$http,$routeParams) {
+
 $scope.idUsuario=$routeParams.id;
 var URI3 = '/api/concurso/usuario/'+$routeParams.id;
+
 $scope.items=[];
     // init
     $scope.sort = {       
@@ -243,7 +245,10 @@ var URI = '/api/concurso/'+$routeParams.idconcurso;
                 $scope.mydata = result.data;
                
              });
+
 var URI3 = '/api/video/concurso/'+$routeParams.idconcurso;
+
+
 $scope.items=[];
     // init
     $scope.sort = {       
@@ -254,7 +259,7 @@ $scope.items=[];
      $http.get(URI3)
             .then(function(result) {
                 $scope.items = result.data;
-                
+                   
                     $scope.gap = 0;
     
     $scope.filteredItems = [];

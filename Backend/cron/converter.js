@@ -7,6 +7,7 @@ var constants = require("../config.js");
 
 
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
+	console.log("id video"+idVideo);
 var respuesta="_";
 try {
 
