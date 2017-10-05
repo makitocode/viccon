@@ -79,7 +79,7 @@ function IniciarSesion(objrequest, objresponse){
         }
     })
 }
-/*************************************** POST ******************************/
+
 //Crear usuario
 function CrearUsuario(objrequest, objresponse){
     var _usuario = new Usuario()
