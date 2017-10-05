@@ -50,7 +50,6 @@ function ObtenerUsuarioPorId(objrequest, objresponse){
 /*************************************** POST ******************************/
 //Obtener Usuario por correo
 //pendiente enviar clave encriptada para validar
-//Obtener Usuario por id
 function IniciarSesion(objrequest, objresponse){
     var _email = objrequest.params.email
     var _pass = objrequest.body.clave
@@ -68,40 +67,7 @@ function IniciarSesion(objrequest, objresponse){
         return objresponse.status(500).send({mensaje: 'Error interno del servicio'})
     })
 }
-// function IniciarSesion(objrequest, objresponse){
-//     var _email = objrequest.params.email
-//     var _pass = objrequest.body.clave
-//     //Busca usuario por mail
-//     Usuario.find({email: _email}, (err, _usuario) => {
-//         if(err){
-//             console.log('Error consultando usuario por mail: ${err}')
-//             objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
-//         }
-//         console.log(_usuario.length)
-//         if(_usuario.length > 0){
-//             var claveObtenida = _usuario[0].clave
-//             console.log('clave: ${claveObtenida}')
-//             bcrypt.compare(_pass, claveObtenida, function(err, res) {
-//                 if(err){
-//                     console.log('Error consultando usuario por mail: ${err}')
-//                     objresponse.status(500).send({mensaje: 'Error iniciando sesion'})
-//                 }
-//                 if(res == true){
-//                     _usuario[0].clave = ''
-//                     objresponse.status(200).send({usuario: _usuario})
-//                 }
-//                 else
-//                     objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
-//             })
-//         }
-//         else
-//         {
-//             objresponse.status(404).send({mensaje: 'Usuario o contraseña incorrecto'})
-//         }
-        
-//     })
-// }
-/*************************************** POST ******************************/
+
 //Crear usuario
 function CrearUsuario(objrequest, objresponse){
     var _usuario = new Usuario()

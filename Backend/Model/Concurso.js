@@ -10,7 +10,7 @@ const connection = new Sequelize(config.MySql_db, config.MySql_user, config.Mysq
                     dialect: 'mysql',
                     port: config.MySql_port
                   });
-       
+
 //Modelo 
 const ConcursoSchema = connection.define('Concurso', {
     userId: {type: Sequelize.INTEGER, allowNull: false, required:true},
