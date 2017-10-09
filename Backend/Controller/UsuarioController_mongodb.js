@@ -140,7 +140,7 @@ module.exports ={
     ObtenerUsuarios,
     ObtenerUsuarioPorId,
     CrearUsuario,
-    ActualizarUsuario,
-    EliminarUsuario,
+    //ActualizarUsuario,
+    //EliminarUsuario,
     IniciarSesion
 }
