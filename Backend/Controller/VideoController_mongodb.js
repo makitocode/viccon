@@ -40,7 +40,13 @@ function ConsultarVideoPorEstado(objrequest, objresponse){
         if(err){
             return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
-        objresponse.status(200).send({video: _videos})
+        else
+        {
+            if(!_videos){
+                objresponse.status(404).send({mensaje: 'No existen videos'})
+            }
+            objresponse.status(200).send({video: _videos})
+        }
     })
 }
 
@@ -50,13 +56,18 @@ function ConsultarVideoPorConcursoyEstado(objrequest, objresponse){
     var _estado = objrequest.params.estado
     Video.find({idConcurso:_idconcurso, estado: _estado}, (err, _videos) => {
         if(err){
-            return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
+            return objresponse.status(500).send({mensaje: 'Error generado al consultar el video por concurso y estado'})
         }
-        objresponse.status(200).send({video: _videos})
+        else{
+            if(!_videos){
+                objresponse.status(404).send({mensaje: 'No existen videos'})
+            }
+            objresponse.status(200).send({video: _videos})
+        }
     })
 }
 
-//Obtener video por concurso y estado
+//Obtener video por concurso
 function ConsultarVideoPorConcurso(objrequest, objresponse){
     var _idconcurso = objrequest.params.idconcurso
     Video.find({idConcurso:_idconcurso}, (err, _videos) => {
@@ -90,6 +101,9 @@ function CrearVideo(objrequest, objresponse){
             objresponse.status(400).send({mensaje: "Error al guardar en la base de datos"})
         }
         else{
+            if(!_VideoGuardado){
+                objresponse.status(400).send({mensaje: `Error creando el video`})
+            }
             objresponse.status(200).send({video: _VideoGuardado})
         }
     })
@@ -104,7 +118,13 @@ function ActualizarVideo(objrequest, objresponse){
         if(err){
             objresponse.status(400).send({mensaje: "Error al actualizar el video"})
         }
-        objresponse.status(200).send({mensaje: "Video actualizado correctamente"})
+        else{
+            if(!videoActualizado){
+                objresponse.status(400).send({mensaje: "Error al Actualizar el video "})
+            }
+            objresponse.status(200).send({mensaje: "Video actualizado correctamente"})
+        }
+        
     })
 }
 /*************************************** DELETE ******************************/
@@ -133,8 +153,8 @@ module.exports ={
     ConsultarVideoPorConcurso,
     ConsultarVideoPorId,
     CrearVideo,
-    ActualizarVideo,
-    EliminarVideo
+    ActualizarVideo
+    //EliminarVideo
 }
 
 

@@ -11,10 +11,10 @@ const Concurso = require('../Model/Concurso_mongodb')
 function ObtenerConcursos(objrequest, objresponse){
     Concurso.find({}, (err, _concurso) => {
         if(err){
-            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
+            return objresponse.status(500).send({mensaje: 'Error al consultar los concursos'})
         }
         if(!_concurso){
-            objresponse.status(404).send({mensaje: 'El concurso no existe'})
+            objresponse.status(404).send({mensaje: 'No existen concursos registrados.'})
         }
         objresponse.status(200).send({concurso: _concurso})
     })
@@ -24,7 +24,7 @@ function ObtenerConcursoPorId(objrequest, objresponse){
     var _idConcurso = objrequest.params.id
     Concurso.findById(_idConcurso, (err, _concurso) => {
         if(err){
-            return objresponse.status(500).send({mensaje: 'Error al realizar la petición'})
+            return objresponse.status(500).send({mensaje: `Error generado al consultar el concurso por id ${err}`)
         }
         if(!_concurso){
             objresponse.status(404).send({mensaje: 'El concurso no existe'})
@@ -64,12 +64,12 @@ function CrearConcurso(objrequest, objresponse){
             objresponse.status(400).send({mensaje: 'Error al crear el concurso'})
         }
         else{
-            var nuevaUrl = _ConcursoGuardado.url+'/'+_ConcursoGuardado._id
-            var idConcurso = _ConcursoGuardado._id
-            Concurso.update({_id: idConcurso}, {url: nuevaUrl}, (err, concursoActualizado) =>{
-                if(err){
-                    objresponse.status(400).send({mensaje: 'Error al crear el concurso'})
-                }
+                //var nuevaUrl = _ConcursoGuardado.url+'/'+_ConcursoGuardado._id
+                var idConcurso = _ConcursoGuardado._id
+                // Concurso.update({_id: idConcurso}, {url: nuevaUrl}, (err, concursoActualizado) =>{
+                // if(err){
+                //     objresponse.status(400).send({mensaje: 'Error al crear el concurso'})
+                // }
                 Concurso.findById(idConcurso, (err, _concurso) =>{
                     if(err){
                         objresponse.status(400).send({mensaje: 'Error consultando el concurso creado'})

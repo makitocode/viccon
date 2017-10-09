@@ -124,12 +124,6 @@ function EliminarConcurso(objrequest, objresponse){
         console.log(`Error actualizando el concurso ${err}`)
         objresponse.status(500).send({mensaje: "Error interno del servicio "})
     })
-    // Concurso.update({_id: idConcurso}, {activo: "false"}, (err, concursoActualizado) =>{
-    //     if(err){
-    //         objresponse.status(400).send({mensaje: "Error al eliminar el concurso "})
-    //     }
-    //     objresponse.status(200).send({mensaje: "Concurso eliminado correctamente"})
-    // })
 }
 
 
