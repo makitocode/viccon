@@ -7,7 +7,7 @@ module.exports = {
     MySql_host: 'localhost',
     MySql_port: '8889',
  	  //rutaMultimedia: './images/multimediaViccon/',
- 	  rutaMultimedia: '/media/',
+ 	rutaMultimedia: '/media/',
     nombreCarpetaOriginal: 'original/',
     nombreCarpetaConvertida: 'conversion/',
     nombreCarpetaThumb: 'thumb/',

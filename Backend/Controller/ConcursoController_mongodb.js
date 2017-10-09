@@ -2,7 +2,7 @@
 'use strict'
 
 //Para usar el modelo hay q importarlo
-const Concurso = require('../Model/Concurso')
+const Concurso = require('../Model/Concurso_mongodb')
 
 
 

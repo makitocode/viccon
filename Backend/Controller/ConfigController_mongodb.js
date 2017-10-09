@@ -2,7 +2,7 @@
 'use strict'
 
 //Para usar el modelo hay q importarlo
-const Deploy = require('../Model/Deploy_mongodb')
+const Deploy = require('../Model/Config_mongodb')
 //modulo de nodejs para enccriptar el password
 const bcrypt = require('bcrypt-nodejs')
 //modulo de node con funciones de criptografia
@@ -15,7 +15,7 @@ function ConsultarConfiguraciones(objrequest, objresponse){
         if(err){
             return objresponse.status(500).send({mensaje: `Error al realizar la petición: ${err}`})
         }
-        if(!_deploy){
+        if(!_deploy || _deploy.length <= 0){
             objresponse.status(404).send({mensaje: 'No existen configuraciones'})
         }
         // for (let value of _deploy) {
@@ -40,49 +40,51 @@ function ConsultarConfiguracionPorId(objrequest, objresponse){
 }
 
 /*************************************** POST ******************************/
-//Obtener Usuario por correo
-//pendiente enviar clave encriptada para validar
-// function IniciarSesion(objrequest, objresponse){
-//     var _email = objrequest.params.email
-//     var _pass = objrequest.body.clave
-//     //Busca usuario por mail
-//     Usuario.find({email: _email}, (err, _usuario) => {
-//         if(err){
-//             console.log(`Error consultando usuario por mail: ${err}`)
-//             objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
-//         }
-//         console.log(_usuario.length)
-//         if(_usuario.length > 0){
-//             var claveObtenida = _usuario[0].clave
-//             console.log(`clave: ${claveObtenida}`)
-//             bcrypt.compare(_pass, claveObtenida, function(err, res) {
-//                 if(err){
-//                     console.log(`Error consultando usuario por mail: ${err}`)
-//                     objresponse.status(500).send({mensaje: `Error iniciando sesion`})
-//                 }
-//                 if(res == true){
-//                     _usuario[0].clave = ''
-//                     objresponse.status(200).send({usuario: _usuario})
-//                 }
-//                 else
-//                     objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
-//             })
-//         }
-//         else
-//         {
-//             objresponse.status(404).send({mensaje: `Usuario o contraseña incorrecto`})
-//         }
-//     })
-// }
+//Obtener toda la información de la configuración por despliegue
+function ConsultarConfiguracionesPorDespliegue(objrequest, objresponse){
+    var _despliegueConfiguracion = objrequest.params.despliegue
+    Deploy.find({ despliegue: _despliegueConfiguracion}, (err, _deploy) => {
+        if(err){
+            return objresponse.status(500).send({mensaje: `Error al realizar la petición: ${err}`})
+        }
+        if(!_deploy){
+            objresponse.status(404).send({mensaje: 'No existen configuraciones'})
+        }
+        // for (let value of _deploy) {
+        //     value.clave = '';
+        // }
+        objresponse.status(200).send({configuracion: _deploy})
+    })
+}
+
+//Obtener toda la información de las configuraciones por despliegue y tipo
+function ConsultarConfiguracionesPorDespliegueyTipo(objrequest, objresponse){
+    var _despliegueConfiguracion = objrequest.params.despliegue
+    var _tipoConfiguracion = objrequest.params.tipo
+    Deploy.find({ despliegue: _despliegueConfiguracion, tipo: _tipoConfiguracion}, (err, _deploy) => {
+        if(err){
+            return objresponse.status(500).send({mensaje: `Error al realizar la petición: ${err}`})
+        }
+        if(!_deploy){
+            objresponse.status(404).send({mensaje: 'No existen configuraciones'})
+        }
+        // for (let value of _deploy) {
+        //     value.clave = '';
+        // }
+        objresponse.status(200).send({configuracion: _deploy})
+    })
+}
 
 //Crear Configuración
 function CrearConfiguracion(objrequest, objresponse){
     var _configuracion = new Deploy()
-    _configuracion.nombre = objrequest.body.nombres
-    _configuracion.tipo = objrequest.body.apellidos
-    _configuracion.url = objrequest.body.email,
-    _configuracion.key = objrequest.body.clave
-    _configuracion.despliegue = objrequest.body.perfil
+    _configuracion.nombre = objrequest.body.nombre
+    _configuracion.tipo = objrequest.body.tipo
+    _configuracion.url = objrequest.body.url,
+    _configuracion.key = objrequest.body.key
+    _configuracion.despliegue = objrequest.body.despliegue
+    _configuracion.usuario = objrequest.body.usuario
+    _configuracion.clave = objrequest.body.clave
 
     //Se almacena la configuración
     _configuracion.save((err, _ConfiguracionGuardada) => {
@@ -91,25 +93,30 @@ function CrearConfiguracion(objrequest, objresponse){
         }
         else{
             var configuracionGuardada = new Deploy()
-            configuracionGuardada.nombre = _UsuarioGuardado.nombre
-            configuracionGuardada.tipo = _UsuarioGuardado.tipo
-            configuracionGuardada.url = _UsuarioGuardado.url,
-            configuracionGuardada.key = _UsuarioGuardado.key,
-            configuracionGuardada.despliegue = _UsuarioGuardado.despliegue
+            configuracionGuardada._id = _ConfiguracionGuardada._id
+            configuracionGuardada.nombre = _ConfiguracionGuardada.nombre
+            configuracionGuardada.tipo = _ConfiguracionGuardada.tipo
+            configuracionGuardada.url = _ConfiguracionGuardada.url,
+            configuracionGuardada.key = _ConfiguracionGuardada.key,
+            configuracionGuardada.despliegue = _ConfiguracionGuardada.despliegue,
+            configuracionGuardada.usuario = _ConfiguracionGuardada.usuario,
+            configuracionGuardada.clave = _ConfiguracionGuardada.clave
             objresponse.status(200).send({configuracion: configuracionGuardada})
         }
     })
 }
+
+
 /*************************************** UPDATE ******************************/
 //Actualizar Configuración
 function ActualizarConfiguracion(objrequest, objresponse){
     var _idConfiguracion = objrequest.params.id
     var configuracionFromBody = objrequest.body
-    Usuario.findByIdAndUpdate(_idConfiguracion, configuracionFromBody, (err, usuarioActualizado) => {
+    Usuario.findByIdAndUpdate(_idConfiguracion, configuracionFromBody, (err, configActualiado) => {
         if(err){
             objresponse.status(400).send(`Error al actualizar la configuración : ${err}`)
         }
-        objresponse.status(200).send({mensaje: "Usuario actualizado correctamente"})
+        objresponse.status(200).send({mensaje: "Configuración actualizada correctamente"})
     })
 }
 /*************************************** DELETE ******************************/
@@ -133,6 +140,8 @@ function EliminarConfiguracion(objrequest, objresponse){
 module.exports ={
     ConsultarConfiguraciones,
     ConsultarConfiguracionPorId,
+    ConsultarConfiguracionesPorDespliegue,
+    ConsultarConfiguracionesPorDespliegueyTipo,
     CrearConfiguracion,
     ActualizarConfiguracion,
     EliminarConfiguracion

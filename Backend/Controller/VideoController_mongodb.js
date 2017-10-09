@@ -2,7 +2,7 @@
 'use strict'
 
 //Para usar el modelo hay q importarlo
-const Video = require('../Model/Video')
+const Video = require('../Model/Video_mongodb')
 
 
 
