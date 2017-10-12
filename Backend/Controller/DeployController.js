@@ -6,7 +6,7 @@ const Deploy = require('../Model/Deploy')
 
 /*************************************** GET ******************************/
 //Obtener toda la información de las rutas y claves de los despliegues
-function ObtenerUsuarios(objrequest, objresponse){
+function ConsultarConfiguraciones(objrequest, objresponse){
     Deploy.findAll().then((_deploy) => {
         if(!_deploy || _deploy.length <= 0){
             objresponse.status(404).send({mensaje: 'No existen usuarios registrados'})
