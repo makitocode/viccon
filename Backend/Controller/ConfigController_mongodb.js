@@ -112,7 +112,7 @@ function CrearConfiguracion(objrequest, objresponse){
 function ActualizarConfiguracion(objrequest, objresponse){
     var _idConfiguracion = objrequest.params.id
     var configuracionFromBody = objrequest.body
-    Usuario.findByIdAndUpdate(_idConfiguracion, configuracionFromBody, (err, configActualiado) => {
+    Deploy.findByIdAndUpdate(_idConfiguracion, configuracionFromBody, (err, configActualiado) => {
         if(err){
             objresponse.status(400).send(`Error al actualizar la configuración : ${err}`)
         }
