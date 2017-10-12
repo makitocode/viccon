@@ -32,7 +32,12 @@ function ObtenerConcursoPorId(objrequest, objresponse){
             objresponse.status(404).send({mensaje: 'El concurso no existe'})
         }
         else{
-            objresponse.status(200).send({concurso: _concurso})
+            if(_concurso.activo){
+                objresponse.status(200).send({concurso: _concurso})
+            }
+            else{
+                objresponse.status(200).send({mensaje: 'El concurso ha caducado'})
+            }
         }
     }).catch((err) => {
         console.log(`Error generado el consultar el concurso por id: ${err}`)
