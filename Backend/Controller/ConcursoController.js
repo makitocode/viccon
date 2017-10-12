@@ -43,7 +43,7 @@ function ObtenerConcursoPorId(objrequest, objresponse){
 //Obtener concursos por id de usuario
 function ObtenerConcursosPorIdUsuario(objrequest, objresponse){
     var _idUsuario = objrequest.params.id
-    Concurso.findAll({ where: {userId: _idUsuario} }).then((_concurso)=>{
+    Concurso.findAll({ where: {userId: _idUsuario, activo: true} }).then((_concurso)=>{
         if(!_concurso){
             objresponse.status(404).send({mensaje: 'El usuario no tiene concursos asociados'})
         }
