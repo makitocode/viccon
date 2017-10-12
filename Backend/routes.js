@@ -5,6 +5,7 @@ const express = require('express')
 const UsuarioController = require('./Controller/UsuarioController')
 const ConcursoController = require('./Controller/ConcursoController')
 const VideoController = require('./Controller/VideoController')
+const ConfigController = require('./Controller/DeployController')
 //Instancia el objeto router para configurarlo
 const api = express.Router()
 
@@ -57,6 +58,22 @@ api.put('/video/:id', VideoController.ActualizarVideo)
 //Eliminar video
 //api.delete('/video/:id', VideoController.EliminarVideo)
 
+/*************************************** CONFIGURACION ******************************/
+
+//Consultar Configuraciones
+api.get('/config/', ConfigController.ConsultarConfiguraciones)
+//Consultar Configuración por Id
+api.get('/config/:id', ConfigController.ConsultarConfiguracionPorId)
+//Consultar Configuraciones Por Despliegue
+api.get('/config/despliegue/:despliegue', ConfigController.ConsultarConfiguracionesPorDespliegue)
+//Consultar Configuraciones Por Despliegue y Tipo
+api.get('/config/despliegue/:despliegue/tipo/:tipo', ConfigController.ConsultarConfiguracionesPorDespliegueyTipo)
+//Crear configuracion
+api.post('/config', ConfigController.CrearConfiguracion)
+//Actualizar configuración
+api.put('/config/:id', ConfigController.ActualizarConfiguracion)
+//Eliminar configuración
+api.delete('/config/:id', ConfigController.EliminarConfiguracion)
 
 
 module.exports = api
