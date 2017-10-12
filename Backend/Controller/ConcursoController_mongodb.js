@@ -24,7 +24,7 @@ function ObtenerConcursoPorId(objrequest, objresponse){
     var _idConcurso = objrequest.params.id
     Concurso.findById(_idConcurso, (err, _concurso) => {
         if(err){
-            return objresponse.status(500).send({mensaje: `Error generado al consultar el concurso por id ${err}`)
+            return objresponse.status(500).send({mensaje: `Error generado al consultar el concurso por id ${err}`})
         }
         if(!_concurso){
             objresponse.status(404).send({mensaje: 'El concurso no existe'})
@@ -75,11 +75,10 @@ function CrearConcurso(objrequest, objresponse){
                         objresponse.status(400).send({mensaje: 'Error consultando el concurso creado'})
                     }
                     objresponse.status(200).send({concurso: _concurso})
-                })
-            })
-            
+                })    
+            }
         }
-    })
+    )
 }
 /*************************************** UPDATE ******************************/
 //Actualizar Concurso
