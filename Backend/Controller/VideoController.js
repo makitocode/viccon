@@ -75,9 +75,9 @@ function ConsultarVideoPorConcursoyEstado(objrequest, objresponse){
 
 //Obtener video por estado y si está siendo procesado por algún cron
 function ConsultarVideoPorEstadoyEnProcesamiento(objrequest, objresponse){
-    var _idconcurso = objrequest.params.idconcurso
+    var _estado = objrequest.params.estado
     var _estaEnProcesamiento = objrequest.params.procesamiento
-    Video.findAll({where: {idConcurso:_idconcurso, estaEnProcesamiento: _estaEnProcesamiento}}).then((_videos)=>{
+    Video.findAll({where: {estado:_estado, estaEnProcesamiento: _estaEnProcesamiento}}).then((_videos)=>{
         if(!_videos){
             objresponse.status(404).send({mensaje: 'No existen videos'})
         }
