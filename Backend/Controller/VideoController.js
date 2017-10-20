@@ -73,6 +73,24 @@ function ConsultarVideoPorConcursoyEstado(objrequest, objresponse){
     })
 }
 
+//Obtener video por estado y si está siendo procesado por algún cron
+function ConsultarVideoPorEstadoyEnProcesamiento(objrequest, objresponse){
+    var _idconcurso = objrequest.params.idconcurso
+    var _estaEnProcesamiento = objrequest.params.procesamiento
+    Video.findAll({where: {idConcurso:_idconcurso, estaEnProcesamiento: _estaEnProcesamiento}}).then((_videos)=>{
+        if(!_videos){
+            objresponse.status(404).send({mensaje: 'No existen videos'})
+        }
+        else{
+                objresponse.status(200).send({video: _videos})
+        }
+    }).catch((err) => {
+        console.log(`Error generado al consultar el video por concurso y estado: ${err}`)
+        return objresponse.status(500).send({mensaje: 'Error interno del servicio'})
+    })
+}
+
+
 //Obtener video por concurso
 function ConsultarVideoPorConcurso(objrequest, objresponse){
     var _idconcurso = objrequest.params.idconcurso
@@ -169,6 +187,7 @@ module.exports ={
     ConsultarVideos,
     ConsultarVideoPorEstado,
     ConsultarVideoPorConcursoyEstado,
+    ConsultarVideoPorEstadoyEnProcesamiento,
     ConsultarVideoPorConcurso,
     ConsultarVideoPorId,
     CrearVideo,

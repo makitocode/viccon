@@ -31,7 +31,7 @@ const ConcursoSchema = connection.define('Concurso', {
   });
 
 ConcursoSchema.sync({logging: console.log}).then(function(){
-
+    console.log(`Modelo Concurso Actualizado`)
 }).catch((err)=>{
     console.log(`Error sincronizando el modelo Concurso ${err}`)
 })

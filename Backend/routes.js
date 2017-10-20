@@ -51,6 +51,8 @@ api.get('/video/estado/:estado', VideoController.ConsultarVideoPorEstado)
 api.get('/video/concurso/:idconcurso', VideoController.ConsultarVideoPorConcurso)
 //Obtener video por estado por id concurso
 api.get('/video/:idconcurso/:estado', VideoController.ConsultarVideoPorConcursoyEstado)
+//Obtener video por estado y si está siendo procesado por algún cron
+api.get('/video/enprocesamiento/:procesamiento/estado/:estado', VideoController.ConsultarVideoPorEstadoyEnProcesamiento) 
 //Crear video
 api.post('/video', VideoController.CrearVideo)
 //Actualizar video
