@@ -48,7 +48,7 @@ api.get('/video/:id', VideoController.ConsultarVideoPorId)
 //Obtener video por estado
 api.get('/video/estado/:estado', VideoController.ConsultarVideoPorEstado)
 //Consultar videos por id de concurso
-api.get('/video/concurso/:idconcurso', VideoController.ConsultarVideoPorConcurso)
+api.get('/video/concurso/:id', VideoController.ConsultarVideoPorConcurso)
 //Obtener video por estado por id concurso
 api.get('/video/:idconcurso/:estado', VideoController.ConsultarVideoPorConcursoyEstado)
 //Crear video

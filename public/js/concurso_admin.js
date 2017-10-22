@@ -42,7 +42,7 @@ app.config(function($routeProvider){
         redirectTo: '/404'
     });
 });
-//renderizar concurswo por id de persona logueada
+//renderizar concurso por id de persona logueada
 app.controller('ctrlRead', function ($scope, $filter,$http,$routeParams) {
 
 $scope.idUsuario=$routeParams.id;
@@ -57,13 +57,14 @@ $scope.items=[];
     
      $http.get(URI3)
             .then(function(result) {
+                
                 $scope.items = result.data;
                 
                     $scope.gap = 0;
     
     $scope.filteredItems = [];
     $scope.groupedItems = [];
-    $scope.itemsPerPage = 50;
+    $scope.itemsPerPage = 4;
     $scope.pagedItems = [];
     $scope.currentPage = 0;
   var searchMatch = function (haystack, needle) {
@@ -186,21 +187,43 @@ return {
 //crear concurso
  app.controller('concurso', function($scope,$http,$routeParams) {
  $scope.data = {};
- angular.element(document).ready(function () { 
-        enviarImagen();         
-});
 
 $scope.submit= function(){
- if($('#nombre').val().length==0||$('#fechaInicio').val().length==0||$('#fechaFin').val().length==0
+
+    if($('#nombre').val().length==0||$('#fechaInicio').val().length==0||$('#fechaFin').val().length==0
         ||$('#premio').val().length==0||$('imagen').val()==0){
     alert("Todos los campos son requeridos");
- }else{
-document.getElementById('loader').style.visibility = 'visible';         // Show
- 
+        }
+
+ else{
+    var date1= new Date ($scope.data.fechaInicio);
+    var date2= new Date ($scope.data.fechaFin);
+ if(date1<date2){
+//envio imagen a bucket
+  document.getElementById('loader').style.visibility = 'visible';         // Show
+
+  var files = $('#imagen').get(0).files;
+  if (files.length > 0){
+   
+    var formData = new FormData();
+    // loop through all the selected files and add them to the formData object
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      // add the files to formData object for the data payload
+      formData.append('uploads[]', file, file.name);
+    }
+    $.ajax({
+      url: '/crear_concurso',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data){
+             if(data==="success"){
+             
     $http({
         url: '/api/concurso',
         method: 'POST',
-  //
               data: {'userId':$routeParams.id,'nombre':$scope.data.nombre,
             'fechaInicio':$scope.data.fechaInicio,'fechaFin':$scope.data.fechaFin,
             'premio':$scope.data.premio ,'imagen':$('#imagen').get(0).files[0].name
@@ -209,22 +232,38 @@ document.getElementById('loader').style.visibility = 'visible';         // Show
                   document.getElementById('loader').style.visibility = 'hidden';   
        location.href = '#/concurso/'+$routeParams.id; 
   }, function errorCallback(response) {
-
-
           document.getElementById('loader').style.visibility = 'hidden';   
           alert(response.data.mensaje);
-    //document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
-    
-      //           $("#myModal").modal();
-    
   });
-    
- }
- 
+             }else{
+      document.getElementById('loader').style.visibility = 'hidden';         // Show
+    alert("ha ocurrido un problema intente nuevamente");          
+
+             }
+     },
+      xhr: function() {
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.upload.addEventListener('progress', function(evt) {
+        }, false);
+
+        return xhr;
+      }
+    });
+
+  }   
+
+}else{
+                  alert("Favor validar las fechas");
+    }
+
+}
+
    }
  });
 //ver concurso admin
-//para mostrar los videos en el e ng-repeat
+//para mostrar los videos en el  ng-repeat
 app.directive('dynamicUrl', function () {
     return {
         restrict: 'A',
@@ -243,14 +282,12 @@ var URI = '/api/concurso/'+$routeParams.idconcurso;
         $http.get(URI)
             .then(function(result) {
                 $scope.mydata = result.data;
-               
              });
 
 var URI3 = '/api/video/concurso/'+$routeParams.idconcurso;
 
-
 $scope.items=[];
-    // init
+    
     $scope.sort = {       
                 sortingOrder : 'fechaCarga',
                 reverse : false
@@ -258,13 +295,14 @@ $scope.items=[];
     
      $http.get(URI3)
             .then(function(result) {
+                
                 $scope.items = result.data;
                    
                     $scope.gap = 0;
     
     $scope.filteredItems = [];
     $scope.groupedItems = [];
-    $scope.itemsPerPage = 50;
+    $scope.itemsPerPage = 4;
     $scope.pagedItems = [];
     $scope.currentPage = 0;
   var searchMatch = function (haystack, needle) {
@@ -337,14 +375,8 @@ $scope.items=[];
 
     // functions have been describe process the data for display
     $scope.search();
-
-   
-
 });
 ///modal 
-
-
-
  });
  
 app.directive("customSort", function() {
@@ -385,13 +417,9 @@ return {
   }// end link
 }
 });
-//modificart concurso
+//modificar concurso
  app.controller('concursoModificar', function($scope,$http,$routeParams) {
 $scope.data = {};
-
- angular.element(document).ready(function () { 
-        enviarImagen();         
-});
 
 var URI = '/api/concurso/'+$routeParams.idconcurso;
 
@@ -405,16 +433,93 @@ var URI = '/api/concurso/'+$routeParams.idconcurso;
 $scope.submit= function(){
 
     var nombre=$scope.mydata.concurso.imagen;
+
     if($('#imagen').get(0).files.length>0){
       nombre=$('#imagen').get(0).files[0].name;
     }
-    
+
+
     if($('#nombre').val().length==0||$('#fechaInicio').val().length==0||$('#fechaFin').val().length==0
             ||$('#premio').val().length==0||nombre.length==0){
         alert("Todos los campos son requeridos");
     }else{
+         var date1= new Date ($('#fechaInicio').val());
+    var date2= new Date ($('#fechaFin').val());
+    if(date1<date2){
         document.getElementById('loader').style.visibility = 'visible';         // Show
+var files  =$('#imagen').get(0).files;
 
+ if (files.length > 0){
+   
+    var formData = new FormData();
+    // loop through all the selected files and add them to the formData object
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      // add the files to formData object for the data payload
+      formData.append('uploads[]', file, file.name);
+    }
+    $.ajax({
+      url: '/crear_concurso',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data){
+             if(data==="success"){
+              $http({
+        url: '/api/concurso/'+$routeParams.idconcurso,
+        method: 'PUT',
+  
+              data: {'nombre':$('#nombre').val(),
+          'fechaInicio':$('#fechaInicio').val(),'fechaFin':$('#fechaFin').val(),
+          'premio':$('#premio').val(),'imagen':nombre
+          }
+          }).then(function successCallback(response) {
+            document.getElementById('loader').style.visibility = 'hidden';   
+                location.href = '#/concurso/'+$routeParams.id; 
+  }, function errorCallback(response) {
+    document.getElementById('loader').style.visibility = 'hidden';   
+    alert(response.data.mensaje);
+    
+  });
+         
+
+             }else{
+      document.getElementById('loader').style.visibility = 'hidden';         // Show
+    alert("ha ocurrido un problema intente nuevamente");          
+
+             }
+     },
+      xhr: function() {
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.upload.addEventListener('progress', function(evt) {
+        }, false);
+
+        return xhr;
+      }
+    });
+
+  }   else{
+     $http({
+        url: '/api/concurso/'+$routeParams.idconcurso,
+        method: 'PUT',
+  
+              data: {'nombre':$('#nombre').val(),
+          'fechaInicio':$('#fechaInicio').val(),'fechaFin':$('#fechaFin').val(),
+          'premio':$('#premio').val(),'imagen':nombre
+          }
+          }).then(function successCallback(response) {
+            document.getElementById('loader').style.visibility = 'hidden';   
+                location.href = '#/concurso/'+$routeParams.id; 
+  }, function errorCallback(response) {
+    document.getElementById('loader').style.visibility = 'hidden';   
+    alert(response.data.mensaje);
+    
+  });
+  }
+/*
  $http({
         url: '/api/concurso/'+$routeParams.idconcurso,
         method: 'PUT',
@@ -429,15 +534,15 @@ $scope.submit= function(){
   }, function errorCallback(response) {
     document.getElementById('loader').style.visibility = 'hidden';   
     alert(response.data.mensaje);
-    //document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
-    
-      //           $("#myModal").modal();
     
   });
-  
+  */
+    }else{
+
+         alert("Favor validar las fechas");
     }
 
-
+    }
    }
 
 //boton eliminar
@@ -455,20 +560,16 @@ $scope.submit2= function(){
   }, function errorCallback(response) {
      document.getElementById('loader').style.visibility = 'hidden';   
     alert(response.data.mensaje);
-   // document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
-    
-     //            $("#myModal").modal();
-    
+  
   });
 
    }
 
-
-     });
+ });
 
 //ver video publico
 
-//para mostrar los videos en el e ng-repeat
+//para mostrar los videos en el  ng-repeat
 app.directive('dynamicUrl', function () {
     return {
         restrict: 'A',
@@ -484,10 +585,22 @@ app.controller("ConcursoPorIdParaPublico", function($scope, $http,$routeParams,$
         $http.get(URI)
             .then(function(result) {
                 $scope.mydata = result.data;
-               
+               var currentDate = new Date();
+               var inicioConcurso = new Date($scope.mydata.concurso.fechaInicio);
+               var finConcurso = new Date($scope.mydata.concurso.fechaFin);
+               if(currentDate>inicioConcurso&&currentDate<finConcurso){
+                
+                document.getElementById("concursoCerrado").style.visibility = "hidden";
+                document.getElementById("irVideo").style.visibility = "visible";
+               }else {
+                
+                document.getElementById("irVideo").style.visibility = "hidden";
+                document.getElementById("concursoCerrado").style.visibility = "visible";
+               }
+                
              });
 
-            //mostrar videosp rocesados por concurso de aqui
+            //mostrar videos procesados por concurso de aqui
 var URI3 = '/api/video/'+$routeParams.idconcurso+'/Procesado';
 
 $scope.items=[];
@@ -631,23 +744,16 @@ return {
 //envia de aqui
 
  if($('#nombreAutor').val().length==0||$('#apellidosAutor').val().length==0||$('#email').val().length==0
-        ||$('#mensaje').val().length==0||$('#porqueLeGusta').val()==0||$('#imagen').val()==0||
-        $('#fechaFin').val().length==0){
+        ||$('#mensaje').val().length==0||$('#porqueLeGusta').val()==0||$('#imagen').val()==0){
     alert("Todos los campos son requeridos");
  }else{
     document.getElementById('loader').style.visibility = 'visible';         // Show
  
-//$('.upload-btn').on('click', function (){
-   // $('#upload-input').click();
   var files = $('#imagen').get(0).files;
   if (files.length > 0){
-    // create a FormData object which will be sent as the data payload in the
-    // AJAX request
     var formData = new FormData();
-    // loop through all the selected files and add them to the formData object
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
-      // add the files to formData object for the data payload
       formData.append('uploads[]', file, file.name);
     }
     $.ajax({
@@ -658,19 +764,19 @@ return {
       contentType: false,
       success: function(data){
           console.log('upload successful!\n' + data+" "+file.name);
-           //
-           
+          if(data==="success"){
 var splitString = $('#imagen').get(0).files[0].name.split(".");
 var nombreVideo = splitString[0];
 var nombreExtensionVideoOriginal= splitString[1];
- 
+ var currentDate = new Date();
     $http({
         url: '/api/video',
         method: 'POST',
               data: {'idConcurso':$routeParams.idconcurso,'nombreAutor':$scope.data.nombreAutor,
           'apellidosAutor':$scope.data.apellidosAutor,'email':$scope.data.email,
-          'mensaje':$scope.data.mensaje  ,'nombreVideo':nombreVideo,'nombreExtensionVideoOriginal':nombreExtensionVideoOriginal,
-          'fechaCarga':$scope.data.fechaFin,'porqueLeGusta':$scope.data.porqueLeGusta
+          'mensaje':$scope.data.mensaje  ,'nombreVideo':nombreVideo,
+          'nombreExtensionVideoOriginal':nombreExtensionVideoOriginal,
+          'fechaCarga':currentDate,'porqueLeGusta':$scope.data.porqueLeGusta
           }
   }).then(function successCallback(response) {
     document.getElementById('loader').style.visibility = 'hidden';         // Show
@@ -679,17 +785,18 @@ var nombreExtensionVideoOriginal= splitString[1];
   }, function errorCallback(response) {
     document.getElementById('loader').style.visibility = 'hidden';         // Show
     alert(response.data.mensaje);
-    //document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;
-    
-      //           $("#myModal").modal();
     
   });
-           //
+  
+}else{
+document.getElementById('loader').style.visibility = 'hidden';         // Show
+    alert("ha ocurrido un problema intente nuevamente");
+}
      },
       xhr: function() {
-        // create an XMLHttpRequest
+
         var xhr = new XMLHttpRequest();
-        // listen to the 'progress' event
+
         xhr.upload.addEventListener('progress', function(evt) {
         }, false);
 
@@ -699,8 +806,6 @@ var nombreExtensionVideoOriginal= splitString[1];
 
   }  
 }
-
-
 //envia hasta aqui  
   }
  });
@@ -711,40 +816,43 @@ app.controller('exitoController', function($scope,$http,$routeParams) {
     
 
 });  
-//video_detalle_reproducirs
+//video_detalle_reproducir
 app.controller('videoController', function($scope,$http,$routeParams) {
+
     $scope.idconcurso=$routeParams.idconcurso;
     $scope.idvideo=$routeParams.idvideo;
     $scope.estado=$routeParams.estado;
-    
-//traer ruta por concurso
-
 $scope.mydata = [];
 $scope.item = [];
 var URI = '/api/concurso/'+$routeParams.idconcurso;
         $http.get(URI)
             .then(function(result) {
                 $scope.mydata = result.data;
-
              });
 //traer video
-var URI2='/api/video/'+$routeParams.idvideo;
+    var URI2='/api/video/'+$routeParams.idvideo;
         $http.get(URI2)
             .then(function(result) {
-                $scope.item = result.data;
-                
-             });
-
-
-if($routeParams.estado==='ed'){//video convertido
-    document.getElementById('contenedor_original1').style.display = 'none';   
-    document.getElementById('contenedor_original2').style.visibility = 'visible';   
-}else{
-    document.getElementById('contenedor_original1').style.visibility = 'visible';   
-    document.getElementById('contenedor_original2').style.display = 'none';   
-}
-
+               $scope.item = result.data;
+            var video="";
+var rutaBucket="http://d22xnaumubkj85.cloudfront.net/media/";
+            if($scope.estado==="ed"){//editado
+video=rutaBucket+"conversion/"+$scope.item.video.nombreVideoConvertido;
+            }else{//original
+video=rutaBucket+"original/"+$scope.item.video.nombreVideo+"."+$scope.item.video.nombreExtensionVideoOriginal;
+            }
+            
+    jwplayer("myElement").setup({
+    "file": video,
+    "hlslabels": {
+        "331": "Lowest",
+        "688": "Low",
+        "1427": "Medium",
+        "2962": "High"
+    }
+    
+  });
+         });
 
 });    
-//
 

@@ -4,28 +4,31 @@ var mailerS =require('./sender_email.js');//enviar correo
 var request = require("request");//peticion
 var querystring = require('querystring');
 var constants = require("../config.js");
-
-
+var AWS = require('aws-sdk');
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
-	console.log("id video"+idVideo);
 var respuesta="_";
 try {
+AWS.config.loadFromPath('../bucket/config.json');
+var s3Bucket = new AWS.S3()    
+var params = {Key: "media/original/"+inputVideo, Bucket: constants.nombreBucket};
+var input = s3Bucket.getObject(params);
 
-if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension)) {//elimina video igual existente
+var file = require('fs').createWriteStream(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
+s3Bucket.getObject(params).createReadStream().pipe(file);
+/*if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension)) {//elimina video igual existente
     fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
-}
-
-	console.log(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
+}*/
+console.log(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
 	var process = new ffmpeg(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
 	process.then(function (video) {
 		video
 		.setVideoFormat('mp4')
 			.save(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension, function (error, file) {
 			if (!error){
-				imagenThumblr(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
+				/*imagenThumblr(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
 				constants.rutaMultimediaCron+constants.nombreCarpetaThumb,outputVideo,function (respuestaThumbs) {
 				});
-				
+				*/
 				var form = {
 				    estado: 'Procesado',
 				    rutaImagenVideo:outputVideo+"_1.jpg",
@@ -83,7 +86,7 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida
 	
 }
 }
-
+/*
 function imagenThumblr(videoSalida, rutaThumbls, nombreArchivo,callback){
 try {
 	var process = new ffmpeg(videoSalida);
@@ -107,7 +110,7 @@ try {
 	
 }
 
-}
+}*/
 module.exports.name="Group4Converter";
 module.exports.converter=converter;
 

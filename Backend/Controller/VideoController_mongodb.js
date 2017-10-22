@@ -69,15 +69,18 @@ function ConsultarVideoPorConcursoyEstado(objrequest, objresponse){
 
 //Obtener video por concurso
 function ConsultarVideoPorConcurso(objrequest, objresponse){
-    var _idconcurso = objrequest.params.idconcurso
-    Video.find({idConcurso:_idconcurso}, (err, _videos) => {
+    
+    var _idconcurso = objrequest.params.id
+    Video.find({idConcurso:_idconcurso}, (err, _video) => {
         if(err){
             return objresponse.status(500).send({mensaje: 'Error al realizar la consulta'})
         }
-        if(_videos.length > 0){
-            objresponse.status(200).send({video: _videos})
+        if(!_video){
+        objresponse.status(404).send({mensaje: 'El concurso no tiene videos asociados.'})    
         }
-        objresponse.status(404).send({mensaje: 'El concurso no tiene videos asociados.'})
+          objresponse.status(200).send({video: _video})
+        
+        
     })
 }
 /*************************************** POST ******************************/
@@ -156,28 +159,6 @@ module.exports ={
     ActualizarVideo
     //EliminarVideo
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

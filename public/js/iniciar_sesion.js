@@ -6,14 +6,14 @@ $scope.submit= function(){
    
 document.getElementById('loader').style.visibility = 'visible';         // Show
     $http({
-        url: 'http://localhost:2017/api/usuario/'+$scope.data.email,
+        url: '/api/usuario/'+$scope.data.email,
         method: 'POST',
         data: {'clave':$scope.data.clave}
      }).then(function successCallback(response) {
-      console.log(response.data.usuario.id);
+      console.log("hola "+response.data.usuario[0]._id);
                document.getElementById('loader').style.visibility = 'hidden';           // Hide
-      location.href = '/pages/concurso_admin.html#/concurso/'+response.data.usuario.id; 
-      // location.href = 'concurso_admin.html'; 
+      location.href = '/pages/concurso_admin.html#/concurso/'+response.data.usuario[0]._id; 
+  
   }, function errorCallback(response) {
         document.getElementById('loader').style.visibility = 'hidden';           // Hide
     document.getElementById("mensaje_crear_concurso").innerHTML = response.data.mensaje;

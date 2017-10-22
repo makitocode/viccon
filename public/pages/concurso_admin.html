@@ -4,14 +4,13 @@
 <title>VICCON - Lista de concursos</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<link href="http://vjs.zencdn.net/6.2.8/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+<script src="https://content.jwplatform.com/libraries/51Br9TJt.js"></script>
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script src="../bower_components/angular/angular.js"></script>
 <script src="../bower_components/angular-route/angular-route.js"></script>
-<script type="text/javascript" src="https://content.jwplatform.com/libraries/FuHWnxXT.js" ></script>
-
-
 
 <style>
 img {
@@ -58,15 +57,15 @@ visibility: hidden;
   background: url('../images/Gear.gif') 50% 50% no-repeat rgba(249, 249, 249, 0.5); 
 }
 
-.contenedor_original1,contenedor_original2 {
-visibility: hidden;
-  
-}
 </style>
 
 </head>
-<body id="top" ng-view>
 
+<body id="top" >
+
+<div ng-view id="contenedorPrincipal"></div>
+
+  
     <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -93,13 +92,12 @@ visibility: hidden;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
-<script src="../js/enviar_imagen_concurso.js"></script>
 <script src="../js/concurso_admin.js"></script>
+<script src="http://vjs.zencdn.net/6.2.8/video.js"></script>
 </body>
 </html>

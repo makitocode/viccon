@@ -1,4 +1,4 @@
-<div class="bgded overlay" style="background-image:url('{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaThumb+mydata.concurso.imagen}}');"> 
+<div class="bgded overlay" style="background-image:url('http://d22xnaumubkj85.cloudfront.net/media/thumb/{{mydata.concurso.imagen}}');"> 
 
 
   <div class="wrapper row1">
@@ -10,10 +10,7 @@
     </header>
   </div>
 
-  <div class="wrapper row2">
-   
-  </div>
-  
+
 </div>
 
 <div class="wrapper row3">
@@ -24,9 +21,9 @@
 
       <p> Estas concursando por <b>{{ mydata.concurso.premio }}</b> </p>
 
-      <p><b>Fecha de inicio del concurso: </b><b>{{ mydata.concurso.fechaInicio|  date:'dd/MM/yyyy' }}</b> </p>
-     <p><b>Fecha de finalización del concurso: </b><b>{{ mydata.concurso.fechaFin |  date:'dd/MM/yyyy'}}</b> </p>
-     <p><b>URL pública del concurso: </b><a target="_blank"  href="#/concurso/publico/{{mydata.concurso.id}}">Clic aqui para ver url</a> </p>
+      <p><b>Fecha de inicio del concurso: </b><b>{{ mydata.concurso.fechaInicio|  date:'dd/MM/yyyy' : 'UTC'}}</b> </p>
+     <p><b>Fecha de finalización del concurso: </b><b>{{ mydata.concurso.fechaFin |  date:'dd/MM/yyyy' : 'UTC'}}</b> </p>
+     <p><b>URL pública del concurso: </b><a target="_blank"  href="#/concurso/publico/{{mydata.concurso._id}}">Clic aqui para ver url</a> </p>
 
  <div >
            
@@ -70,22 +67,16 @@
                     <tr ng-repeat="item in pagedItems[currentPage] | orderBy:'-fechaCarga' ">
 
                         <td >
-                          <video id="example_video_1" class="video-js vjs-default-skin"
-  controls preload="auto" width="200" height="240">
- <source src="" dynamic-url dynamic-url-src="{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaOriginal+item.nombreVideo+'.'+item.nombreExtensionVideoOriginal}}" type="video/{{item.nombreExtensionVideoOriginal}}">
-</video>
-Video de extensión {{item.nombreExtensionVideoOriginal}}
+                         <a href="#/ver/video/{{mydata.concurso._id}}/{{item._id}}/or">ver video original de extensión {{ item.nombreExtensionVideoOriginal }}</a>
 
             </td>
                          <td  >{{ item.estado }}  </td>
 
                          <td>
-      <video width="200" height="240" controls>
-     <source src="" dynamic-url dynamic-url-src="{{mydata.concurso.rutaMultimedia+mydata.concurso.nombreCarpetaConvertida+item.nombreVideoConvertido}}" type="video/mp4">
- </video>
-
+      
+<a href="#/ver/video/{{mydata.concurso._id}}/{{item._id}}/ed">ver video convertido</a>
             </td>
-            <td  >{{ item.fechaCarga }} </td>
+            <td  >{{ item.fechaCarga |  date:'dd/MM/yyyy' : 'UTC'}} </td>
             <td  >{{ item.email }} </td>
             <td  >{{ item.nombreAutor +" "+item.apellidosAutor}} </td>
                     </tr>

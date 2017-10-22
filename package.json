@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "angular-local-storage": "^0.7.1",
-    "aws-sdk": "^2.122.0",
+   "aws-sdk": "2.x",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "cron": "^1.2.1",

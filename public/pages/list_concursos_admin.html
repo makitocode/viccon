@@ -15,10 +15,6 @@
     </header>
   </div>
  
-  <div class="wrapper row2">
-  
-
-  </div>
  
 </div>
 
@@ -75,16 +71,18 @@
                       <td>{{item.nombre}}</td>
                        <td data-title="'Imagen'" >
                         
-              <img src="{{item.rutaMultimedia+item.nombreCarpetaThumb+item.imagen}}" style="width:200px"  >
+              <!--<img src="{{item.rutaMultimedia+item.nombreCarpetaThumb+item.imagen}}" style="width:200px"  >-->
+              <img src="http://d22xnaumubkj85.cloudfront.net/media/thumb/{{item.imagen}}" style="width:200px"  >
+              
             </td>
-            <td data-title="'Inicio'">{{ item.fechaInicio |  date:'dd/MM/yyyy' }}</td>
-            <td data-title="'Fin'">{{ item.fechaFin |  date:'dd/MM/yyyy' }}</td>
+            <td data-title="'Inicio'">{{ item.fechaInicio |  date:'dd/MM/yyyy' : 'UTC' }}</td>
+            <td data-title="'Fin'">{{ item.fechaFin |  date:'dd/MM/yyyy' : 'UTC'}}</td>
             <td data-title="'Premio'">{{ item.premio }}</td>
             <td data-title="'Enlace'">
 
-            <a href="#/ver/concurso/{{item.id}}"> Ver</a>
+            <a href="#/ver/concurso/{{item._id}}"> Ver</a>
             </td>
-            <td> <a href="#/modificar/concurso/{{item.id}}/{{idUsuario}}">Modificar</a></td>
+            <td> <a href="#/modificar/concurso/{{item._id}}/{{idUsuario}}">Modificar</a></td>
             
 
                     </tr>

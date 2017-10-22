@@ -12,7 +12,7 @@ $scope.submit= function(){
     
 document.getElementById('loader').style.visibility = 'visible';         // Show
     $http({
-        url: 'http://localhost:2017/api/usuario',
+        url: '/api/usuario',
         method: 'POST',
         
         data: $scope.data

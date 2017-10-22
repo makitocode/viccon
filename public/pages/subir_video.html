@@ -29,7 +29,7 @@
             <label for="name">Nombre <span>*</span></label>
             <input type="text" name="nombreAutor" id="nombreAutor" value="" size="22"  ng-model="data.nombreAutor" required>
           </div>
-          <div class="one_third first">
+          <div class="one_third ">
             <label for="name">Apellido <span>*</span></label>
             <input type="text" name="apellidosAutor" id="apellidosAutor" value="" size="22"  ng-model="data.apellidosAutor" required>
           </div>
@@ -38,11 +38,11 @@
             <label for="email">Correo<span>*</span></label>
             <input type="email" name="email" id="email" value="" size="22"   ng-model="data.email" required>
           </div>
-           <div class="one_third">
+          <!-- <div class="one_third">
             <label for="fechaFin">Fecha subida de video<span>*</span></label>
           <input type="date" name="fechaFin" id="fechaFin" value="" size="22"   ng-model="data.fechaFin" required>
           </div>
-          
+          -->
           <div class="one_third">
             <label for="descripcion">Mensaje asociado al video<span>*</span></label>
             <textarea name="mensaje" id="mensaje" rows="3" cols="50"   ng-model="data.mensaje" required>
@@ -56,7 +56,7 @@
           <div class="one_third">
             <label for="banner">Seleccione su video para concursar<span>*</span></label>
 
-            <input id="imagen"  type="file" name="uploads[]" multiple="multiple" required ></br>
+            <input id="imagen"  type="file" name="uploads[]" accept='video/*' required ></br>
           </div>
           <div class="block clear"></div>
           
