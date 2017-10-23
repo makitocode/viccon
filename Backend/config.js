@@ -13,8 +13,9 @@ module.exports = {
     nombreCarpetaThumb: 'thumb/',
     extension:'.mp4',
     pathREST:'http://localhost:2017/api/',
+    pathAPPjs:'http://localhost:2017',
     nombreBucket:'s3.viccon.bucket1',
-    rutaMultimediaCron: 'C:/Users/Taidy/viccon_mongo_sqs/public/media/',
-    QueueUrl: 'https://sqs.us-west-1.amazonaws.com/911317221798/QueueTest',
+    rutaMultimediaCron: '/Users/makito/OneDrive/Code/MISO/DSolucionesCloud/Project/viccon/public/media/',
+    QueueUrl: 'https://sqs.us-west-1.amazonaws.com/684030565353/QueueTest',
     QueueTiempoProcesamiento: '40' //40 segundos
 }

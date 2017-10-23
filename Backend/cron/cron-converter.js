@@ -8,7 +8,7 @@ var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
 //var task =cron.schedule('0 0 */1 * * *', function(){//se ejecuta cada 2  horas  
 console.log("inicia llamado cron");
 //var url=constants.pathREST+"video/estado/SinProcesar";
-var url = "/consultarmensaje";
+var url = constants.pathAPPjs + "/consultarmensaje";
 console.log(`Url de consulta de msjs en cola: ${url}`);
 
 request.get({
@@ -18,18 +18,23 @@ request.get({
   }, (err, res, data) => {
     if (err) {
       console.log('ErrorGet:', err);
-    } else if (res.statusCode !== 200) {
+    } 
+    else if (res.statusCode !== 200) {
       console.log('Error parsing JSONGET!');
-    } else {
+    } 
+    else {
       //se obtiene el id del video 
       var _idVideo = data.idVideo; 
-      console.log("id video "+_idVideo);
-      //Se obtiene el id del mensaje 
-      var _idMensajeCola = data.idmensaje;
+      console.log("id video "+ _idVideo);
       
+      console.log(`imprime prop objeto data: ${Object.keys(data)}`);
+      //Se obtiene el id del mensaje 
+      var _idMensajeCola = data.idmensaje.toString();
+      console.log("id mensaje "+ _idMensajeCola);
+
       //Se llama el api rest para obtener los datos del video
       ConsultaVideo(_idVideo,function (respuestaConsulta) {           
-        console.log("respuesta "+respuestaConsulta.nombreVideo);
+        console.log("respuesta "+ respuestaConsulta.nombreVideo);
         
         //EL CONVERSOR SE LLAMA DESPUES
         //lo que responda el sevicio
@@ -62,7 +67,7 @@ request.get({
 
 function ConsultaVideo(video,callback){
   var retorno="_";
-  var url=constants.pathREST+"/video/"+video._id;
+  var url=constants.pathREST+"video/"+video;
   request.get({
                 url: url,
                 json: true,
@@ -71,6 +76,7 @@ function ConsultaVideo(video,callback){
     if (err) {
     console.log('ErrorGet:', err);
     } else if (res.statusCode !== 200) {
+        console.log(`Codigo http error: ${res.statusCode}`)
         console.log('Error parsing JSONGET!');
     } else {//traigo el video con el id
         //lo que vas a hacer
