@@ -30,7 +30,10 @@ request.get({
       //Se llama el api rest para obtener los datos del video
       ConsultaVideo(_idVideo,function (respuestaConsulta) {           
         console.log("respuesta "+respuestaConsulta.nombreVideo);
+        
+        //EL CONVERSOR SE LLAMA DESPUES
         //lo que responda el sevicio
+
         //llamo el converter.js y le envio los parametros de video original, video convertido, correo y _id
         //* * * * respuestaConsultagetvideo
   /*      var p = converterVideo.converter;

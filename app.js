@@ -132,8 +132,11 @@ app.post('/subir_video', function(req, res){
   form.parse(req);
 });
 
+
 //Envia mensaje a la cola
-app.get('/crearmensaje/:idvideo', sqs.SQSEnviarMensaje);
+app.get('/crearmensaje/:idvideo', sqs.SQSCrearMensaje);
+
+
 //Obtiene mensaje de la cola
 app.get('/consultarmensaje', sqs.SQSConsultarMensaje);
 //Elimina mensaje de la cola

@@ -3,7 +3,7 @@
 
 const aws      = require('aws-sdk');
 //Se obtiene la url desde una variable de entorno en el config.js
-var amznConf = require('./Backend/config')
+var amznConf = require('../config.js')
 const queueUrl = amznConf.QueueUrl;
 
 // Instantiate SQS.
@@ -12,7 +12,7 @@ const sqs = new aws.SQS();
 //Método que realiza el envío de mensaje a la cola
 function SQSCrearMensaje(objrequest, objresponse){
     //Carga las credenciales e inicializa el objeto.
-    aws.config.loadFromPath('../SQS/config.json');
+    aws.config.loadFromPath('./Backend/SQS/config.json');
     //Se obtiene de los parámetros el id del video
     var _idVideo = objrequest.params.idvideo
     var params = {
@@ -48,7 +48,7 @@ function SQSCrearMensaje(objrequest, objresponse){
 ///Método que realiza la consulta del mensaje disponible en cola
 function SQSConsultarMensaje(objrequest, objresponse){
     //Carga las credenciales e inicializa el objeto.
-    aws.config.loadFromPath('../SQS/config.json');
+        aws.config.loadFromPath('./Backend/SQS/config.json');
     //Obtiene la variable del config
     var visibilityTimeOut = parseInt(amznConf.QueueTiempoProcesamiento);
     var params = {
@@ -87,7 +87,7 @@ function SQSConsultarMensaje(objrequest, objresponse){
 ///Método que realiza la eliminación del mensaje de la cola por id
 function SQSEliminarMensaje(objrequest, objresponse){
     //Carga las credenciales e inicializa el objeto.
-    aws.config.loadFromPath('../SQS/config.json');
+        aws.config.loadFromPath('./Backend/SQS/config.json');
     //Se obtiene de los parámetros el id del video
     var _idMensaje = objrequest.params.idmensaje
     var params = {
