@@ -140,7 +140,7 @@ app.get('/crearmensaje/:idvideo', sqs.SQSCrearMensaje);
 //Obtiene mensaje de la cola
 app.get('/consultarmensaje', sqs.SQSConsultarMensaje);
 //Elimina mensaje de la cola
-app.get('/eliminarmensaje/:idmensaje', sqs.SQSEliminarMensaje);
+app.post('/eliminarmensaje/', sqs.SQSEliminarMensaje);
 
 
 

@@ -94,7 +94,8 @@ function SQSEliminarMensaje(objrequest, objresponse){
     // Instantiate SQS.
     const sqs = new aws.SQS();
     //Se obtiene de los parámetros el id del video
-    var _idMensaje = objrequest.params.idmensaje
+    var _idMensaje = objrequest.body.idmensaje;
+    console.log(`id mensaje: ${_idMensaje}`);
     var params = {
         QueueUrl: queueUrl,
         ReceiptHandle: _idMensaje
@@ -102,9 +103,11 @@ function SQSEliminarMensaje(objrequest, objresponse){
     //Elimina mensaje de la cola
     sqs.deleteMessage(params, function(err, data) {
         if(err) {
+            console.log(`Error eliminando mensaje de la cola: ${err}`)
             objresponse.end('Error');
         } 
         else {
+            console.log(`Eliminación correcta del mensaje: ${_idMensaje}`)
             objresponse.end('success');
         } 
     });
