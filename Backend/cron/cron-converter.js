@@ -9,6 +9,7 @@ var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
 console.log("inicia llamado cron");
 var url=constants.pathREST+"video/estado/SinProcesar";
 console.log(url);
+
 request.get({
     url: url,
     json: true,

@@ -780,11 +780,12 @@ return {
                         'fechaCarga':currentDate,'porqueLeGusta':$scope.data.porqueLeGusta
                         }
                 }).then(function successCallback(response) {
-                    document.getElementById('loader').style.visibility = 'hidden';         // Show
-                    location.href =  '#/exito/'+$routeParams.idconcurso;
                     //SQS
                     console.log(`Video creado exitosamente, id video: ${response.data.video._id}`)
                     CrearMensajeCola(response.data.video._id);
+
+                    document.getElementById('loader').style.visibility = 'hidden';         // Show
+                    location.href =  '#/exito/'+$routeParams.idconcurso;
                     }, 
                     function errorCallback(response) {
                     document.getElementById('loader').style.visibility = 'hidden';         // Show
