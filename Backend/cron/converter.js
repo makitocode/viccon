@@ -1,4 +1,4 @@
-var ffmpeg = require('ffmpeg');//video
+var ffmpeg = require('fluent-ffmpeg');
 var fs = require('fs');//eliminar existente
 var mailerS =require('./sender_email.js');//enviar correo
 var request = require("request");//peticion
@@ -15,21 +15,25 @@ var input = s3Bucket.getObject(params);
 
 var file = require('fs').createWriteStream(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
 s3Bucket.getObject(params).createReadStream().pipe(file);
-/*if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension)) {//elimina video igual existente
-    fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
-}*/
-console.log(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
-	var process = new ffmpeg(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
-	process.then(function (video) {
-		video
-		.setVideoFormat('mp4')
-			.save(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension, function (error, file) {
-			if (!error){
-				/*imagenThumblr(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension,
-				constants.rutaMultimediaCron+constants.nombreCarpetaThumb,outputVideo,function (respuestaThumbs) {
-				});
-				*/
-				var form = {
+
+setTimeout(function() {
+if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo)) {//elimina video igual existente
+
+    var proc = ffmpeg(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo)
+  .videoCodec('libx264')
+  .audioCodec('libmp3lame')
+ 
+  .on('start', function() { })
+  .on('error', function(err) {
+    console.log('An error occurred: ' + err.message);
+  })
+  .on('end', function() {
+  
+
+//actuazlia la bd
+  var currentDate3 = new Date();
+  console.log("Fecha procesado "+currentDate3.toString());
+	var form = {
 				    estado: 'Procesado',
 				    rutaImagenVideo:outputVideo+"_1.jpg",
 				    nombreVideoConvertido:outputVideo+".mp4"
@@ -53,32 +57,61 @@ console.log(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVi
 								
     				  			var jsonObj = JSON.parse(body);
 								if(jsonObj.mensaje=='Video actualizado correctamente'){
+
 							    //llamo la funcion de envio de correo funciona
-									var pa=mailerS.sender;
+								/*	var pa=mailerS.sender;
 									pa(correo, function (respuestaCorreo) {
 										if(respuestaCorreo=='ok'){
 												respuesta="200";
 												return  callback(respuesta);	
 										}
 										
-									});
+									});*/
 
 								}
 					}
 			});
-								
-			}else{
 
-				respuesta="400";
-				return  callback(respuesta);
-				
-			}
-		});
-	}, function (err) {
-		respuesta="401";
-		return  callback(respuesta);
-	
-	});
+//envia el video convertido al bucket
+
+var fileBuffer = fs.readFileSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
+ AWS.config.loadFromPath('../bucket/config.json');
+var s3Bucket = new AWS.S3()    
+var data = {Key: "media/conversion/"+outputVideo+constants.extension, Body: fileBuffer, Bucket: constants.nombreBucket, ACL: 'public-read'};
+s3Bucket.putObject(data, function(err, data){
+  if (err) 
+    { 
+     // res.end('error');
+      console.log('Error uploading data: ', data+" "+err); 
+    } else {
+   //   res.end('success');
+      console.log('succesfully uploaded the video converted!');
+      //vuando el bucket responde borro el video original,convertido 
+        fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
+        fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
+        return  callback("200");  
+      //llamo la cola de Mguel y borro el mensaje
+
+
+    }
+});
+
+
+
+
+
+  })
+  .save(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
+  
+
+
+
+}else{
+	console.log("todavia no esta el video");
+}    
+}, 1000);
+
+
 } catch (e) {
 	console.log(e);
 	respuesta="404";
@@ -86,31 +119,7 @@ console.log(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVi
 	
 }
 }
-/*
-function imagenThumblr(videoSalida, rutaThumbls, nombreArchivo,callback){
-try {
-	var process = new ffmpeg(videoSalida);
-	process.then(function (video) {
-		// Callback mode
-		video.fnExtractFrameToJPG(rutaThumbls, {
-			frame_rate : 1,
-			number : 1,
-			file_name : nombreArchivo
-		}, function (error, files) {
-			if (!error){
-				return callback(files[1]);
-			}
-				
-		});
-	}, function (err) {
-		return callback('');
-		console.log('Error: ' + err);
-	});
-} catch (e) {
-	
-}
 
-}*/
 module.exports.name="Group4Converter";
 module.exports.converter=converter;
 
