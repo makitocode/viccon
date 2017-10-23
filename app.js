@@ -6,6 +6,10 @@ var path = require('path');
 var formidable = require('formidable');
 var AWS = require('aws-sdk');
 //para files de concurso y video hasta aqui
+
+//Se obtienen los métodos de los servicios de AMAZON
+const sqs = require('./Backend/Controller/AmznServices')
+
 //Permite el tratamiento de respuesta y mapeo de los body en las peticiones HTTP
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -105,27 +109,39 @@ s3Bucket.putObject(data, function(err, data){
 });
 
 app.post('/subir_video', function(req, res){
-// create an incoming form object
+  // create an incoming form object
   var form = new formidable.IncomingForm();
   form.on('file', function(field, file) {
-   var fileBuffer = fs.readFileSync(file.path);
- AWS.config.loadFromPath('./Backend/bucket/config.json');
-var s3Bucket = new AWS.S3()    
-var data = {Key: "media/original/"+file.name, Body: fileBuffer, Bucket: constants.nombreBucket, ACL: 'public-read'};
-s3Bucket.putObject(data, function(err, data){
-  if (err) 
-    { 
-      res.end('error');
-      console.log('Error uploading data: ', data+" "+err); 
-    } else {
-      res.end('success');
-      console.log('succesfully uploaded the video!');
-    }
-});
-  });
+      var fileBuffer = fs.readFileSync(file.path);
+      AWS.config.loadFromPath('./Backend/bucket/config.json');
+      var s3Bucket = new AWS.S3()    
+      var data = {Key: "media/original/"+file.name, Body: fileBuffer, Bucket: constants.nombreBucket, ACL: 'public-read'};
+      s3Bucket.putObject(data, function(err, data){
+          if (err) { 
+            res.end('error');
+            console.log('Error uploading data: ', data+" "+err); 
+          }
+          else{
+            res.end('success');
+            console.log('succesfully uploaded the video!');
 
+          }
+        }
+      );
+  });
   form.parse(req);
 });
+
+//Envia mensaje a la cola
+app.get('/crearmensaje/:idvideo', sqs.SQSEnviarMensaje);
+//Obtiene mensaje de la cola
+app.get('/consultarmensaje', sqs.SQSConsultarMensaje);
+//Elimina mensaje de la cola
+app.get('/eliminarmensaje/:idmensaje', sqs.SQSEliminarMensaje);
+
+
+
+
 
 //Exportar Modulos
 module.exports = app

@@ -14,5 +14,7 @@ module.exports = {
     extension:'.mp4',
     pathREST:'http://localhost:2017/api/',
     nombreBucket:'s3.viccon.bucket1',
-    rutaMultimediaCron: 'C:/Users/Taidy/viccon-mongo_despliegue_d_local_bucket/public/media/'
+    rutaMultimediaCron: 'C:/Users/Taidy/viccon-mongo_despliegue_d_local_bucket/public/media/',
+    QueueUrl: '',
+    QueueTiempoProcesamiento: '40' //40 segundos
 }

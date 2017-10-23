@@ -764,46 +764,41 @@ return {
       contentType: false,
       success: function(data){
           console.log('upload successful!\n' + data+" "+file.name);
-          if(data==="success"){
-var splitString = $('#imagen').get(0).files[0].name.split(".");
-var nombreVideo = splitString[0];
-var nombreExtensionVideoOriginal= splitString[1];
- var currentDate = new Date();
-    $http({
-        url: '/api/video',
-        method: 'POST',
-              data: {'idConcurso':$routeParams.idconcurso,'nombreAutor':$scope.data.nombreAutor,
-          'apellidosAutor':$scope.data.apellidosAutor,'email':$scope.data.email,
-          'mensaje':$scope.data.mensaje  ,'nombreVideo':nombreVideo,
-          'nombreExtensionVideoOriginal':nombreExtensionVideoOriginal,
-          'fechaCarga':currentDate,'porqueLeGusta':$scope.data.porqueLeGusta
-          }
-  }).then(function successCallback(response) {
-    document.getElementById('loader').style.visibility = 'hidden';         // Show
-       location.href =  '#/exito/'+$routeParams.idconcurso;
-     
-  }, function errorCallback(response) {
-    document.getElementById('loader').style.visibility = 'hidden';         // Show
-    alert(response.data.mensaje);
-    
-  });
-  
-}else{
-document.getElementById('loader').style.visibility = 'hidden';         // Show
-    alert("ha ocurrido un problema intente nuevamente");
-}
-     },
-      xhr: function() {
-
+            if(data==="success"){
+                var splitString = $('#imagen').get(0).files[0].name.split(".");
+                var nombreVideo = splitString[0];
+                var nombreExtensionVideoOriginal= splitString[1];
+                var currentDate = new Date();
+                $http({
+                    url: '/api/video',
+                    method: 'POST',
+                    data: {'idConcurso':$routeParams.idconcurso,'nombreAutor':$scope.data.nombreAutor,
+                        'apellidosAutor':$scope.data.apellidosAutor,'email':$scope.data.email,
+                        'mensaje':$scope.data.mensaje  ,'nombreVideo':nombreVideo,
+                        'nombreExtensionVideoOriginal':nombreExtensionVideoOriginal,
+                        'fechaCarga':currentDate,'porqueLeGusta':$scope.data.porqueLeGusta
+                        }
+                }).then(function successCallback(response) {
+                    document.getElementById('loader').style.visibility = 'hidden';         // Show
+                    location.href =  '#/exito/'+$routeParams.idconcurso;
+                    }, 
+                    function errorCallback(response) {
+                    document.getElementById('loader').style.visibility = 'hidden';         // Show
+                    alert(response.data.mensaje);
+                    }
+                );
+            }
+            else{
+                    document.getElementById('loader').style.visibility = 'hidden';         // Show
+                    alert("ha ocurrido un problema intente nuevamente");
+            }
+      },
+      xhr: function(){
         var xhr = new XMLHttpRequest();
-
-        xhr.upload.addEventListener('progress', function(evt) {
-        }, false);
-
+        xhr.upload.addEventListener('progress', function(evt) { }, false);
         return xhr;
       }
     });
-
   }  
 }
 //envia hasta aqui  
