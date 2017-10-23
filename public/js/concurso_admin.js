@@ -756,6 +756,7 @@ return {
       var file = files[i];
       formData.append('uploads[]', file, file.name);
     }
+
     $.ajax({
       url: '/subir_video',
       type: 'POST',
@@ -781,6 +782,9 @@ return {
                 }).then(function successCallback(response) {
                     document.getElementById('loader').style.visibility = 'hidden';         // Show
                     location.href =  '#/exito/'+$routeParams.idconcurso;
+                    //SQS
+                    console.log(`Video creado exitosamente, id video: ${response.data.video._id}`)
+                    CrearMensajeCola(response.data.video._id);
                     }, 
                     function errorCallback(response) {
                     document.getElementById('loader').style.visibility = 'hidden';         // Show
@@ -799,11 +803,13 @@ return {
         return xhr;
       }
     });
+
   }  
 }
 //envia hasta aqui  
   }
  });
+
 
 
 app.controller('exitoController', function($scope,$http,$routeParams) {
@@ -849,5 +855,30 @@ video=rutaBucket+"original/"+$scope.item.video.nombreVideo+"."+$scope.item.video
   });
          });
 
-});    
+});
 
+function CrearMensajeCola(idVideo) {
+    var urlmetodo = "/crearmensaje/"+idVideo;
+    console.log(`url de creación de mensaje para la cola: ${urlmetodo}`)
+    //realiza el llamado al método de creación de mensaje
+    $.ajax({
+        type: "GET",
+        url: urlmetodo,
+        contentType: "aplication/json; charset-utf-8",
+        success: function (data) {
+            if(data==="success"){
+                console.log('Creación exitosa del mensaje.')
+                return true;
+            }
+            else{
+                console.log('Error al crear el mensaje.')
+                return false;
+            }
+        },
+        failure: function (errMsg) {
+            console.log('Error al crear el mensaje.')
+            return false;
+        }
+    });
+    return false;
+}
