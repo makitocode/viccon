@@ -867,7 +867,7 @@ function CrearMensajeCola(idVideo) {
         url: urlmetodo,
         contentType: "aplication/json; charset-utf-8",
         success: function (data) {
-            if(data==="success"){
+            if(data == "success"){
                 console.log('Creación exitosa del mensaje.')
                 return true;
             }

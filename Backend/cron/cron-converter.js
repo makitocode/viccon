@@ -7,8 +7,9 @@ var constants = require("../config.js");
 var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
 //var task =cron.schedule('0 0 */1 * * *', function(){//se ejecuta cada 2  horas	
 console.log("inicia llamado cron");
-var url=constants.pathREST+"video/estado/SinProcesar";
-console.log(url);
+//var url=constants.pathREST+"video/estado/SinProcesar";
+var url = "/consultarmensaje";
+console.log(`Url de consulta de msjs en cola: ${url}`);
 
 request.get({
     url: url,
@@ -20,24 +21,54 @@ request.get({
     } else if (res.statusCode !== 200) {
       console.log('Error parsing JSONGET!');
     } else {
-      //traigo la lista de "video" y valido si tiene videos por procesar
-      for (var i = 0 ; i <data.video.length; i++) {
-      	//llamo el converter.js y le envio los parametros de video original, video convertido, correo y _id
-      	var p=converterVideo.converter;
-        var videoInput=data.video[i].nombreVideo+'.'+data.video[i].nombreExtensionVideoOriginal;
-        var videoOutput=data.video[i].nombreVideo;
+      //se obtiene el id del video 
+      var _idVideo = data.idVideo; 
+      //Se obtiene el id del mensaje 
+      var _idMensajeCola = data.idmensaje;
+      
+      //Se llama el api rest para obtener los datos del video
+      ConsultaVideo(_idVideo,function (respuestaConversion) {           
+        //lo que responda el sevicio
+        //llamo el converter.js y le envio los parametros de video original, video convertido, correo y _id
+        * * * * respuestaConsultagetvideo
+      	var p = converterVideo.converter;
+        var videoInput = respuestaConsultagetvideo.nombreVideo+'.'+respuestaConsultagetvideo.nombreExtensionVideoOriginal;
+        var videoOutput = respuestaConsultagetvideo.nombreVideo;
+        p(videoInput,videoOutput,respuestaConsultagetvideo.email,respuestaConsultagetvideo._id,function (respuestaConversion) {
+        if(respuestaConversion=='200'){//convierte ok todo y envia notificacion
+            console.log("resp video: "+respuestaConversion);
+        }else{
+          console.log(respuestaConversion);
+        }
+        });
 
-		p(videoInput,videoOutput,data.video[i].email,data.video[i]._id,function (respuestaConversion) {
-		if(respuestaConversion=='200'){//convierte ok todo y envia notificacion
-				console.log("resp video: "+respuestaConversion);
-		}else{
-      console.log(respuestaConversion);
-    }
-		});
-	  };
+      });
+      	
+
     }
 });
   
 });
+
+
+function ConsultaVideo(video,callback){
+  var retorno="_";
+  var url=constants.pathREST+"/video/"+video._id;
+  request.get({
+                url: url,
+                json: true,
+                headers: {'User-Agent': 'request'}
+  },(err, res, data) => {
+    if (err) {
+    console.log('ErrorGet:', err);
+    } else if (res.statusCode !== 200) {
+        console.log('Error parsing JSONGET!');
+    } else {//traigo el video con el id
+        //lo que vas a hacer
+        //------> Retornar nombreVideo, nombreExtensionVideoOriginal, email, _id
+      }
+    }
+  );
+}
 
 task.start();
