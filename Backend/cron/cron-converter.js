@@ -3,6 +3,7 @@ var request = require("request");//peticion
 var fs = require('fs');//serializacion del json
 var converterVideo =require('./converter.js');// module del grupo 4 para el converter
 var constants = require("../config.js");
+var querystring = require('querystring');
 var currentDate = new Date();
 
 
@@ -47,31 +48,30 @@ request.get({
 
     p(videoInput,videoOutput,respuestaConsulta.email,respuestaConsulta._id,function (respuestaConversion) {
       console.log(respuestaConversion);
-/*
-          //saco el mensaje de la cola
-          request.get({
-                url: '/eliminarmensaje/'+_idMensajeCola,
-                json: true,
-                headers: {'User-Agent': 'request'}
-                }, (err, res, data) => {
-                  if (err) {
-                          console.log('ErrorGet:', err);
-                    } 
-                  else if (res.statusCode !== 200) {
-                          console.log('Error parsing JSONGET!');
-                } 
-                else {
-                        console.log(data);
-        
-              } 
-        }); 
-*/
-    /*
-    if(respuestaConversion=='200'){//convierte ok todo y envia notificacion
-        console.log("resp video: "+respuestaConversion);
-    }else{
-    
-    }*/
+      //saco el mensaje de la cola
+      var form = {
+           
+            idmensaje:_idMensajeCola
+          };
+              var formData = querystring.stringify(form);
+        require('request').post({
+          uri:constants.pathAPPjs +'/eliminarmensaje',
+          headers: {'content-type' : 'application/x-www-form-urlencoded'},
+                body: formData
+          },function(err,res,body){
+          
+          if (err) {
+               console.log('ErrorPost f5 SQS:', err);
+            } else if (res.statusCode !== 200) {
+                console.log('Error parsing JSONPOST!');
+                
+              } else {//RESPONDE OK EL SERVICIO POST DE ACTUALIZACION DE ESTADO DE VIDEO
+                
+                   
+                console.log("salida mensaje de la cola "+body);
+          }
+      });
+
     });
 
       });

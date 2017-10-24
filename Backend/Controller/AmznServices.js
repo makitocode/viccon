@@ -107,7 +107,7 @@ function SQSEliminarMensaje(objrequest, objresponse){
             objresponse.end('Error');
         } 
         else {
-            console.log(`Eliminación correcta del mensaje: ${_idMensaje}`)
+            console.log('Eliminación correcta del mensaje: ${_idMensaje}')
             objresponse.end('success');
         } 
     });

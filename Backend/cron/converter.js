@@ -32,7 +32,7 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+i
 
 //actuazlia la bd
   var currentDate3 = new Date();
-  console.log("Fecha procesado "+currentDate3.toString());
+  console.log("ID VIDEO :"+idVideo+" Fecha procesado "+currentDate3.toString());
 	var form = {
 				    estado: 'Procesado',
 				    rutaImagenVideo:outputVideo+"_1.jpg",
@@ -57,16 +57,16 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+i
 								
     				  			var jsonObj = JSON.parse(body);
 								if(jsonObj.mensaje=='Video actualizado correctamente'){
-
+                    
 							    //llamo la funcion de envio de correo funciona
-								/*	var pa=mailerS.sender;
+									var pa=mailerS.sender;
 									pa(correo, function (respuestaCorreo) {
 										if(respuestaCorreo=='ok'){
 												respuesta="200";
 												return  callback(respuesta);	
 										}
 										
-									});*/
+									});
 
 								}
 					}
@@ -85,31 +85,23 @@ s3Bucket.putObject(data, function(err, data){
       console.log('Error uploading data: ', data+" "+err); 
     } else {
    //   res.end('success');
-      console.log('succesfully uploaded the video converted!');
+      
       //vuando el bucket responde borro el video original,convertido 
-        fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
+     fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
         fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
         return  callback("200");  
       //llamo la cola de Mguel y borro el mensaje
-
-
     }
 });
-
-
-
-
 
   })
   .save(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
   
 
-
-
 }else{
 	console.log("todavia no esta el video");
 }    
-}, 1000);
+}, 2000);
 
 
 } catch (e) {
