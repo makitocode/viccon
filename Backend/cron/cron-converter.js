@@ -82,9 +82,8 @@ request.get({
   
 });
 
-
+//Método que realiza el consumo del api rest para consultar la información del video
 function ConsultaVideo(video,callback){
-  var retorno="_";
   var url=constants.pathREST+"video/"+video;
   request.get({
                 url: url,
