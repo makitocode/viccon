@@ -1,23 +1,14 @@
 // load aws sdk
-var aws = require('aws-sdk');
+var aws2 = require('aws-sdk');
 
 // load aws config
-aws.config.loadFromPath('configses.json');
+aws2.config.loadFromPath('configses.json');
 function sender (email,callback) {
 try {
 // load AWS SES
-var ses = new aws.SES({apiVersion: '2010-12-01'});
-
-// send to list
-//var to = ['desarrollocloud2017@gmail.com']
+var ses = new aws2.SES({apiVersion: '2010-12-01'});
 var to = [email]
-// this must relate to a verified SES account
 var from = 'desarrollocloud2017@gmail.com'
-
-
-
-// this sends the email
-// @todo - add HTML version
 ses.sendEmail( 
     { 
         Source: from, 

@@ -1,6 +1,6 @@
 var ffmpeg = require('fluent-ffmpeg');
 var fs = require('fs');//eliminar existente
-var mailerS =require('./sender_email.js');//enviar correo
+//var mailerS =require('./sender_email.js');//enviar correo
 var request = require("request");//peticion
 var querystring = require('querystring');
 var constants = require("../config.js");
@@ -23,12 +23,14 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+i
   .videoCodec('libx264')
   .audioCodec('libmp3lame')
  
-  .on('start', function() { })
+  .on('start', function() { 
+console.log('inicia conversion ');
+  })
   .on('error', function(err) {
     console.log('An error occurred: ' + err.message);
   })
   .on('end', function() {
-  
+  console.log('finaliza conversion ');
 
 //actuazlia la bd
   var currentDate3 = new Date();
@@ -57,18 +59,57 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+i
 								
     				  			var jsonObj = JSON.parse(body);
 								if(jsonObj.mensaje=='Video actualizado correctamente'){
-                    return  callback(respuesta);  
+                  //  return  callback(respuesta);  
 							    //llamo la funcion de envio de correo funciona
-                  /*
-									var pa=mailerS.sender;
-									pa(correo, function (respuestaCorreo) {
+                  
+									//var pa=mailerS.sender;
+// load aws config
+AWS.config.loadFromPath('./configses.json');
+
+try {
+// load AWS SES
+var ses = new AWS.SES({apiVersion: '2010-12-01'});
+var to = [correo]
+var from = 'desarrollocloud2017@gmail.com'
+ses.sendEmail( 
+    { 
+        Source: from, 
+        Destination: { ToAddresses: to },
+        Message: {
+            Subject: {
+                Data: 'Tu video ha sido procesado'
+            },
+            Body: {
+                Text: {
+                    Data: 'Felicitaciones. Tu video se encuentra procesado en el home del concurso. Por favor visita la URL que se te proporciono',
+                }
+            }
+        }
+    }
+, function(err, data) {
+    if(err){
+        console.log('Email sent:');
+    console.log(err);
+    return  callback("error1");
+    }else{
+     return  callback("ok");   
+    }
+});
+
+} catch (e) {
+    console.log(e);
+    return  callback("error2");
+}
+
+
+									/*pa(correo, function (respuestaCorreo) {
 										if(respuestaCorreo=='ok'){
 												respuesta="200";
 												return  callback(respuesta);	
 										}
 										
-									});
-*/
+									});*/
+
 								}
 					}
 			});
