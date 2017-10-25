@@ -73,15 +73,25 @@ function SQSConsultarMensaje(objrequest, objresponse){
             console.log(`Error recibiendo mensaje de la cola: ${err}`)
         } 
         else {
-            var body = data.Messages[0].Body;
-            console.log(`body: ${body}`)
-            var ReceiptHandle = data.Messages[0].ReceiptHandle; 
-            console.log(`receipt-id: ${ReceiptHandle}`)
-            //Items value
-            var valoridVideo = data.Messages[0].MessageAttributes['IdVideo'].StringValue
-            console.log(`idVideo: ${valoridVideo}`)
-            //Send response
-            objresponse.send({idVideo: valoridVideo, idmensaje: ReceiptHandle});
+            var elementosJson = Object.keys(data)
+            console.log(`Propiedades del json: ${elementosJson}`)
+            if(elementosJson.includes('Messages')){
+                console.log('Existen elementos en la cola');
+                var body = data.Messages[0].Body;
+                console.log(`body: ${body}`)
+                var ReceiptHandle = data.Messages[0].ReceiptHandle; 
+                console.log(`receipt-id: ${ReceiptHandle}`)
+                //Items value
+                var valoridVideo = data.Messages[0].MessageAttributes['IdVideo'].StringValue
+                console.log(`idVideo: ${valoridVideo}`)
+                //Send response
+                objresponse.send({idVideo: valoridVideo, idmensaje: ReceiptHandle});    
+            }
+            else{
+                console.log('No existen elementos en la cola');
+                objresponse.send({idVideo: 0});    
+            }
+            
         } 
     });
 

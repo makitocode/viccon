@@ -2,7 +2,7 @@
 var aws = require('aws-sdk');
 
 // load aws config
-aws.config.loadFromPath('config.json');
+aws.config.loadFromPath('configses.json');
 function sender (email,callback) {
 try {
 // load AWS SES

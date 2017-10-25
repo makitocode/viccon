@@ -57,8 +57,9 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+i
 								
     				  			var jsonObj = JSON.parse(body);
 								if(jsonObj.mensaje=='Video actualizado correctamente'){
-                    
+                    return  callback(respuesta);  
 							    //llamo la funcion de envio de correo funciona
+                  /*
 									var pa=mailerS.sender;
 									pa(correo, function (respuestaCorreo) {
 										if(respuestaCorreo=='ok'){
@@ -67,7 +68,7 @@ if (fs.existsSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+i
 										}
 										
 									});
-
+*/
 								}
 					}
 			});
