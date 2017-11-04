@@ -14,8 +14,6 @@ function doStuff() {
   console.log("inicia llamado peticion cola " +currentDate2);
   //var url=constants.pathREST+"video/estado/SinProcesar";
   var url = constants.pathAPPjs + "/consultarmensaje";
-  //console.log(`Url de consulta de msjs en cola: ${url}`);
-
   request.get({
       url: url,
       json: true,

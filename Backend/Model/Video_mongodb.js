@@ -11,6 +11,7 @@ const VideoSchema = Schema({
     apellidosAutor: String,
     email: {type: String, lowercase: true},
     fechaCarga:  Date, 
+    fechaProcesado:  Date, 
     estado: {type: String, enum: ['Procesado', 'SinProcesar'], default: 'SinProcesar'},
     nombreVideo: String,
     rutaImagenVideo: {type:String, default: ''},

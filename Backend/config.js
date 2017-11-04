@@ -15,7 +15,7 @@ module.exports = {
     pathREST:'http://localhost:2017/api/',
     pathAPPjs:'http://localhost:2017',
     nombreBucket:'s3.viccon.bucket1',
-    rutaMultimediaCron: 'C:/Users/Taidy/viccon_mongo_sqs/public/media/',
-    QueueUrl: 'https://sqs.us-west-1.amazonaws.com/684030565353/QueueTest',
+    rutaMultimediaCron: 'C:/Users/Taidy/viccon_entrega_4/public/media/',
+    QueueUrl: 'https://sqs.us-east-2.amazonaws.com/911317221798/sqs-viccon-video-standard',
     QueueTiempoProcesamiento: '40' //40 segundos
 }

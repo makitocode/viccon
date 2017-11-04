@@ -35,34 +35,36 @@ console.log('inicia conversion ');
 //actuazlia la bd
   var currentDate3 = new Date();
   console.log("ID VIDEO :"+idVideo+" Fecha procesado "+currentDate3.toString());
-	var form = {
-				    estado: 'Procesado',
-				    rutaImagenVideo:outputVideo+"_1.jpg",
-				    nombreVideoConvertido:outputVideo+".mp4"
-    			};
-
-				var formData = querystring.stringify(form);
-				
-				//llamo el post de actualizacion de video
-				require('request').put({
-					uri:constants.pathREST+"video/"+idVideo,
-					headers: {'content-type' : 'application/x-www-form-urlencoded'},
-  					    body: formData
-    			},function(err,res,body){
-					
-					if (err) {
-     					 console.log('ErrorPost:', err);
-    				} else if (res.statusCode !== 200) {
-      					console.log('Error parsing JSONPOST!');
-      					
-    				  } else {//RESPONDE OK EL SERVICIO POST DE ACTUALIZACION DE ESTADO DE VIDEO
-								
-    				  			var jsonObj = JSON.parse(body);
-								if(jsonObj.mensaje=='Video actualizado correctamente'){
+            
+            
+        var form = {
+            estado: 'Procesado',
+            rutaImagenVideo:outputVideo+"_1.jpg",
+            nombreVideoConvertido:outputVideo+".mp4",
+            fechaProcesado:currentDate3.toString()
+          };
+        var formData = querystring.stringify(form);
+        
+        //llamo el post de actualizacion de video
+        require('request').put({
+          uri:constants.pathREST+"video/"+idVideo,
+          headers: {'content-type' : 'application/x-www-form-urlencoded'},
+                body: formData
+          },function(err,res,body){
+          
+          if (err) {
+               console.log('ErrorPost:', err);
+            } else if (res.statusCode !== 200) {
+                console.log('Error parsing JSONPOST!');
+                
+              } else {//RESPONDE OK EL SERVICIO POST DE ACTUALIZACION DE ESTADO DE VIDEO
+                
+                    var jsonObj = JSON.parse(body);
+                if(jsonObj.mensaje=='Video actualizado correctamente'){
                   //  return  callback(respuesta);  
-							    //llamo la funcion de envio de correo funciona
+                  //llamo la funcion de envio de correo funciona
                   
-									//var pa=mailerS.sender;
+                  //var pa=mailerS.sender;
 // load aws config
 AWS.config.loadFromPath('./configses.json');
 
@@ -102,17 +104,10 @@ ses.sendEmail(
 }
 
 
-									/*pa(correo, function (respuestaCorreo) {
-										if(respuestaCorreo=='ok'){
-												respuesta="200";
-												return  callback(respuesta);	
-										}
-										
-									});*/
-
-								}
-					}
-			});
+              
+                }
+          }
+      });
 
 //envia el video convertido al bucket
 
@@ -129,8 +124,8 @@ s3Bucket.putObject(data, function(err, data){
    //   res.end('success');
       
       //vuando el bucket responde borro el video original,convertido 
-     fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
-        fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
+   //  fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaOriginal+inputVideo);
+       // fs.unlinkSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
         return  callback("200");  
       //llamo la cola de Mguel y borro el mensaje
     }
@@ -141,16 +136,16 @@ s3Bucket.putObject(data, function(err, data){
   
 
 }else{
-	console.log("todavia no esta el video");
+  console.log("todavia no esta el video");
 }    
 }, 2000);
 
 
 } catch (e) {
-	console.log(e);
-	respuesta="404";
-	return  callback(respuesta);
-	
+  console.log(e);
+  respuesta="404";
+  return  callback(respuesta);
+  
 }
 }
 
