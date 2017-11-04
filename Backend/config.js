@@ -1,12 +1,11 @@
 module.exports = {
     port: process.env.PORT || 2017,
-    db: process.env.MONGODB || 'mongodb://localhost:27017/viccon',
+    db: process.env.MONGODB || 'mongodb://18.216.188.216:27017/viccon',
     MySql_db: 'Viccon',
     MySql_user: 'root',
     Mysql_pass: 'root',
     MySql_host: 'localhost',
     MySql_port: '8889',
- 	  //rutaMultimedia: './images/multimediaViccon/',
  	rutaMultimedia: '/media/',
     nombreCarpetaOriginal: 'original/',
     nombreCarpetaConvertida: 'conversion/',
@@ -15,7 +14,7 @@ module.exports = {
     pathREST:'http://localhost:2017/api/',
     pathAPPjs:'http://localhost:2017',
     nombreBucket:'s3.viccon.bucket1',
-    rutaMultimediaCron: 'C:/Users/Taidy/viccon_mongo_sqs/public/media/',
-    QueueUrl: 'https://sqs.us-west-1.amazonaws.com/684030565353/QueueTest',
+    rutaMultimediaCron: '/home/ec2-user/viccon/public/media/',
+    QueueUrl: 'https://sqs.us-east-2.amazonaws.com/911317221798/sqs-viccon-video-standard',
     QueueTiempoProcesamiento: '40' //40 segundos
 }
