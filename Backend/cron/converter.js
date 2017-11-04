@@ -5,10 +5,16 @@ var request = require("request");//peticion
 var querystring = require('querystring');
 var constants = require("../config.js");
 var AWS = require('aws-sdk');
+
+
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
 var respuesta="_";
 try {
-AWS.config.loadFromPath('../bucket/config.json');
+//AWS.config.loadFromPath('../bucket/config.json');
+AWS.config.accessKeyId = process.env.accessKeyId;
+AWS.config.secretAccessKey = process.env.secretAccessKey;
+AWS.config.region = process.env.region;
+
 var s3Bucket = new AWS.S3()    
 var params = {Key: "media/original/"+inputVideo, Bucket: constants.nombreBucket};
 var input = s3Bucket.getObject(params);
@@ -112,8 +118,12 @@ ses.sendEmail(
 //envia el video convertido al bucket
 
 var fileBuffer = fs.readFileSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
- AWS.config.loadFromPath('../bucket/config.json');
-var s3Bucket = new AWS.S3()    
+    AWS.config.accessKeyId = process.env.accessKeyId;
+    AWS.config.secretAccessKey = process.env.secretAccessKey;
+    AWS.config.region = process.env.region;
+    //AWS.config.loadFromPath('../bucket/config.json');
+
+ var s3Bucket = new AWS.S3()    
 var data = {Key: "media/conversion/"+outputVideo+constants.extension, Body: fileBuffer, Bucket: constants.nombreBucket, ACL: 'public-read'};
 s3Bucket.putObject(data, function(err, data){
   if (err) 
