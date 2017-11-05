@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
-    "start": "node main.js",
+    "start": "node cron-converter.js",
 	"heroku-postbuild": "echo This runs afterwards."
   },
   "author": "MiguelGonzalez, Johanna Marrugo, Emilio Alvarado - UniAndes ",
