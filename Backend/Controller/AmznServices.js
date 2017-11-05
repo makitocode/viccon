@@ -11,7 +11,11 @@ const queueUrl = amznConf.QueueUrl;
 //Método que realiza el envío de mensaje a la cola
 function SQSCrearMensaje(objrequest, objresponse){
     //Carga las credenciales e inicializa el objeto.
-    aws.config.loadFromPath(__dirname + '/config.json');
+    aws.config.accessKeyId = process.env.accessKeyId;
+    aws.config.secretAccessKey = process.env.secretAccessKey;
+    aws.config.region = process.env.region;
+    //aws.config.loadFromPath(__dirname + '/config.json');
+    
     // Instantiate SQS.
     const sqs = new aws.SQS();
     //Se obtiene de los parámetros el id del video
@@ -49,7 +53,11 @@ function SQSCrearMensaje(objrequest, objresponse){
 ///Método que realiza la consulta del mensaje disponible en cola
 function SQSConsultarMensaje(objrequest, objresponse){
     //Carga las credenciales e inicializa el objeto.
-    aws.config.loadFromPath(__dirname + '/config.json');
+    aws.config.accessKeyId = process.env.accessKeyId;
+    aws.config.secretAccessKey = process.env.secretAccessKey;
+    aws.config.region = process.env.region;
+    //aws.config.loadFromPath(__dirname + '/config.json');
+    
     // Instantiate SQS.
     const sqs = new aws.SQS();
     //Obtiene la variable del config
@@ -100,7 +108,11 @@ function SQSConsultarMensaje(objrequest, objresponse){
 ///Método que realiza la eliminación del mensaje de la cola por id
 function SQSEliminarMensaje(objrequest, objresponse){
     //Carga las credenciales e inicializa el objeto.
-    aws.config.loadFromPath(__dirname + '/config.json');
+    aws.config.accessKeyId = process.env.accessKeyId;
+    aws.config.secretAccessKey = process.env.secretAccessKey;
+    aws.config.region = process.env.region;
+    //aws.config.loadFromPath(__dirname + '/config.json');
+    
     // Instantiate SQS.
     const sqs = new aws.SQS();
     //Se obtiene de los parámetros el id del video

@@ -1,2 +1,5 @@
-{ "accessKeyId": "", "secretAccessKey": "", "region": "" }
-
+{ 
+    "accessKeyId":  "ACCESS_KEY",
+    "secretAccessKey": "SECRETACCESS_KEY",
+    "region": "us-east-1"
+} 
