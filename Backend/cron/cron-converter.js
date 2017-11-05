@@ -5,14 +5,10 @@ var converterVideo =require('./converter.js');// module del grupo 4 para el conv
 var constants = require("../config.js");
 var querystring = require('querystring');
 var currentDate = new Date();
-
 console.log("inicia  " +currentDate);
 function doStuff() {
-  //var task =cron.schedule('* * * * *', function(){//se ejecuta cada minuto
-  //var task=cron.schedule('*/3 * * * *', function(){//se ejecuta cada 2 minutos
   var currentDate2 = new Date();
   console.log("inicia llamado peticion cola " +currentDate2);
-  //var url=constants.pathREST+"video/estado/SinProcesar";
   var url = constants.pathAPPjs + "/consultarmensaje";
   request.get({
       url: url,
@@ -32,21 +28,18 @@ function doStuff() {
           var _idVideo = data.idVideo; 
           var _idMensajeCola = data.idmensaje.toString();
           ConsultaVideo(_idVideo,function (respuestaConsulta) {           
-      
               var p=converterVideo.converter;
               var videoInput=respuestaConsulta.nombreVideo+'.'+respuestaConsulta.nombreExtensionVideoOriginal;
               var videoOutput=respuestaConsulta.nombreVideo;
-
-              p(videoInput,videoOutput,respuestaConsulta.email,respuestaConsulta._id,function (respuestaConversion) {
+            p(videoInput,videoOutput,respuestaConsulta.email,respuestaConsulta._id,function (respuestaConversion) {
                   console.log(respuestaConversion);
                     //saco el mensaje de la cola
                      var form = {
-               
                           idmensaje:_idMensajeCola
                      };
                     var formData = querystring.stringify(form);
                     require('request').post({
-                        uri:constants.pathAPPjs +'/eliminarmensaje',
+                        uri:constants.pathAPPjs +'/eliminarmensaje',//url para sacar el mensaje de la cola
                         headers: {'content-type' : 'application/x-www-form-urlencoded'},
                         body: formData
                         },function(err,res,body){
@@ -70,8 +63,6 @@ function doStuff() {
       }
     }
 });
-  
-//});
 }
 //Método que realiza el consumo del api rest para consultar la información del video
 function ConsultaVideo(video,callback){
@@ -92,10 +83,7 @@ function ConsultaVideo(video,callback){
     }
   );
 }
- 
-
-//task.start();
-function run() {
+ function run() {
   setInterval(doStuff, 15000);
 };
 

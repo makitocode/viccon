@@ -7,7 +7,7 @@ function sender (email,callback) {
 try {
 // load AWS SES
 var ses = new aws2.SES({apiVersion: '2010-12-01'});
-var to = [email]
+var to = ["tj.marrugo10@uniandes.edu.co"]
 var from = 'desarrollocloud2017@gmail.com'
 ses.sendEmail( 
     { 
