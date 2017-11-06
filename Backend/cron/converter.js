@@ -8,7 +8,10 @@ var AWS = require('aws-sdk'); //aws mail
 function converter (inputVideo,outputVideo,correo,idVideo,callback) {
   var respuesta="_";
   try {
-      AWS.config.loadFromPath('../bucket/config.json');
+      //AWS.config.loadFromPath('../bucket/config.json');
+      AWS.config.accessKeyId = process.env.accessKeyId;
+  AWS.config.secretAccessKey = process.env.secretAccessKey;
+  AWS.config.region = process.env.region;
       var s3Bucket = new AWS.S3()    
       var params = {Key: "media/original/"+inputVideo, Bucket: constants.nombreBucket};
       var input = s3Bucket.getObject(params);
