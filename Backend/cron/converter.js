@@ -68,7 +68,10 @@ function converter (inputVideo,outputVideo,correo,idVideo,callback) {
                                 });
 //envia el video convertido al bucket
 var fileBuffer = fs.readFileSync(constants.rutaMultimediaCron+constants.nombreCarpetaConvertida+outputVideo+constants.extension);
-AWS.config.loadFromPath('../bucket/config.json');
+ AWS.config.accessKeyId = process.env.accessKeyId;
+  AWS.config.secretAccessKey = process.env.secretAccessKey;
+  AWS.config.region = process.env.region;
+
 var s3Bucket = new AWS.S3()    
 var data = {Key: "media/conversion/"+outputVideo+constants.extension, Body: fileBuffer, Bucket: constants.nombreBucket, ACL: 'public-read'};
     s3Bucket.putObject(data, function(err, data){
