@@ -27,7 +27,8 @@ function doStuff() {
           //se obtiene el id del video 
           var _idVideo = data.idVideo; 
           var _idMensajeCola = data.idmensaje.toString();
-          ConsultaVideo(_idVideo,function (respuestaConsulta) {           
+          ConsultaVideo(_idVideo,function (respuestaConsulta) {
+              console.log("ide del video "+ respuestaConsulta._id);           
               var p=converterVideo.converter;
               var videoInput=respuestaConsulta.nombreVideo+'.'+respuestaConsulta.nombreExtensionVideoOriginal;
               var videoOutput=respuestaConsulta.nombreVideo;
@@ -67,6 +68,7 @@ function doStuff() {
 //Método que realiza el consumo del api rest para consultar la información del video
 function ConsultaVideo(video,callback){
   var url=constants.pathREST+"video/"+video;
+  console.log("url del video a convertir "+url);
   request.get({
                 url: url,
                 json: true,
