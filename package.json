@@ -2,7 +2,7 @@
   "name": "vicconapi",
   "version": "0.0.1",
   "description": "viccon app con Nodejs y Express.",
-  "main": "Backend/cron/cron-converter.js",
+  "main": "main.js",
   "scripts": {
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
     "start": "node Backend/cron/cron-converter.js",
