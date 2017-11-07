@@ -16,7 +16,7 @@ module.exports = {
     pathREST:'https://viccon.herokuapp.com/api/',
     pathAPPjs:'https://viccon.herokuapp.com',
     nombreBucket:'s3.viccon.bucket1',
-    rutaMultimediaCron: '/home/ec2-user/viccon/public/media/',
+    rutaMultimediaCron: '/app/public/media/',
 
     QueueUrl: 'https://sqs.us-east-2.amazonaws.com/911317221798/sqs-viccon-video-standard',
     QueueTiempoProcesamiento: '40' //segundos
