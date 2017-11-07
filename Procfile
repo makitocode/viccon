@@ -1,1 +1,1 @@
-worker: node Backend/cron/cron-converter.js
+worker: npm start
