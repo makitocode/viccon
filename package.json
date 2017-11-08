@@ -8,7 +8,7 @@
     "start": "node Backend/cron/cron-converter.js",
 	"heroku-postbuild": "echo This runs afterwards."
   },
-  "author": "MiguelGonzalez, Johanna Marrugo, Emilio Alvarado - UniAndes ",
+  "author": "MiguelGonzalez, Johanna Marrugo, Emilio Alvarado - UniAndes",
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
